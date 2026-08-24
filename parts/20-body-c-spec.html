@@ -1,0 +1,68 @@
+<section class="sect" id="how-to-read">
+  <div class="wrap">
+    <div class="grid g2">
+      <div class="card">
+        <h2 style="font-size:var(--t-h3);margin-bottom:12px">How to read every fact here</h2>
+        <p class="tiny" style="margin-bottom:16px">Nothing on this page is stated without a confidence level. If a claim has no source you can click, it is labelled as such and you should treat it as a rumour until an office confirms it.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+          <span class="chip chip-v">Verified</span>
+          <span class="chip chip-r">Reported</span>
+          <span class="chip chip-i">Inferred</span>
+          <span class="chip chip-u">Unverified</span>
+          <span class="chip chip-k">Kill</span>
+        </div>
+        <ul class="flags ask" style="margin:0">
+          <li>Verified means two independent sources, or one authoritative document from the office that issues it.</li>
+          <li>Reported means one listing or one page said so. A seller saying a lot is titled is a reported claim, not a fact.</li>
+          <li>Inferred means I worked it out from something else, and the basis is stated next to it.</li>
+          <li>Kill means the lot fails a rule that cannot be negotiated.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2 style="font-size:var(--t-h3);margin-bottom:12px">Your spec, as I applied it</h2>
+        <div class="fact-grid" style="margin-bottom:14px">
+          <div class="fact"><div class="fact-k">Size band</div><div class="fact-v">400 to 1,000 sqm</div></div>
+          <div class="fact"><div class="fact-k">Stretch</div><div class="fact-v">to 1,600 with a split path</div></div>
+          <div class="fact"><div class="fact-k">Frontage</div><div class="fact-v">direct ocean, no river mouth</div></div>
+          <div class="fact"><div class="fact-k">Access</div><div class="fact-v">rear road, deeded ROW is the floor</div></div>
+          <div class="fact"><div class="fact-k">Papers</div><div class="fact-v">title preferred, tax dec minimum</div></div>
+          <div class="fact"><div class="fact-k">Hard kill</div><div class="fact-v">forest or timberland</div></div>
+        </div>
+        <p class="tiny" style="margin:0">Priority order on the coast runs Santo Niño first, then Port Barton, then the other San Vicente barangays, then New Canipo, Binga and sitio Minapla. Your note said New Capio. The barangay is spelled New Canipo and I swept both spellings.</p>
+      </div>
+    </div>
+    <div class="stats" id="statRow" style="margin-top:var(--sp-4)"></div>
+  </div>
+</section>
+
+<section class="sect" id="coastline">
+  <div class="wrap">
+    <div class="sect-head">
+      <span class="sect-num">01</span>
+      <h2>The coast, and where the leads actually are</h2>
+      <p>Eight locations in your priority order, with how many live leads each one produced in this run.</p>
+    </div>
+    <div class="coast" id="coast"></div>
+  </div>
+</section>
+
+<section class="sect" id="shortlist">
+  <div class="wrap">
+    <div class="sect-head">
+      <span class="sect-num">02</span>
+      <h2>The shortlist</h2>
+      <p><b id="leadCount">0</b> candidates that survived the kill filters, scored out of 100. Location is worth 20, size 15, tenure 25, access 15, utilities 10, price 10 and how much of it I could verify is worth 5. Prices are asking prices. The Philippines has no public sold-price register, so nobody, including any agent you speak to, actually knows what these lots trade for.</p>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <caption class="sr">Ranked beachfront lot candidates in San Vicente, Palawan</caption>
+        <thead><tr>
+          <th scope="col">ID</th><th scope="col">Location</th><th scope="col">Size</th><th scope="col">Tenure claim</th>
+          <th scope="col">Asking</th><th scope="col">Per sqm</th><th scope="col">Access</th><th scope="col">Evidence</th><th scope="col">Score</th>
+        </tr></thead>
+        <tbody id="leadRows"></tbody>
+      </table>
+    </div>
+    <p class="tiny" style="margin-top:12px">Swipe the table sideways on a phone. Every number in it came from a listing page that was live when this ran, and each candidate's sources sit in its dossier below.</p>
+  </div>
+</section>

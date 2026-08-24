@@ -1,0 +1,74 @@
+<section class="sect" id="calculator">
+  <div class="wrap">
+    <div class="sect-head">
+      <span class="sect-num">03</span>
+      <h2>What a lot really costs</h2>
+      <p>The asking price is not the price. Two things move it. Taxes and fees add roughly nine to eleven percent on top, and the shore easement quietly takes a strip of your beach into public ownership, so your real cost per buildable square metre is higher than the sticker. Move the sliders and watch both.</p>
+    </div>
+
+    <div class="calc">
+      <div class="card">
+        <h3 style="margin-bottom:18px">Your numbers</h3>
+
+        <div class="btn-row" style="margin:0 0 20px">
+          <button class="btn btn-p" data-preset='{"s":870,"r":9750,"f":16.66}'>Port Barton 870</button>
+          <button class="btn" data-preset='{"s":984,"r":11433,"f":20}'>Santo Niño 984</button>
+          <button class="btn" data-preset='{"s":600,"r":15000,"f":15}'>Port Barton cut 600</button>
+          <button class="btn" data-preset='{"s":1023,"r":17000,"f":12}'>Long Beach 1,023</button>
+        </div>
+
+        <div class="field">
+          <label for="cSize">Lot size <span class="tiny mono" id="cSizeOut" style="float:right">870 sqm</span></label>
+          <input type="range" id="cSize" min="300" max="2000" step="10" value="870" aria-describedby="cSizeOut">
+        </div>
+
+        <div class="field">
+          <label for="cRate">Price per square metre <span class="tiny mono" id="cRateOut" style="float:right">₱9,750/sqm</span></label>
+          <input type="range" id="cRate" min="1000" max="30000" step="250" value="9750" aria-describedby="cRateOut">
+        </div>
+
+        <div class="field">
+          <label for="cFront">Beach frontage in metres <span class="tiny mono" id="cFrontOut" style="float:right">16.66 m</span></label>
+          <input type="range" id="cFront" min="5" max="60" step="0.5" value="16.66" aria-describedby="cFrontOut">
+        </div>
+
+        <div class="field">
+          <label for="cZone">Shore easement that applies to this land</label>
+          <div class="sel-wrap">
+            <select id="cZone">
+              <option value="20" selected>Agricultural land, 20 metres, Water Code</option>
+              <option value="3">Urban land, 3 metres, Water Code</option>
+              <option value="40">Forest land, 40 metres, Water Code</option>
+              <option value="50">Long Beach tourism zone, 50 metres</option>
+            </select>
+          </div>
+          <p class="tiny" style="margin:8px 0 0">Most beachfront lots in San Vicente are classified agricultural, which puts the strip at 20 metres. If the lot sits on Long Beach inside the tourism zone, the master plan sets 50 metres, which on a shallow lot can take the whole parcel. Check the tax declaration and the zoning certificate for the actual classification, because it changes the answer completely.</p>
+        </div>
+
+        <div class="field" style="margin-bottom:0">
+          <label for="cWho">Who pays the capital gains tax</label>
+          <div class="sel-wrap">
+            <select id="cWho">
+              <option value="seller" selected>Seller, the usual custom</option>
+              <option value="buyer">Buyer, if the seller pushes it across</option>
+            </select>
+          </div>
+          <p class="tiny" style="margin:8px 0 0">Custom is not law. Whoever the contract names is the one who pays, so read that clause before you agree a price. A seller quoting a net price is asking you to absorb the six percent.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="result">
+          <div class="result-label">Cash you need at closing</div>
+          <div class="result-num" id="rTotal">₱0</div>
+          <div class="result-sub"><span id="rUsd" class="mono tiny"></span><br><span id="rGap"></span></div>
+          <div class="brk" id="rRows"></div>
+          <div class="btn-row">
+            <button class="btn btn-p" id="copyResult">Copy this estimate</button>
+          </div>
+          <p class="tiny" style="margin:16px 0 0">Estimate only. Rates are the statutory ones cited below, professional fees are a realistic allowance rather than a quote, and the BIR charges capital gains and stamp tax on the higher of the selling price, the zonal value or the assessed value.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

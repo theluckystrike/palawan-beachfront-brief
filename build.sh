@@ -8,7 +8,7 @@ P=parts
   cat $P/10-style.css
   echo '</style>'
   echo '</head>'
-  cat $P/20-body.html
+  for f in $P/20-body-*.html; do cat "$f"; done
   echo '<script>'
   echo '//<!--DATA_START-->'
   cat $P/30-data.js
