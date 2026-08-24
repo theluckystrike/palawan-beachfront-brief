@@ -20,9 +20,9 @@
 <path d="M-40 624c90 0 90-26 180-26s90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26" stroke="#0068d1" stroke-width="3.4" stroke-opacity=".55"/>
 </g>
 <circle cx="1046" cy="112" r="46" fill="#0068d1" fill-opacity=".92"/>
-<text x="76" y="150" font-family="IBM Plex Mono, monospace" font-size="21" letter-spacing="5.5" fill="#0068d1">SAN VICENTE  ·  PALAWAN  ·  2026</text>
-<text x="76" y="258" font-family="Fraunces, Georgia, serif" font-size="82" font-weight="600" fill="#1d1d1f" letter-spacing="-2.4">Beachfront land,</text>
-<text x="76" y="348" font-family="Fraunces, Georgia, serif" font-size="82" font-weight="600" fill="#0068d1" letter-spacing="-2.4">checked properly.</text>
-<text x="76" y="410" font-family="IBM Plex Sans, sans-serif" font-size="27" fill="#6e6e73">Live listings, the 8 legal gates, real costs. Every fact sourced.</text>
+<text x="76" y="150" font-family="ui-monospace, SF Mono, Menlo, monospace" font-size="21" letter-spacing="5.5" fill="#0068d1">SAN VICENTE  ·  PALAWAN  ·  2026</text>
+<text x="76" y="258" font-family="-apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="82" font-weight="600" fill="#1d1d1f" letter-spacing="-3">Beachfront land,</text>
+<text x="76" y="348" font-family="-apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="82" font-weight="600" fill="#0068d1" letter-spacing="-3">checked properly.</text>
+<text x="76" y="410" font-family="-apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="27" fill="#6e6e73">Live listings, the 8 legal gates, real costs. Every fact sourced.</text>
 <text x="76" y="474" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="19" letter-spacing="2.4" fill="#86868b">A&amp;D  ·  TITLE  ·  RIGHT OF WAY  ·  SALVAGE ZONE  ·  ECAN</text>
 </svg>
