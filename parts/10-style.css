@@ -71,16 +71,16 @@ html[data-theme="light"] {
   --ink-2:      #40616c;
   --ink-3:      #566f78;
 
-  --sand:       #9a6516;
-  --sand-deep:  #7d500d;
+  --sand:       #855715;
+  --sand-deep:  #6b4410;
   --sand-wash:  rgba(154,101,22,0.09);
   --sand-line:  rgba(154,101,22,0.26);
 
-  --glass:      #0c7d63;
+  --glass:      #0a6b55;
   --glass-wash: rgba(12,125,99,0.11);
-  --amber:      #8a5c05;
+  --amber:      #754e04;
   --amber-wash: rgba(138,92,5,0.11);
-  --coral:      #bc2f22;
+  --coral:      #a3281d;
   --coral-wash: rgba(188,47,34,0.10);
   --violet:     #5741b8;
   --violet-wash:rgba(87,65,184,0.11);
@@ -382,6 +382,10 @@ details[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
 .ftr li { margin-bottom: 8px; font-size: var(--t-sm); }
 .ftr a { color: var(--ink-2); text-decoration: none; }
 .ftr a:hover { color: var(--sand); }
+/* .ftr a would otherwise win on specificity and repaint the button label. */
+.ftr a.btn { color: var(--ink); }
+.ftr a.btn-p { color: #14202a; }
+html[data-theme="light"] .ftr a.btn-p { color: #fff; }
 .builder { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: clamp(18px, 3vw, 26px); }
 .builder h4 { color: var(--sand); }
 .builder p { font-size: var(--t-sm); color: var(--ink-2); }
