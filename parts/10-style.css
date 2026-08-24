@@ -415,8 +415,9 @@ html[data-theme="light"] .dossier-id { color: #fff; }
 .fact-v.unk { color: var(--ink-3); font-weight: 400; font-style: italic; }
 
 .gates { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: var(--sp-4) 0; }
-@media (min-width: 900px) { .gates { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-.gate { display: flex; align-items: center; gap: 9px; padding: 9px 11px; border-radius: var(--r-sm); border: 1px solid var(--border); background: var(--raised); font-size: var(--t-xs); }
+@media (min-width: 900px) { .gates { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .gates { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.gate { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 9px; padding: 9px 11px; border-radius: var(--r-sm); border: 1px solid var(--border); background: var(--raised); font-size: var(--t-xs); min-width: 0; overflow: hidden; }
 .gate .dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; }
 .gate .gk { font-family: var(--f-mono); font-weight: 600; color: var(--ink-2); }
 .gate .gv { margin-left: auto; font-family: var(--f-mono); font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
