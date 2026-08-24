@@ -54,6 +54,16 @@ Where sources blocked automated reading, the Internet Archive was used instead a
 
 No disaster agency situation report for San Vicente, so no damage or surge figures are claimed. No coastal erosion study for west Palawan. No Philippine government sea level projection exists, so the IPCC figure is used instead. No deep well pricing. And no PRC licence has actually been verified, though the page now carries the one minute method for doing it.
 
+## Conformance with the source brief
+
+Audited section by section against PALAWAN-INTEL-8-CLI.md rather than assumed.
+
+The DATA blob sits between the two exact markers the brief specifies, as a single object named DATA, with pesos primary and dollars at 57. Every section the report contract names is present: header with cycle number, coast strip, spec card, ranked candidate table, dossier cards, contact directory, coverage matrix, manual queue, rejects log, blockers and changelog. state.json carries all seven keys. Every agent mirrored its output to ./agents. The five outreach drafts sit in ./outreach and none was sent.
+
+Two gaps the audit caught. state.json had lost started_at and contacts in a regeneration, now restored. And the brief ends by asking for a shutdown print of the top three with next actions, open blockers and the manual queue, which had never been produced. It is now in SHUTDOWN.txt and was printed at the end of the run.
+
+The report also sits at ./palawan-intel-report.html, the filename the brief names, alongside site/index.html which is what GitHub Pages serves.
+
 ## Rebuilding the page
 
     cd site && ./build.sh
