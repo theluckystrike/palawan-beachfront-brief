@@ -329,8 +329,8 @@ html[data-theme="light"] .dossier-id { color: #fff; }
 .check .ck-b { min-width: 0; }
 .check .ck-t { font-weight: 600; font-size: var(--t-sm); display: block; margin-bottom: 3px; }
 .check li.done .ck-t { text-decoration: line-through; color: var(--ink-2); }
-.check .ck-d { font-size: var(--t-xs); color: var(--ink-2); line-height: 1.55; }
-.check .ck-w { display: inline-block; margin-top: 6px; font-family: var(--f-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.check .ck-d { display: block; font-size: var(--t-xs); color: var(--ink-2); line-height: 1.55; }
+.check .ck-w { display: block; margin-top: 7px; font-family: var(--f-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
 .prog { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-4); font-size: var(--t-sm); }
 .prog-bar { flex: 1; height: 7px; border-radius: 4px; background: color-mix(in srgb, var(--ink-3) 22%, transparent); overflow: hidden; }
 .prog-bar i { display: block; height: 100%; background: var(--glass); border-radius: 4px; transition: width .3s ease; }
