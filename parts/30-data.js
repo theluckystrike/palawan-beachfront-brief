@@ -69,27 +69,33 @@ leads: [
     ]
   },
   {
-    id: "L2", loc: "Santo Niño", sitio: "no source page recovered",
+    id: "L2", loc: "Santo Niño", sitio: "the listing that does not exist",
     size: 984, tenure: "Titled, claimed", price_php: 11250000, sqm_php: 11433,
-    access: "Unknown", evid: "UNVERIFIED", score: 66,
-    gps: "not published", frontage: "not published", advertiser: "unknown, attributed to Lamudi",
-    note: "On paper this is the perfect lot. Your first-choice barangay, dead centre of your size band, and a title claim. It is also the one lead in this brief that I could not stand up. It exists only in search snippets attributed to Lamudi, and Lamudi blocked every attempt to read a page this run. Until someone opens the actual listing, treat this as a rumour with a price attached.",
-    gates: { G1: "UNKNOWN", G2: "UNKNOWN", G3: "UNKNOWN", G4: "UNKNOWN", G5: "UNKNOWN", G6: "UNKNOWN", G7: "UNKNOWN", G8: "UNKNOWN" },
+    access: "Unknown", evid: "KILL", score: null,
+    gps: "not published", frontage: "not published", advertiser: "attributed to Lamudi, no advertiser found",
+    note: "This was the perfect lot on paper and the search for it is now finished. It is not there. Lamudi blocks every automated read, so its San Vicente index was pulled out of the Internet Archive instead, at four separate captures across a year. Twenty one listings in August 2019, twenty in October, twenty in December, twenty nine in August 2020. No lot of 984 square metres appears in any of them. Lamudi's own barangay list for San Vicente contains exactly three entries, New Agutaya, Poblacion and Port Barton. It never had a Santo Niño category for this municipality at all, so a Santo Niño listing could not have been browsed there the way the lead describes.",
+    gates: { G1: "UNKNOWN", G2: "FAIL", G3: "UNKNOWN", G4: "UNKNOWN", G5: "UNKNOWN", G6: "UNKNOWN", G7: "UNKNOWN", G8: "UNKNOWN" },
     flags: {
       red: [
-        "No source page recovered. Every other lot here traces to a page that was read; this one does not.",
-        "Two independent sweeps found zero live Santo Niño listings on any portal that answered. DotProperty does not even offer Santo Niño in its barangay filter.",
-        "No GPS, no frontage, no advertiser name, no contact channel."
+        "Four archived captures of the Lamudi San Vicente index across a full year contain no 984 sqm lot.",
+        "Lamudi never built a Santo Niño facet for San Vicente, so the listing could not have been found where the lead says it was.",
+        "Two live sweeps had already found zero Santo Niño listings on every portal that answered.",
+        "The claimed ₱11,433 per sqm is above every genuine Santo Niño asking price recovered from the archive."
       ],
       green: [
-        "If it is real, the price sits inside the only Santo Niño per-sqm evidence found, roughly ₱11,400 to ₱12,500."
+        "The hunt did recover what Santo Niño land actually asked for, which is worth more than the phantom lot was.",
+        "Three genuine Santo Niño listings from August 2019, all one advertiser, at ₱1,500, ₱3,513 and ₱7,000 per sqm. All large parcels, so not like for like on a small cut, but they anchor the barangay."
       ],
       ask: [
-        "Nothing yet. There is nobody to ask until the listing is found."
+        "Nothing. There is nobody to ask, because there is no listing and no advertiser."
       ]
     },
-    next: "Open lamudi.com.ph in a normal browser on your phone, filter San Vicente to Santo Niño, and look for a 984 sqm beach lot at ₱11,250,000. If it is there, send me the link. If it is not, this lead dies and Santo Niño becomes a local enquiry rather than a portal search.",
-    src: []
+    next: "Stop looking for this lot. If Santo Niño still matters to you, and it should, the supply there is off-portal and always was. That means a local enquiry through the barangay and the Municipal Assessor rather than a property website. Worth knowing before you go, the beach at Santo Niño is Maymanoc, and it is coarse white sand mixed with crystalline stones rather than the powder you get on Long Beach.",
+    src: [
+      { u: "http://web.archive.org/web/20190822173815/https://www.lamudi.com.ph/palawan/san-vicente-3/buy/", t: "Lamudi San Vicente index, 22 Aug 2019" },
+      { u: "http://web.archive.org/web/20200814192239/https://www.lamudi.com.ph/palawan/san-vicente-3/buy/", t: "Lamudi San Vicente index, 14 Aug 2020" },
+      { u: "http://web.archive.org/web/20150924184657/http://www.sanvicentepalawan.ph/sto-nino/", t: "Santo Niño barangay profile, archived" }
+    ]
   },
   {
     id: "L3", loc: "Port Barton", sitio: "Pearlview listing",
@@ -258,7 +264,7 @@ leads: [
 comps: [
   { area: "Port Barton, beachfront", range: "₱1,800 to ₱15,000", n: "21 listings", note: "The widest spread on the coast. Small in-band cuts cluster at the top." },
   { area: "Port Barton, bulk parcels", range: "₱650", n: "1 listing", note: "10 hectares with 300 m frontage. The true floor of this market." },
-  { area: "Santo Niño, beachfront", range: "₱11,433 to ₱12,500", n: "2 snippets", note: "Sample too small to be a range. Treat as a hint." },
+  { area: "Santo Niño, recovered from archive", range: "₱1,500 to ₱7,000", n: "3 listings, 2019", note: "Genuine asking prices, but all large parcels and six years stale. Small cuts always cost more per sqm." },
   { area: "New Canipo, beachfront", range: "₱6,500 to ₱10,000", n: "6 listings", note: "All tax declaration. The spread is the same lots priced differently." },
   { area: "Binga, titled beachfront", range: "₱3,500 to ₱8,500", n: "5 listings", note: "Cheapest titled land on the coast. Furthest from the airport." },
   { area: "Poblacion and Long Beach", range: "₱12,000 to ₱39,052", n: "6 listings", note: "The airport and Long Beach premium. Highest prices found." },
@@ -306,7 +312,7 @@ coverage: [
 ],
 
 manual_queue: [
-  { t: "Find the Santo Niño lot on Lamudi yourself", d: "Open lamudi.com.ph in a normal phone browser, go to San Vicente, filter to Santo Niño and to land. Look for 984 sqm at ₱11,250,000. Automated tools are blocked there; a human browser is not." },
+  { t: "Ask in Santo Niño in person, because the portals never had it", d: "Santo Niño supply does not reach property websites and the archive shows it never really did. Start at the barangay hall and the Municipal Assessor, ask who is selling, and ask for tax declaration numbers you can check. This is the one location where being there beats searching." },
   { t: "Search the Facebook groups from your own account", d: "Try Port Barton Community, San Vicente Palawan Buy and Sell, and Palawan Lot for Sale. Search strings that work: beach lot titled, beach front tax dec, Sto Nino lot, Binga lot. No group link is asserted here because none was found on the public web." },
   { t: "Facebook Marketplace, 40 km radius from San Vicente", d: "Category Land, sorted newest. Owner-direct listings mostly never reach the portals, and this is where the small cuts appear." },
   { t: "Ask OnePropertee directly", d: "It advertises 45 Port Barton lots and 197 San Vicente beach properties and blocks every automated read. A logged-in human session would open the largest unread pool in this market." },
@@ -326,7 +332,7 @@ rejects: [
 ],
 
 blockers: [
-  { t: "Lamudi cannot be read by any automated tool", d: "It is likely the largest source of San Vicente listings and it blocked every request this run. Your own phone browser is the workaround." },
+  { t: "Lamudi blocks every automated read, live", d: "It returns 401 to everything, including its own robots file. The way past it was the Internet Archive, which gave up four dated captures of its San Vicente index. That solved the Santo Niño question but archived prices are years stale, so live Lamudi inventory is still unread." },
   { t: "Santo Niño has no portal supply at all", d: "Two independent sweeps found zero live listings in your first-choice barangay, and one portal does not even offer it as a filter. If Santo Niño matters, the search there has to be local and off-portal." },
   { t: "Beach frontage and rear-road orientation are almost never published", d: "Your road-access test cannot be applied from portal data alone. It needs the lot plan or a site visit." },
   { t: "Land classification is not testable from any listing", d: "No portal states whether land is A&D or forest. Only CENRO can answer that, and only in person." },
@@ -345,7 +351,8 @@ changelog: [
   { cycle: 6, when: "24 Aug", what: "Santo Niño negative finding confirmed by a second independent sweep. Recorded as a blocker rather than a gap." },
   { cycle: 7, when: "24 Aug", what: "Broker network mapped. Four apparently separate San Vicente agencies traced to one operator on a single hosting block." },
   { cycle: 8, when: "24 Aug", what: "Scored, deduped, and written up." },
-  { cycle: 9, when: "24 Aug", what: "The slowest agent finished last and corrected four published claims. RA 10023's area cap is 750 sqm here rather than 1,000, a private house is exempt from the SEP clearance though not from the zoning check, San Vicente sits inside a 200,115 hectare protected area declared in 2000, and re-acquiring citizenship beats the 1,000 sqm cap outright. Report frozen." }
+  { cycle: 9, when: "24 Aug", what: "The slowest agent finished last and corrected four published claims. RA 10023's area cap is 750 sqm here rather than 1,000, a private house is exempt from the SEP clearance though not from the zoning check, San Vicente sits inside a 200,115 hectare protected area declared in 2000, and re-acquiring citizenship beats the 1,000 sqm cap outright. Report updated." },
+  { cycle: 10, when: "24 Aug", what: "Second wave sent after publication to close the gaps this page had admitted to. The Santo Niño lead is now dead rather than merely unverified. Four archived captures of Lamudi's San Vicente index across a year contain no 984 sqm lot, and Lamudi never had a Santo Niño category for this municipality. Real Santo Niño prices recovered instead." }
 ],
 
 checklist: [

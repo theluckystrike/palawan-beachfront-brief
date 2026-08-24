@@ -82,7 +82,9 @@
             + '</span><span class="score-bar"><i style="width:' + (l.score || 0) + '%"></i></span></div>')
         + "</tr>";
     }).join("");
-    var n = $("#leadCount"); if (n) n.textContent = DATA.leads.length;
+    var live = DATA.leads.filter(function (l) { return String(l.evid).toUpperCase() !== "KILL"; }).length;
+    var n = $("#leadCount"); if (n) n.textContent = live;
+    var k = $("#killCount"); if (k) k.textContent = DATA.leads.length - live;
   }
 
   /* ---------- dossiers ---------- */
@@ -97,7 +99,12 @@
     var all = ranked(), top = all.slice(0, 5);
     // A high-scoring lead with no source still earns a card, at the bottom, so the job of
     // finding it does not quietly vanish from the report.
-    all.slice(5).forEach(function (l) { if (!actionable(l) && (l.score || 0) >= 55) top.push(l); });
+    all.slice(5).forEach(function (l) {
+      if (!actionable(l) && (l.score || 0) >= 55) top.push(l);
+      // A documented kill earns a card too. Knowing why a lead died is worth as much as
+      // knowing why one survived, and it stops the same lead being chased again later.
+      else if (String(l.evid).toUpperCase() === "KILL") top.push(l);
+    });
     el.innerHTML = top.map(function (l) {
       var facts = [
         ["Size", l.size ? sqm(l.size) : "unknown"],
