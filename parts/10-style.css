@@ -449,6 +449,21 @@ html[data-theme="light"] .ftr a.btn-p { color: #fff; }
 html[data-theme="light"] .toast { color: #fff; }
 .toast.on { transform: translate(-50%, 0); }
 
+/* A phone held sideways leaves about 390px of height. The result card at full size
+   fills more than twice that, so it gets a compact treatment rather than dominating. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .result { padding: 16px 18px; border-radius: var(--r-lg); }
+  .result-num { font-size: 2rem; }
+  .result-sub { font-size: var(--t-xs); min-height: 0; margin-top: 6px; }
+  .brk { margin-top: 14px; padding-top: 12px; }
+  .brk-row { padding: 5px 0; font-size: var(--t-xs); }
+  .hero { padding: 24px 0 20px; }
+  .sect { padding: 28px 0; }
+  .calc { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+  .field { margin-bottom: 12px; }
+  .mini-result { display: none; }
+}
+
 @media (pointer: coarse) {
   .icon-btn { width: 48px; height: 48px; }
   .subnav a { min-height: 48px; }
