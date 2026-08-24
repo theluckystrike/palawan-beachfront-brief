@@ -380,14 +380,21 @@
       return { a: a, el: document.getElementById(a.getAttribute("href").slice(1)) };
     }).filter(function (t) { return t.el; });
     if (!targets.length) return;
+    // Sort by position in the document. The nav can list sections in any order, and a
+    // last-match scan over nav order would pick the wrong one whenever the two differ.
+    targets.sort(function (x, y) {
+      return (x.el.compareDocumentPosition(y.el) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1;
+    });
 
     var current = null, ticking = false;
     function update() {
       ticking = false;
-      var line = window.scrollY + (window.innerHeight * 0.28);
+      // Measure against the viewport, just under the sticky header and pill bar.
+      var hdr = document.querySelector(".hdr"), sub = document.querySelector(".subnav");
+      var line = (hdr ? hdr.offsetHeight : 58) + (sub ? sub.offsetHeight : 50) + 24;
       var active = targets[0];
       for (var i = 0; i < targets.length; i++) {
-        if (targets[i].el.getBoundingClientRect().top + window.scrollY <= line) active = targets[i];
+        if (targets[i].el.getBoundingClientRect().top <= line) active = targets[i];
       }
       if (active === current) return;
       current = active;

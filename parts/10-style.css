@@ -91,7 +91,7 @@ html[data-theme="light"] {
 }
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--hdr) + 60px); }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--hdr) + 66px); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
@@ -189,7 +189,7 @@ html[data-theme="light"] .subnav a.on { color: #fff; }
 .hero-meta b { color: var(--ink-2); font-weight: 500; }
 
 /* ---------------- sections ---------------- */
-section { scroll-margin-top: calc(var(--hdr) + 58px); }
+section { scroll-margin-top: 0; }
 .sect { padding: clamp(40px, 6vw, 72px) 0; border-top: 1px solid var(--border); }
 .sect-head { margin-bottom: var(--sp-5); }
 .sect-num { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--sand); letter-spacing: .16em; display: block; margin-bottom: 10px; }
