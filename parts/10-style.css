@@ -430,6 +430,12 @@ html[data-theme="light"] .toast { color: #fff; }
 @media print {
   body::before, .hdr, .subnav, .btn, .toast, .icon-btn { display: none !important; }
   body { background: #fff; color: #000; }
-  .card, .dossier, .result { break-inside: avoid; border-color: #bbb; }
+  .card, .dossier, .result, .check li { break-inside: avoid; border-color: #bbb; }
+  details { border-color: #bbb; }
+  details > .det-bd { display: block !important; }
+  .check li { border: 1px solid #999; }
+  .check input { -webkit-appearance: none; appearance: none; width: 14px; height: 14px; border: 1.5px solid #444; border-radius: 3px; }
+  .tbl-scroll.cards { overflow: visible; }
+  section { break-before: auto; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9px; word-break: break-all; }
 }

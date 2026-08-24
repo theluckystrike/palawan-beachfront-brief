@@ -493,7 +493,13 @@ html[data-theme="light"] .toast { color: #fff; }
 @media print {
   body::before, .hdr, .subnav, .btn, .toast, .icon-btn { display: none !important; }
   body { background: #fff; color: #000; }
-  .card, .dossier, .result { break-inside: avoid; border-color: #bbb; }
+  .card, .dossier, .result, .check li { break-inside: avoid; border-color: #bbb; }
+  details { border-color: #bbb; }
+  details > .det-bd { display: block !important; }
+  .check li { border: 1px solid #999; }
+  .check input { -webkit-appearance: none; appearance: none; width: 14px; height: 14px; border: 1.5px solid #444; border-radius: 3px; }
+  .tbl-scroll.cards { overflow: visible; }
+  section { break-before: auto; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9px; word-break: break-all; }
 }
 </style>
@@ -1130,6 +1136,11 @@ html[data-theme="light"] .toast { color: #fff; }
       <b id="ckNum">0 of 16</b>
       <button class="btn" id="ckReset" style="padding:0 16px;font-size:var(--t-xs)">Reset</button>
     </div>
+    <div class="btn-row" style="margin:0 0 var(--sp-4)">
+      <button class="btn" id="ckCopy">Copy the checklist</button>
+      <button class="btn" id="printBtn">Print or save as PDF</button>
+    </div>
+    <p class="tiny" style="margin:0 0 var(--sp-4);max-width:var(--read)">Signal in Palawan is patchy and the offices you need are not online. Save a copy before you travel, and send the checklist to whoever is helping you on the ground.</p>
     <ul class="check" id="ckList"></ul>
   </div>
 </section>
@@ -2145,6 +2156,19 @@ outreach: [
       copyText(t, "Result copied");
       return;
     }
+    if (e.target.closest("#ckCopy")) {
+      var lines = ["Buying land in San Vicente, Palawan. Due diligence checklist.", ""];
+      DATA.checklist.forEach(function (c, i) {
+        lines.push((i + 1) + ". " + c.t);
+        lines.push("   " + c.d);
+        if (c.who) lines.push("   Who: " + c.who);
+        lines.push("");
+      });
+      lines.push("Full brief with sources: " + DATA.meta.url);
+      copyText(lines.join("\n"), "Checklist copied");
+      return;
+    }
+    if (e.target.closest("#printBtn")) { window.print(); return; }
     if (e.target.closest("#shareBtn")) {
       var d = { title: document.title, text: "Beachfront land in San Vicente, Palawan. Checked properly.", url: DATA.meta.url };
       if (navigator.share) { navigator.share(d).catch(function () {}); }
@@ -2225,6 +2249,18 @@ outreach: [
   }
 
   /* ---------- boot ---------- */
+  // A saved PDF has to contain everything, so open every collapsed block before printing
+  // and put them back afterwards.
+  var reopened = [];
+  window.addEventListener("beforeprint", function () {
+    reopened = $$("details:not([open])");
+    reopened.forEach(function (d) { d.open = true; });
+  });
+  window.addEventListener("afterprint", function () {
+    reopened.forEach(function (d) { d.open = false; });
+    reopened = [];
+  });
+
   function boot() {
     $("#genDate").textContent = DATA.meta.generated;
     $("#cycleN").textContent = DATA.meta.cycle;

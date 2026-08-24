@@ -357,6 +357,19 @@
       copyText(t, "Result copied");
       return;
     }
+    if (e.target.closest("#ckCopy")) {
+      var lines = ["Buying land in San Vicente, Palawan. Due diligence checklist.", ""];
+      DATA.checklist.forEach(function (c, i) {
+        lines.push((i + 1) + ". " + c.t);
+        lines.push("   " + c.d);
+        if (c.who) lines.push("   Who: " + c.who);
+        lines.push("");
+      });
+      lines.push("Full brief with sources: " + DATA.meta.url);
+      copyText(lines.join("\n"), "Checklist copied");
+      return;
+    }
+    if (e.target.closest("#printBtn")) { window.print(); return; }
     if (e.target.closest("#shareBtn")) {
       var d = { title: document.title, text: "Beachfront land in San Vicente, Palawan. Checked properly.", url: DATA.meta.url };
       if (navigator.share) { navigator.share(d).catch(function () {}); }
@@ -437,6 +450,18 @@
   }
 
   /* ---------- boot ---------- */
+  // A saved PDF has to contain everything, so open every collapsed block before printing
+  // and put them back afterwards.
+  var reopened = [];
+  window.addEventListener("beforeprint", function () {
+    reopened = $$("details:not([open])");
+    reopened.forEach(function (d) { d.open = true; });
+  });
+  window.addEventListener("afterprint", function () {
+    reopened.forEach(function (d) { d.open = false; });
+    reopened = [];
+  });
+
   function boot() {
     $("#genDate").textContent = DATA.meta.generated;
     $("#cycleN").textContent = DATA.meta.cycle;
