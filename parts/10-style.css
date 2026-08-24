@@ -350,7 +350,7 @@ html[data-theme="light"] .btn-p { color: #fff; }
    exactly when the number is changing. This pins a compact copy under the nav while the
    calculator is in view. Above 900px the layout is already side by side, so it is off. */
 .mini-result {
-  position: fixed; left: 0; right: 0; z-index: 54;
+  position: fixed; left: 0; right: 0; width: 100%; max-width: 100vw; overflow: hidden; z-index: 54;
   display: flex; align-items: baseline; gap: 10px;
   padding: 10px clamp(16px, 4vw, 40px);
   background: color-mix(in srgb, var(--surface) 94%, transparent);
@@ -363,7 +363,7 @@ html[data-theme="light"] .btn-p { color: #fff; }
   pointer-events: none;
 }
 .mini-result.on { transform: translateY(0); }
-.mini-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--sand); flex: 0 0 auto; }
+.mini-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .mini-num { font-size: 1.22rem; font-weight: 600; letter-spacing: -.03em; color: var(--sand); min-width: 0; }
 .mini-sub { font-size: var(--t-xs); color: var(--ink-2); margin-left: auto; text-align: right; flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 @media (max-width: 359px) { .mini-label { display: none; } }
