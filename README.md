@@ -1,0 +1,42 @@
+# Palawan beachfront land brief, for Jeff
+
+Live report: https://theluckystrike.github.io/palawan-beachfront-brief/
+
+Everything that could be verified about buying a 400 to 1,000 sqm beachfront lot in San Vicente municipality, Palawan. Built in one run on 24 August 2026 by eight research agents working in parallel, then written up, designed and published as a single self contained page.
+
+## What is in this folder
+
+    site/            the published page. index.html is built from site/parts by build.sh
+    site/parts/      head, stylesheet, body sections, the DATA blob, the renderer
+    agents/          raw JSON output from each research agent, with its own sources
+    outreach/        five ready to send message drafts. Nothing was sent to anyone
+    docs/            the design analysis and the rendered screenshots
+    state.json       machine readable snapshot of leads, coverage, blockers and rejects
+
+## The four findings that shape the search
+
+A small Long Beach lot may be entirely unbuildable. San Vicente's tourism master plan sets a 50 metre easement from the mean high water mark, double the national baseline, with a hard no build core where only moveable foundationless huts are allowed. A 1,000 sqm lot with 20 metres of frontage is 50 metres deep, so the setback eats all of it.
+
+Port Barton is outside the designated tourism zone, which is why it looks better on buildability than Long Beach does. It is also where the only in band beachfront lot with a working link happens to sit.
+
+The market is not discounting untitled land. Across 59 listings, titled lots and tax declaration lots sit in the same price bands, which is a mispricing that runs against a buyer who accepts it.
+
+The 400 to 1,000 sqm beachfront band barely exists on the open market. Three listings fit, one of them in a top two barangay with a URL you can open.
+
+## How the research was run
+
+Two agents swept property portals independently so their results could be checked against each other. One read statutes directly from primary text rather than from summaries. The others covered prices, contacts, geography, risk and the cost of ownership.
+
+Three rules governed the run. No fact without a source you can open. No listing reported unless a page was actually read. Nothing sent to anybody, so every message is a draft.
+
+Half the property portals in this market block automated reading, including Lamudi. Government fee schedules for Palawan province and San Vicente municipality are not published online at all. Both limits are stated in the report rather than papered over.
+
+## Rebuilding the page
+
+    cd site && ./build.sh
+
+No dependencies and no build tooling. The script concatenates the parts into index.html. All figures live in one DATA object between the DATA_START and DATA_END markers, so the numbers can be updated without touching the markup.
+
+## Checks the page passes
+
+WCAG AA contrast on 978 text nodes in both light and dark themes, zero failures. No horizontal scroll and no overflowing elements at 375, 390, 768, 1280 and 1600 pixels. Zero JavaScript errors. Every control at least 44 pixels tall, inputs at 16 pixels so iOS does not zoom. The result figure stays the largest text on the page at every width. Humanize scanner clean.
