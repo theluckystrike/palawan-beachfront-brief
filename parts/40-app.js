@@ -386,27 +386,40 @@
       return (x.el.compareDocumentPosition(y.el) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1;
     });
 
-    var current = null, ticking = false;
+    var current = null, ticking = false, lockUntil = 0;
+
+    function setActive(t) {
+      if (t === current) return;
+      current = t;
+      links.forEach(function (a) { a.classList.remove("on"); });
+      t.a.classList.add("on");
+      t.a.scrollIntoView({ block: "nearest", inline: "nearest" });
+    }
+
     function update() {
       ticking = false;
-      // Measure against the viewport, just under the sticky header and pill bar.
+      if (Date.now() < lockUntil) return;
+      // Just under the sticky header and pill bar, but never less than a third of the
+      // viewport, so a section that lands low after a jump still registers.
       var hdr = document.querySelector(".hdr"), sub = document.querySelector(".subnav");
-      var line = (hdr ? hdr.offsetHeight : 58) + (sub ? sub.offsetHeight : 50) + 24;
+      var chrome = (hdr ? hdr.offsetHeight : 58) + (sub ? sub.offsetHeight : 50) + 24;
+      var line = Math.max(chrome, window.innerHeight * 0.34);
       var active = targets[0];
       for (var i = 0; i < targets.length; i++) {
         if (targets[i].el.getBoundingClientRect().top <= line) active = targets[i];
       }
-      if (active === current) return;
-      current = active;
-      links.forEach(function (a) { a.classList.remove("on"); });
-      active.a.classList.add("on");
-      active.a.scrollIntoView({ block: "nearest", inline: "nearest" });
+      setActive(active);
     }
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(update);
-    }
+
+    // A click is not a guess. Light the pill the user just tapped and hold it while the
+    // smooth scroll runs, otherwise the scroll handler fights the animation.
+    targets.forEach(function (t) {
+      t.a.addEventListener("click", function () {
+        lockUntil = Date.now() + 900;
+        setActive(t);
+      });
+    });
+
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
     update();
