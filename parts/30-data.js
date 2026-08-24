@@ -80,11 +80,11 @@ leads: [
         "Four archived captures of the Lamudi San Vicente index across a full year contain no 984 sqm lot.",
         "Lamudi never built a Santo Niño facet for San Vicente, so the listing could not have been found where the lead says it was.",
         "Two live sweeps had already found zero Santo Niño listings on every portal that answered.",
-        "The claimed ₱11,433 per sqm is above every genuine Santo Niño asking price recovered from the archive."
+        "Here is the part that should worry you. The claimed ₱11,433 per sqm is entirely plausible. Small San Vicente beachfront lots asked ₱6,000 to ₱18,000 per sqm in 2020. A wrong number is easy to spot. A believable number attached to nothing is how people get separated from a deposit."
       ],
       green: [
         "The hunt did recover what Santo Niño land actually asked for, which is worth more than the phantom lot was.",
-        "Three genuine Santo Niño listings from August 2019, all one advertiser, at ₱1,500, ₱3,513 and ₱7,000 per sqm. All large parcels, so not like for like on a small cut, but they anchor the barangay."
+        "Three genuine Santo Niño listings from August 2019, all held by one advertiser, at ₱1,500, ₱3,513 and ₱7,000 per sqm. All large parcels, so not like for like against a small cut, but they anchor the barangay. The smallest was 10,734 sqm, eleven times bigger than the lot you were shown."
       ],
       ask: [
         "Nothing. There is nobody to ask, because there is no listing and no advertiser."
