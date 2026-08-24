@@ -491,6 +491,11 @@
     }
     if (e.target.closest("#printBtn") || e.target.closest("#printBtn2")) { window.print(); return; }
     if (e.target.closest("#copyLink")) { copyText(DATA.meta.url, "Link copied"); return; }
+    if (e.target.closest("#miniResult")) {
+      var rc = $(".result");
+      if (rc) rc.scrollIntoView({ block: "center", behavior: "smooth" });
+      return;
+    }
     if (e.target.closest("#shareBig")) {
       var sd = {
         title: "Beachfront land in San Vicente, Palawan",
