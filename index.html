@@ -1279,11 +1279,26 @@ html[data-theme="light"] .toast { color: #fff; }
         <p class="tiny" style="margin-bottom:0">Listings conflate them constantly. If a page describes Long Beach and gives a Port Barton address, it is describing two different coasts and somebody has copied a template.</p>
       </div>
 
+      <div class="card" style="border-color:var(--coral)">
+        <h3 style="margin-bottom:12px">Palawan is not outside the typhoon belt</h3>
+        <p class="tiny">You will hear this claim from every seller on this coast. It is not true, and the refutation comes from the weather bureau itself.</p>
+        <p class="tiny">On 17 December 2021, Super Typhoon Odette, known internationally as Rai, made landfall at Roxas, Palawan. Roxas is the municipality next door to San Vicente. PAGASA's own post-season analysis says the storm traversed the central portion of Palawan, wind signals three and four were raised over the province, and Puerto Princesa logged 156.5 mm of rain in twenty four hours. Plotting the best-track fixes against the barangay centres puts San Vicente inside the 64 knot wind radius at both bracketing times.</p>
+        <p class="tiny">What is actually supportable is milder than the myth and more useful. PAGASA's regional severe wind hazard maps put Palawan at 120 to 170 kph for both the fifty and hundred year return period, against 170 to 220 for most of Luzon and the Visayas and 220 to 270 on the eastern seaboard. So Palawan is one hazard class lower, not exempt. Put another way, Palawan's five hundred year wind is roughly Central Luzon's fifty year wind.</p>
+        <p class="tiny" style="margin-bottom:0">One footnote that probably explains where the story came from. PAGASA does publish language about a region being spared by typhoons. It names Mindanao, not Palawan.</p>
+      </div>
+
       <div class="card">
-        <h3 style="margin-bottom:12px">Weather, elevation and what was not checked</h3>
-        <p class="tiny">The dry window is December through April. May is already wet at about 157 mm. Wet season runs June to November.</p>
-        <p class="tiny">Every coastal barangay centre in San Vicente sits between 3.1 and 6.7 metres above sea level, and a beachfront lot sits lower than the barangay centre. Palawan News has reported Barangay New Canipo flooding again, at headline level.</p>
-        <p class="tiny" style="margin-bottom:0">Being straight with you, the typhoon and storm surge picture was not completed in this run, so nothing is asserted about it. Do not accept the common line that Palawan sits outside the typhoon belt as verified, because it is not verified here. Run the exact lot coordinate through the hazard tool below. That is the check that matters, and it is free.</p>
+        <h3 style="margin-bottom:12px">Which storm to build against</h3>
+        <p class="tiny">Odette, not Haiyan. Haiyan in 2013 is the storm everyone names, but its nearest track fix was about 204 km from San Vicente, which put the municipality inside the 34 knot radius and outside the 50 knot one. Odette passed within tens of kilometres. If you are choosing a roof, a window spec or a foundation, Odette is the design case.</p>
+        <p class="tiny">Storm surge is the sharper risk on a beach lot. PAGASA's own surge advisory bands run below two metres, two to three metres, and above three metres. Every coastal barangay centre in San Vicente sits between 3.1 and 6.7 metres above sea level, and a beachfront lot sits lower than its barangay centre. Those two numbers are uncomfortably close together.</p>
+        <p class="tiny" style="margin-bottom:0">Over the life of a house, add sea level. The IPCC's sixth assessment puts relative rise for Asia at 0.3 to 0.5 metres on a low emissions path and 0.7 to 0.8 metres on a high one by the end of the century. San Vicente's own master plan cites sea level rise and shoreline retreat as part of its reason for a fifty metre setback.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:12px">Seasons, and what could not be found</h3>
+        <p class="tiny">The dry window is December through April. May is already wet at about 157 mm. The wet season runs June to November, which is also when the storms come.</p>
+        <p class="tiny">Palawan News has reported Barangay New Canipo flooding again, at headline level only.</p>
+        <p class="tiny" style="margin-bottom:0">What could not be obtained, so that you know the edges. No disaster agency situation report for San Vicente, because that site refuses automated access, so no damage or surge figures are claimed here. No coastal erosion study for west Palawan. And no Philippine government sea level projection exists at all, which is why the figure above is the IPCC's rather than Manila's.</p>
       </div>
 
       <div class="card">
@@ -1797,7 +1812,7 @@ blockers: [
   { t: "Land classification is not testable from any listing", d: "No portal states whether land is A&D or forest. Only CENRO can answer that, and only in person." },
   { t: "No sold-price data exists in the Philippines", d: "There is no functioning national MLS with verified sold transactions. Every price on this page is an asking price, and anyone quoting you a market rate is extrapolating." },
   { t: "Advertiser contact details are hidden behind reveal gates", d: "Most portals hide the phone number until you click. Only Pearlview and Palawanders published numbers openly." },
-  { t: "The typhoon and storm surge picture was never completed", d: "The run hit its search budget before this section was finished, so nothing is asserted about it. Do not treat the usual line about Palawan sitting outside the typhoon belt as confirmed. Run the lot coordinate through HazardHunterPH yourself." },
+  { t: "No disaster agency situation report for San Vicente", d: "The national disaster site refuses automated access and the humanitarian data API now refuses unregistered clients, so no damage or storm surge figures for San Vicente are claimed here. The typhoon picture itself is now closed, from PAGASA sources." },
   { t: "Construction cost per sqm and the local schedule of market values", d: "Both blocked automated access. They are left empty rather than filled with a plausible number. The Municipal Assessor holds the schedule of market values, and three local contractor quotes beat any published average." }
 ],
 
@@ -1811,6 +1826,7 @@ changelog: [
   { cycle: 7, when: "24 Aug", what: "Broker network mapped. Four apparently separate San Vicente agencies traced to one operator on a single hosting block." },
   { cycle: 8, when: "24 Aug", what: "Scored, deduped, and written up." },
   { cycle: 9, when: "24 Aug", what: "The slowest agent finished last and corrected four published claims. RA 10023's area cap is 750 sqm here rather than 1,000, a private house is exempt from the SEP clearance though not from the zoning check, San Vicente sits inside a 200,115 hectare protected area declared in 2000, and re-acquiring citizenship beats the 1,000 sqm cap outright. Report updated." },
+  { cycle: 11, when: "24 Aug", what: "Typhoon gap closed from PAGASA's own post-season analysis. Super Typhoon Odette made landfall in the next municipality in December 2021 and San Vicente sat inside its 64 knot radius, which refutes the claim every seller on this coast repeats." },
   { cycle: 10, when: "24 Aug", what: "Second wave sent after publication to close the gaps this page had admitted to. The Santo Niño lead is now dead rather than merely unverified. Four archived captures of Lamudi's San Vicente index across a year contain no 984 sqm lot, and Lamudi never had a Santo Niño category for this municipality. Real Santo Niño prices recovered instead." }
 ],
 
