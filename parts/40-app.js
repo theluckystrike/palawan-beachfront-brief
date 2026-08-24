@@ -291,7 +291,7 @@
     var sellerPays = $("#cWho").value === "seller";
     var total = land + (sellerPays ? buyerSide : withSeller);
 
-    $("#rTotal").textContent = php(total);
+    $("#rTotal").innerHTML = '<span class="cur">\u20b1</span>' + php(total).slice(1);
     $("#rUsd").textContent = usd(total) + " at " + USD + " to the dollar";
     $("#rGap").innerHTML = usable > 0
       ? "The shore easement takes <b>" + Math.round(strip).toLocaleString("en-US") + " sqm</b> of that lot into public land. You are really paying <b>"
@@ -315,13 +315,44 @@
     if (mn) mn.textContent = php(total);
     if (ms) ms.textContent = usable > 0 ? Math.round(usable).toLocaleString("en-US") + " sqm buildable" : "nothing buildable";
 
-    $("#cSizeOut").textContent = size.toLocaleString("en-US") + " sqm";
-    $("#cRateOut").textContent = php(rate) + "/sqm";
-    $("#cFrontOut").textContent = front + " m";
+    // Mirror the sliders into the number fields, except the one being typed in.
+    syncNum("cSizeNum", size);
+    syncNum("cRateNum", rate);
+    syncNum("cFrontNum", front);
+    fillTrack("cSize"); fillTrack("cRate"); fillTrack("cFront");
+  }
+
+  function syncNum(id, v) {
+    var e = document.getElementById(id);
+    if (e && document.activeElement !== e) e.value = v;
+  }
+
+  // Paint the portion of the track behind the thumb, so the range is legible.
+  function fillTrack(id) {
+    var e = document.getElementById(id);
+    if (!e) return;
+    var min = +e.min, max = +e.max;
+    e.style.setProperty("--pct", ((+e.value - min) / (max - min) * 100).toFixed(2) + "%");
   }
 
   function bindCalc() {
     if (!$("#cSize")) return;
+    // A broker sends an exact asking price. A slider cannot reach it, so each one
+    // gets a number field bound to it in both directions.
+    [["cSizeNum", "cSize"], ["cRateNum", "cRate"], ["cFrontNum", "cFront"]].forEach(function (p) {
+      var num = document.getElementById(p[0]), rng = document.getElementById(p[1]);
+      if (!num || !rng) return;
+      num.addEventListener("input", function () {
+        if (num.value === "") return;
+        var v = Math.min(Math.max(+num.value, +rng.min), +rng.max);
+        rng.value = v;
+        calc();
+      });
+      num.addEventListener("blur", function () {
+        var v = Math.min(Math.max(+num.value || +rng.min, +rng.min), +rng.max);
+        num.value = v; rng.value = v; calc();
+      });
+    });
     ["cSize", "cRate", "cFront", "cZone", "cWho"].forEach(function (id) {
       var e = $("#" + id); if (e) { e.addEventListener("input", calc); e.addEventListener("change", calc); }
     });
@@ -329,6 +360,7 @@
       b.addEventListener("click", function () {
         var p = JSON.parse(b.getAttribute("data-preset"));
         $("#cSize").value = p.s; $("#cRate").value = p.r; $("#cFront").value = p.f;
+        ["cSizeNum","cRateNum","cFrontNum"].forEach(function(id,i){var e=document.getElementById(id); if(e) e.value=[p.s,p.r,p.f][i];});
         $$("[data-preset]").forEach(function (x) { x.classList.remove("btn-p"); });
         b.classList.add("btn-p");
         calc();
@@ -409,7 +441,7 @@
     if (b) { var src = document.getElementById(b.getAttribute("data-copy")); if (src) copyText(src.textContent, "Draft copied"); return; }
     if (e.target.closest("#copyResult")) {
       var t = "San Vicente Palawan lot costing\n"
-        + $("#cSizeOut").textContent + " at " + $("#cRateOut").textContent + "\n"
+        + (+$("#cSize").value).toLocaleString("en-US") + " sqm at " + php(+$("#cRate").value) + "/sqm\n"
         + "Cash needed " + $("#rTotal").textContent + " (" + $("#rUsd").textContent + ")\n"
         + $("#rGap").textContent + "\n"
         + DATA.meta.url;

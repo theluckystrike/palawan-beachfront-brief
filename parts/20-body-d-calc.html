@@ -24,19 +24,24 @@
         </div>
 
         <div class="field">
-          <label for="cSize">Lot size <span class="tiny mono" id="cSizeOut" style="float:right">870 sqm</span></label>
-          <input type="range" id="cSize" min="300" max="2000" step="1" value="870" aria-describedby="cSizeOut">
+          <label for="cSize">Lot size<span class="readout"><input id="cSizeNum" class="num-in" type="number" inputmode="numeric" min="300" max="2000" step="1" value="870" aria-label="Lot size in square metres"><span class="unit">sqm</span></span></label>
+          <input type="range" id="cSize" min="300" max="2000" step="1" value="870">
+          <span class="scale"><span>300</span><span>2,000 sqm</span></span>
         </div>
 
         <div class="field">
-          <label for="cRate">Price per square metre <span class="tiny mono" id="cRateOut" style="float:right">₱9,750/sqm</span></label>
-          <input type="range" id="cRate" min="1000" max="30000" step="25" value="9750" aria-describedby="cRateOut">
+          <label for="cRate">Price per square metre<span class="readout"><span class="unit">₱</span><input id="cRateNum" class="num-in" type="number" inputmode="numeric" min="1000" max="30000" step="25" value="9750" aria-label="Price per square metre in pesos"></span></label>
+          <input type="range" id="cRate" min="1000" max="30000" step="25" value="9750">
+          <span class="scale"><span>₱1,000</span><span>₱30,000</span></span>
         </div>
 
         <div class="field">
-          <label for="cFront">Beach frontage in metres <span class="tiny mono" id="cFrontOut" style="float:right">16.66 m</span></label>
-          <input type="range" id="cFront" min="5" max="60" step="0.01" value="16.66" aria-describedby="cFrontOut">
+          <label for="cFront">Beach frontage<span class="readout"><input id="cFrontNum" class="num-in" type="number" inputmode="decimal" min="5" max="60" step="0.01" value="16.66" aria-label="Beach frontage in metres"><span class="unit">m</span></span></label>
+          <input type="range" id="cFront" min="5" max="60" step="0.01" value="16.66">
+          <span class="scale"><span>5 m</span><span>60 m</span></span>
         </div>
+
+        <hr class="field-rule">
 
         <div class="field">
           <label for="cZone">Shore easement that applies to this land</label>

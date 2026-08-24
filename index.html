@@ -79,7 +79,7 @@
 
   --ink:        #e9f4f5;
   --ink-2:      #a3bcc4;
-  --ink-3:      #9ab4bc;
+  --ink-3:      #8aa6ae;
 
   --sand:       #e6b878;   /* THE accent: scores, CTAs, active */
   --sand-deep:  #c9944f;
@@ -111,14 +111,14 @@
   --t-body: 1rem;
   --t-sm:   .875rem;
   --t-xs:   .8125rem;
-  --t-result: clamp(2.25rem, 1.25rem + 4.9vw, 4.6rem);
+  --t-result: clamp(2.8rem, 1.5rem + 5.4vw, 4.6rem);
 
   /* --- space & shape --- */
   --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
   --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 88px;
   --r-sm: 8px;  --r-md: 12px; --r-lg: 18px; --r-xl: 26px;
   --wrap: 1120px;
-  --read: 68ch;
+  --read: 52ch;
   --hdr: 58px;
 }
 
@@ -132,7 +132,7 @@ html[data-theme="light"] {
 
   --ink:        #0b2129;
   --ink-2:      #40616c;
-  --ink-3:      #4a6069;
+  --ink-3:      #5c757e;
 
   --sand:       #855715;
   --sand-deep:  #6b4410;
@@ -191,6 +191,8 @@ p { margin: 0 0 var(--sp-4); max-width: var(--read); }
 a { color: var(--sand); text-decoration-color: var(--sand-line); text-underline-offset: 3px; }
 a:hover { text-decoration-color: var(--sand); }
 :focus-visible { outline: 3px solid var(--sand); outline-offset: 3px; border-radius: 4px; }
+.btn-p:focus-visible, .subnav a.on:focus-visible, .dossier-id:focus-visible { outline-color: var(--ink); }
+html[data-theme="light"] .btn-p:focus-visible, html[data-theme="light"] .subnav a.on:focus-visible { outline-color: var(--abyss); }
 img, svg { max-width: 100%; }
 ::selection { background: var(--sand); color: var(--abyss); }
 html[data-theme="light"] ::selection { background: var(--sand); color: #fff; }
@@ -244,9 +246,9 @@ html[data-theme="light"] .subnav a.on { color: #fff; }
 
 /* ---------------- hero ---------------- */
 .hero { padding: clamp(36px, 7vw, 84px) 0 clamp(28px, 5vw, 56px); position: relative; }
-.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: var(--t-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--glass); background: var(--glass-wash); border: 1px solid color-mix(in srgb, var(--glass) 30%, transparent); padding: 5px 11px; border-radius: 999px; margin-bottom: var(--sp-4); }
-.hero h1 { font-size: var(--t-hero); max-width: 15ch; margin-bottom: var(--sp-4); }
-.hero h1 em { font-style: normal; color: var(--sand); font-variation-settings: "SOFT" 40, "WONK" 1, "opsz" 60; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: var(--t-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); background: color-mix(in srgb, var(--ink-3) 12%, transparent); border: 1px solid var(--border); padding: 6px 11px 4px; border-radius: 999px; margin-bottom: var(--sp-4); }
+.hero h1 { font-size: var(--t-hero); max-width: 15ch; margin-bottom: var(--sp-4); font-variation-settings: "SOFT" 20, "WONK" 1, "opsz" 72; }
+.hero h1 em { font-style: normal; color: var(--sand); }
 .lede { font-size: clamp(1.02rem, .97rem + .34vw, 1.2rem); color: var(--ink-2); max-width: 60ch; line-height: 1.6; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); margin-top: var(--sp-5); font-size: var(--t-xs); color: var(--ink-3); font-family: var(--f-mono); }
 .hero-meta b { color: var(--ink-2); font-weight: 500; }
@@ -255,14 +257,14 @@ html[data-theme="light"] .subnav a.on { color: #fff; }
 section { scroll-margin-top: 0; }
 .sect { padding: clamp(40px, 6vw, 72px) 0; border-top: 1px solid var(--border); }
 .sect-head { margin-bottom: var(--sp-5); }
-.sect-num { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--sand); letter-spacing: .16em; display: block; margin-bottom: 10px; }
+.sect-num { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--ink-3); letter-spacing: .04em; display: block; margin-bottom: 10px; }
 .sect-head h2 { margin-bottom: var(--sp-3); }
 .sect-head p { color: var(--ink-2); }
 
 /* ---------------- cards ---------------- */
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: clamp(18px, 3.2vw, 28px); box-shadow: var(--shadow-1); }
 .grid { display: grid; gap: var(--sp-4); }
-.g2 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+.g2 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr)); }
 .g3 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
 .g4 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr)); }
 
@@ -277,12 +279,21 @@ section { scroll-margin-top: 0; }
 .coast-count b { color: var(--sand); font-weight: 600; }
 
 /* chips */
-.chip { display: inline-flex; align-items: center; gap: 5px; font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; padding: 3px 8px; border-radius: 5px; border: 1px solid transparent; white-space: nowrap; }
+.chip { display: inline-flex; align-items: center; gap: 5px; font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; padding: 4px 8px 2px; border-radius: 5px; border: 1px solid transparent; white-space: nowrap; }
 .chip-v { color: var(--glass); background: var(--glass-wash); border-color: color-mix(in srgb, var(--glass) 32%, transparent); }
 .chip-r { color: var(--amber); background: var(--amber-wash); border-color: color-mix(in srgb, var(--amber) 32%, transparent); }
 .chip-i { color: var(--violet); background: var(--violet-wash); border-color: color-mix(in srgb, var(--violet) 32%, transparent); }
 .chip-k { color: var(--coral); background: var(--coral-wash); border-color: color-mix(in srgb, var(--coral) 32%, transparent); }
 .chip-u { color: var(--ink-3); background: color-mix(in srgb, var(--ink-3) 10%, transparent); border-color: color-mix(in srgb, var(--ink-3) 26%, transparent); }
+
+.chip-n { color: var(--ink-2); background: color-mix(in srgb, var(--ink-3) 10%, transparent); border-color: color-mix(in srgb, var(--ink-3) 26%, transparent); }
+#verdict .card.finding { border-left: 3px solid var(--border-2); }
+#verdict .card.finding h3 { margin-top: 12px; }
+.finding-grade { display: block; font-family: var(--f-mono); font-size: 10px; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); margin-top: 8px; }
+.finding-grade.grade-v { color: var(--glass); }
+.finding-grade.grade-u { color: var(--ink-3); }
+#verdict .card.finding:has(.grade-v) { border-left-color: color-mix(in srgb, var(--glass) 55%, var(--border-2)); }
+.fbody { font-size: var(--t-sm); color: var(--ink-2); line-height: 1.6; margin-bottom: var(--sp-3); max-width: var(--read); }
 
 /* tables */
 .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); }
@@ -330,7 +341,17 @@ td .lid { font-family: var(--f-mono); font-weight: 600; color: var(--sand); }
 .calc { display: grid; gap: var(--sp-5); }
 @media (min-width: 900px) { .calc { grid-template-columns: minmax(0,1fr) minmax(0,1.05fr); align-items: start; } }
 .field { margin-bottom: var(--sp-4); }
-.field label { display: block; font-size: var(--t-sm); font-weight: 500; color: var(--ink-2); margin-bottom: 7px; }
+.field label { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: var(--t-sm); font-weight: 500; color: var(--ink-2); margin-bottom: 2px; }
+.readout { display: inline-flex; align-items: center; gap: 4px; flex: 0 0 auto; }
+.readout .unit { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--ink-2); }
+.num-in {
+  width: 108px; height: 40px; text-align: right; padding: 0 10px;
+  font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-size: 16px; font-weight: 600;
+  color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm);
+}
+.num-in:focus { outline: none; border-color: var(--sand); box-shadow: 0 0 0 3px var(--sand-wash); }
+.scale { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 10px; color: var(--ink-3); margin-top: -4px; }
+.field-rule { border: 0; border-top: 1px solid var(--border); margin: 4px 0 24px; }
 .input-wrap { position: relative; display: flex; align-items: center; }
 .input-wrap .pre, .input-wrap .suf { position: absolute; font-family: var(--f-mono); font-size: var(--t-sm); color: var(--ink-3); pointer-events: none; }
 .input-wrap .pre { left: 14px; }
@@ -349,10 +370,16 @@ select { background-image: none; padding-right: 38px; cursor: pointer; }
 input:focus, select:focus { outline: none; border-color: var(--sand); box-shadow: 0 0 0 3px var(--sand-wash); }
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 input[type="range"] { width: 100%; height: 48px; background: transparent; appearance: none; cursor: pointer; display: block; }
-input[type="range"]::-webkit-slider-runnable-track { height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--ink-3) 28%, transparent); }
+input[type="range"] { --pct: 50%; }
+input[type="range"]::-webkit-slider-runnable-track { height: 5px; border-radius: 3px; background: linear-gradient(90deg, var(--sand) var(--pct), color-mix(in srgb, var(--ink-3) 28%, transparent) var(--pct)); }
 input[type="range"]::-webkit-slider-thumb { appearance: none; width: 24px; height: 24px; margin-top: -10px; border-radius: 50%; background: var(--sand); border: 3px solid var(--surface); box-shadow: var(--shadow-1); }
-input[type="range"]::-moz-range-track { height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--ink-3) 28%, transparent); }
+input[type="range"]::-moz-range-track { height: 5px; border-radius: 3px; background: linear-gradient(90deg, var(--sand) var(--pct), color-mix(in srgb, var(--ink-3) 28%, transparent) var(--pct)); }
 input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--sand); border: 3px solid var(--surface); }
+@media (hover: hover) { input[type="range"]:hover::-webkit-slider-thumb { box-shadow: var(--shadow-1), 0 0 0 6px var(--sand-wash); } }
+input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.12); }
+input[type="range"]:focus-visible { outline: none; }
+input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px var(--sand-wash), 0 0 0 6px var(--sand); }
+input[type="range"]:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 4px var(--sand-wash), 0 0 0 6px var(--sand); }
 
 .result {
   background: linear-gradient(165deg, color-mix(in srgb, var(--sand) 13%, var(--surface)), var(--surface) 62%);
@@ -360,9 +387,10 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
   padding: clamp(20px, 3.6vw, 32px); box-shadow: var(--shadow-2);
 }
 .result-label { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--sand); margin-bottom: 8px; }
-.result-num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-size: var(--t-result); font-weight: 600; letter-spacing: -.035em; line-height: 1; color: var(--ink); word-break: break-word; }
-.result-sub { font-size: var(--t-sm); color: var(--ink-2); margin-top: 10px; min-height: 2.6em; }
-.result-sub b { color: var(--sand); font-weight: 600; }
+.result-num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-size: min(var(--t-result), 13.5vw); font-weight: 600; letter-spacing: -.035em; line-height: 1; color: var(--sand); white-space: nowrap; }
+.result-num .cur { font-size: .58em; color: var(--ink-2); vertical-align: .12em; letter-spacing: 0; margin-right: .06em; }
+.result-sub { font-size: var(--t-sm); color: var(--ink-2); margin-top: 10px; min-height: 4.6em; }
+.result-sub b { color: var(--ink); font-weight: 600; font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
 .brk { margin-top: var(--sp-5); border-top: 1px solid var(--sand-line); padding-top: var(--sp-4); }
 .brk-row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-4); padding: 8px 0; font-size: var(--t-sm); border-bottom: 1px solid color-mix(in srgb, var(--border) 55%, transparent); }
 .brk-row:last-child { border-bottom: none; }
@@ -370,7 +398,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .brk-row b { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-weight: 500; color: var(--ink); white-space: nowrap; }
 .brk-row.total { border-top: 1px solid var(--sand-line); border-bottom: none; margin-top: 6px; padding-top: 13px; }
 .brk-row.total span { color: var(--ink); font-weight: 600; }
-.brk-row.total b { color: var(--sand); font-size: 1.06rem; font-weight: 600; }
+.brk-row.total b { color: var(--ink); font-size: 1.06rem; font-weight: 600; }
 
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; font-family: var(--f-body); font-size: var(--t-sm); font-weight: 600; border-radius: var(--r-md); cursor: pointer; border: 1px solid var(--border); background: var(--raised); color: var(--ink); text-decoration: none; transition: background .15s, border-color .15s, color .15s, transform .12s; }
 .btn:hover { border-color: var(--border-2); }
@@ -491,12 +519,12 @@ details[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
 .stat .sl { font-size: var(--t-xs); color: var(--ink-2); margin-top: 5px; line-height: 1.4; }
 
 /* footer */
-.ftr { border-top: 1px solid var(--border); background: var(--deep); padding: clamp(40px, 6vw, 64px) 0 calc(28px + env(safe-area-inset-bottom)); margin-top: var(--sp-7); }
+.ftr { border-top: 1px solid var(--border); background: var(--deep); padding: clamp(40px, 6vw, 64px) 0 calc(28px + env(safe-area-inset-bottom)); margin-top: var(--sp-9); }
 .ftr-grid { display: grid; gap: var(--sp-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); margin-bottom: var(--sp-6); }
-.ftr .ftr-h { font-family: var(--f-mono); font-size: 11px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; margin: 0 0 12px; }
+.ftr .ftr-h { font-family: var(--f-mono); font-size: 12px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; margin: 0 0 12px; }
 .ftr ul { list-style: none; padding: 0; margin: 0; }
 .ftr li { margin-bottom: 8px; font-size: var(--t-sm); }
-.ftr a { color: var(--ink-2); text-decoration: none; }
+.ftr a:not(.btn) { color: var(--ink-2); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--ink-3) 40%, transparent); text-underline-offset: 3px; }
 .ftr a:hover { color: var(--sand); }
 /* .ftr a would otherwise win on specificity and repaint the button label. */
 .ftr a.btn { color: var(--ink); }
@@ -624,7 +652,7 @@ html[data-theme="light"] .toast { color: #fff; }
 <section class="hero" id="top">
   <div class="wrap">
     <span class="eyebrow">Updated 24 August 2026</span>
-    <h1>Beachfront land in San&nbsp;Vicente, <em>checked properly</em>.</h1>
+    <h1>Beachfront land in San&nbsp;Vicente, <em>checked properly.</em></h1>
     <p class="lede">Everything I could verify about buying a 400 to 1,000 sqm beachfront lot on the west coast of Palawan. What is actually for sale, what the land law does to a beach lot, what the whole thing costs, and the exact documents to demand before any money moves.</p>
     <div class="hero-meta">
       <span>Cycle <b id="cycleN">8</b> of 8</span>
@@ -648,46 +676,46 @@ html[data-theme="light"] .toast { color: #fff; }
     </div>
 
     <div class="grid g2">
-      <article class="card" style="border-color:var(--coral);border-left-width:3px">
-        <span class="chip chip-k" style="margin-bottom:12px">Finding one</span>
+      <article class="card finding">
+        <span class="chip chip-n">Finding one</span><span class="finding-grade grade-u">Geometry, unverified against a survey</span>
         <h3 style="margin-bottom:10px">A small Long Beach lot may be entirely unbuildable</h3>
-        <p class="tiny">San Vicente's tourism master plan sets a 50 metre easement from the mean high water mark along the whole mainland coast, double the national baseline. Inside it, permanent structures, billboards and large signage are not allowed. Only light huts that are moveable and have no foundations. The tree line in the first 50 metres has to stay.</p>
-        <p class="tiny">Now do the geometry. A 1,000 sqm lot with 20 metres of frontage is 50 metres deep, so a 50 metre setback consumes all of it. A 400 sqm lot on that beach is almost certainly inside the easement end to end. A lot marketed as beachfront that is wholly inside a no-build zone is worth a fraction of the asking price.</p>
-        <p class="tiny" style="margin-bottom:0">So before you pay anyone, get the survey plan with the frontage and depth on it, and ask the Municipal Planning Office to state in writing how many square metres of that specific parcel are buildable. In writing, not on the phone.</p>
+        <p class="fbody">San Vicente's tourism master plan sets a 50 metre easement from the mean high water mark along the whole mainland coast, double the national baseline. Inside it, permanent structures, billboards and large signage are not allowed. Only light huts that are moveable and have no foundations. The tree line in the first 50 metres has to stay.</p>
+        <p class="fbody">Now do the geometry. A 1,000 sqm lot with 20 metres of frontage is 50 metres deep, so a 50 metre setback consumes all of it. A 400 sqm lot on that beach is almost certainly inside the easement end to end. A lot marketed as beachfront that is wholly inside a no-build zone is worth a fraction of the asking price.</p>
+        <p class="fbody" style="margin-bottom:0">So before you pay anyone, get the survey plan with the frontage and depth on it, and ask the Municipal Planning Office to state in writing how many square metres of that specific parcel are buildable. In writing, not on the phone.</p>
         <div class="src-list">
           <a class="src" href="https://tieza.gov.ph/wp-content/uploads/2015/11/Executive-Summary-of-Tourism-Master-Plans-of-San-Vicente-Flagship-Tourism-Enterprise-Zone.pdf" target="_blank" rel="noopener noreferrer">TIEZA master plan, physical development standards</a>
         </div>
       </article>
 
-      <article class="card" style="border-color:var(--glass);border-left-width:3px">
-        <span class="chip chip-v" style="margin-bottom:12px">Finding two</span>
+      <article class="card finding">
+        <span class="chip chip-n">Finding two</span><span class="finding-grade grade-v">DENR and the proclamation</span>
         <h3 style="margin-bottom:10px">Two overlays split your list, and they agree</h3>
-        <p class="tiny">The designated tourism zone is Cluster 1, the 883 hectare strip along Long Beach across Poblacion, New Agutaya, San Isidro and Alimanguan. Port Barton is Cluster 2 and was never taken forward, so the 50 metre rule, the height limit and the occupancy cap most likely do not attach there.</p>
-        <p class="tiny">Then there is a second overlay nobody mentions. Proclamation 342 of 2000 declared the Malampaya Sound protected area across Taytay and San Vicente, and DENR names the four San Vicente barangays it reaches. Santo Niño, Alimanguan, New Canipo and Binga.</p>
-        <p class="tiny">So your first choice is inside a protected area, about 5.2 kilometres past the line. New Canipo, the barangay you called New Capio, sits 12.6 kilometres inside. Binga is 16.1 kilometres inside. Alimanguan straddles the boundary, which crosses the coast along its southern edge.</p>
-        <p class="tiny" style="margin-bottom:0">Port Barton is 22 kilometres clear of it and outside the tourism zone as well. Both overlays point the same way, and it is also where the only in-band beachfront lot with a live link actually sits. Confirm the line with DENR rather than taking it from here, and note that land inside a protected area is generally not alienable, which means no new title over it.</p>
+        <p class="fbody">The designated tourism zone is Cluster 1, the 883 hectare strip along Long Beach across Poblacion, New Agutaya, San Isidro and Alimanguan. Port Barton is Cluster 2 and was never taken forward, so the 50 metre rule, the height limit and the occupancy cap most likely do not attach there.</p>
+        <p class="fbody">Then there is a second overlay nobody mentions. Proclamation 342 of 2000 declared the Malampaya Sound protected area across Taytay and San Vicente, and DENR names the four San Vicente barangays it reaches. Santo Niño, Alimanguan, New Canipo and Binga.</p>
+        <p class="fbody">So your first choice is inside a protected area, about 5.2 kilometres past the line. New Canipo, the barangay you called New Capio, sits 12.6 kilometres inside. Binga is 16.1 kilometres inside. Alimanguan straddles the boundary, which crosses the coast along its southern edge.</p>
+        <p class="fbody" style="margin-bottom:0">Port Barton is 22 kilometres clear of it and outside the tourism zone as well. Both overlays point the same way, and it is also where the only in-band beachfront lot with a live link actually sits. Confirm the line with DENR rather than taking it from here, and note that land inside a protected area is generally not alienable, which means no new title over it.</p>
       </article>
 
-      <article class="card" style="border-color:var(--amber);border-left-width:3px">
-        <span class="chip chip-r" style="margin-bottom:12px">Finding three</span>
+      <article class="card finding">
+        <span class="chip chip-n">Finding three</span><span class="finding-grade grade-v">59 listings, read directly</span>
         <h3 style="margin-bottom:10px">The market is not discounting untitled land</h3>
-        <p class="tiny">Across 59 listings, lots claiming a clean title and lots offering only a tax declaration sit in the same price bands. That should not happen. A tax declaration is a claim, not ownership, and turning one into a title takes years and might not be possible at all if the land is not Alienable and Disposable.</p>
-        <p class="tiny" style="margin-bottom:0">The market's failure to price that is your opening. Refuse to pay titled money for a tax declaration, and say why. Very few buyers in this market can explain the difference, so the ones who can get listened to.</p>
+        <p class="fbody">Across 59 listings, lots claiming a clean title and lots offering only a tax declaration sit in the same price bands. That should not happen. A tax declaration is a claim, not ownership, and turning one into a title takes years and might not be possible at all if the land is not Alienable and Disposable.</p>
+        <p class="fbody" style="margin-bottom:0">The market's failure to price that is your opening. Refuse to pay titled money for a tax declaration, and say why. Very few buyers in this market can explain the difference, so the ones who can get listened to.</p>
       </article>
 
-      <article class="card" style="border-color:var(--sand);border-left-width:3px">
-        <span class="chip chip-i" style="margin-bottom:12px">Finding four</span>
+      <article class="card finding">
+        <span class="chip chip-n">Finding four</span><span class="finding-grade grade-v">Two independent sweeps</span>
         <h3 style="margin-bottom:10px">Your size band barely exists on the open market</h3>
-        <p class="tiny">San Vicente beachfront sells by the hectare. Of everything logged in two independent sweeps, three listings fit 400 to 1,000 square metres and front the sea, and only one of those sits in a top-two barangay with a link you can open. Small cuts also carry a steep premium. Buying 800 square metres costs two to three times per square metre what buying a hectare costs.</p>
-        <p class="tiny" style="margin-bottom:0">Which points at a different play. One 10 hectare Port Barton parcel with 300 metres of frontage asks ₱650 per square metre, roughly fifteen times cheaper than the retail cuts. Asking a bulk owner to carve one lot is slower and needs a surveyor, but the arithmetic is not close.</p>
+        <p class="fbody">San Vicente beachfront sells by the hectare. Of everything logged in two independent sweeps, three listings fit 400 to 1,000 square metres and front the sea, and only one of those sits in a top-two barangay with a link you can open. Small cuts also carry a steep premium. Buying 800 square metres costs two to three times per square metre what buying a hectare costs.</p>
+        <p class="fbody" style="margin-bottom:0">Which points at a different play. One 10 hectare Port Barton parcel with 300 metres of frontage asks ₱650 per square metre, roughly fifteen times cheaper than the retail cuts. Asking a bulk owner to carve one lot is slower and needs a surveyor, but the arithmetic is not close.</p>
       </article>
 
-      <article class="card" style="border-color:var(--coral);border-left-width:3px">
-        <span class="chip chip-k" style="margin-bottom:12px">Finding five</span>
+      <article class="card finding">
+        <span class="chip chip-n">Finding five</span><span class="finding-grade grade-v">PAGASA post season analysis</span>
         <h3 style="margin-bottom:10px">Palawan is not outside the typhoon belt</h3>
-        <p class="tiny">Every seller on this coast says it is. PAGASA's own post-season analysis says otherwise. Super Typhoon Odette made landfall at Roxas, the municipality next door, in December 2021, wind signals three and four went up over Palawan, and the best-track fixes put San Vicente inside the 64 knot radius.</p>
-        <p class="tiny">What is true is milder and more useful. PAGASA's wind hazard maps put Palawan one class below most of Luzon and the Visayas, not outside anything. Palawan's five hundred year wind is roughly Central Luzon's fifty year wind.</p>
-        <p class="tiny" style="margin-bottom:0">So build for Odette rather than for a brochure, and check the surge. PAGASA's surge bands go above three metres, and every coastal barangay centre here sits between 3.1 and 6.7 metres. A beach lot sits lower than that.</p>
+        <p class="fbody">Every seller on this coast says it is. PAGASA's own post-season analysis says otherwise. Super Typhoon Odette made landfall at Roxas, the municipality next door, in December 2021, wind signals three and four went up over Palawan, and the best-track fixes put San Vicente inside the 64 knot radius.</p>
+        <p class="fbody">What is true is milder and more useful. PAGASA's wind hazard maps put Palawan one class below most of Luzon and the Visayas, not outside anything. Palawan's five hundred year wind is roughly Central Luzon's fifty year wind.</p>
+        <p class="fbody" style="margin-bottom:0">So build for Odette rather than for a brochure, and check the surge. PAGASA's surge bands go above three metres, and every coastal barangay centre here sits between 3.1 and 6.7 metres. A beach lot sits lower than that.</p>
       </article>
     </div>
 
@@ -791,19 +819,24 @@ html[data-theme="light"] .toast { color: #fff; }
         </div>
 
         <div class="field">
-          <label for="cSize">Lot size <span class="tiny mono" id="cSizeOut" style="float:right">870 sqm</span></label>
-          <input type="range" id="cSize" min="300" max="2000" step="1" value="870" aria-describedby="cSizeOut">
+          <label for="cSize">Lot size<span class="readout"><input id="cSizeNum" class="num-in" type="number" inputmode="numeric" min="300" max="2000" step="1" value="870" aria-label="Lot size in square metres"><span class="unit">sqm</span></span></label>
+          <input type="range" id="cSize" min="300" max="2000" step="1" value="870">
+          <span class="scale"><span>300</span><span>2,000 sqm</span></span>
         </div>
 
         <div class="field">
-          <label for="cRate">Price per square metre <span class="tiny mono" id="cRateOut" style="float:right">₱9,750/sqm</span></label>
-          <input type="range" id="cRate" min="1000" max="30000" step="25" value="9750" aria-describedby="cRateOut">
+          <label for="cRate">Price per square metre<span class="readout"><span class="unit">₱</span><input id="cRateNum" class="num-in" type="number" inputmode="numeric" min="1000" max="30000" step="25" value="9750" aria-label="Price per square metre in pesos"></span></label>
+          <input type="range" id="cRate" min="1000" max="30000" step="25" value="9750">
+          <span class="scale"><span>₱1,000</span><span>₱30,000</span></span>
         </div>
 
         <div class="field">
-          <label for="cFront">Beach frontage in metres <span class="tiny mono" id="cFrontOut" style="float:right">16.66 m</span></label>
-          <input type="range" id="cFront" min="5" max="60" step="0.01" value="16.66" aria-describedby="cFrontOut">
+          <label for="cFront">Beach frontage<span class="readout"><input id="cFrontNum" class="num-in" type="number" inputmode="decimal" min="5" max="60" step="0.01" value="16.66" aria-label="Beach frontage in metres"><span class="unit">m</span></span></label>
+          <input type="range" id="cFront" min="5" max="60" step="0.01" value="16.66">
+          <span class="scale"><span>5 m</span><span>60 m</span></span>
         </div>
+
+        <hr class="field-rule">
 
         <div class="field">
           <label for="cZone">Shore easement that applies to this land</label>
@@ -2258,7 +2291,7 @@ outreach: [
     var sellerPays = $("#cWho").value === "seller";
     var total = land + (sellerPays ? buyerSide : withSeller);
 
-    $("#rTotal").textContent = php(total);
+    $("#rTotal").innerHTML = '<span class="cur">\u20b1</span>' + php(total).slice(1);
     $("#rUsd").textContent = usd(total) + " at " + USD + " to the dollar";
     $("#rGap").innerHTML = usable > 0
       ? "The shore easement takes <b>" + Math.round(strip).toLocaleString("en-US") + " sqm</b> of that lot into public land. You are really paying <b>"
@@ -2282,13 +2315,44 @@ outreach: [
     if (mn) mn.textContent = php(total);
     if (ms) ms.textContent = usable > 0 ? Math.round(usable).toLocaleString("en-US") + " sqm buildable" : "nothing buildable";
 
-    $("#cSizeOut").textContent = size.toLocaleString("en-US") + " sqm";
-    $("#cRateOut").textContent = php(rate) + "/sqm";
-    $("#cFrontOut").textContent = front + " m";
+    // Mirror the sliders into the number fields, except the one being typed in.
+    syncNum("cSizeNum", size);
+    syncNum("cRateNum", rate);
+    syncNum("cFrontNum", front);
+    fillTrack("cSize"); fillTrack("cRate"); fillTrack("cFront");
+  }
+
+  function syncNum(id, v) {
+    var e = document.getElementById(id);
+    if (e && document.activeElement !== e) e.value = v;
+  }
+
+  // Paint the portion of the track behind the thumb, so the range is legible.
+  function fillTrack(id) {
+    var e = document.getElementById(id);
+    if (!e) return;
+    var min = +e.min, max = +e.max;
+    e.style.setProperty("--pct", ((+e.value - min) / (max - min) * 100).toFixed(2) + "%");
   }
 
   function bindCalc() {
     if (!$("#cSize")) return;
+    // A broker sends an exact asking price. A slider cannot reach it, so each one
+    // gets a number field bound to it in both directions.
+    [["cSizeNum", "cSize"], ["cRateNum", "cRate"], ["cFrontNum", "cFront"]].forEach(function (p) {
+      var num = document.getElementById(p[0]), rng = document.getElementById(p[1]);
+      if (!num || !rng) return;
+      num.addEventListener("input", function () {
+        if (num.value === "") return;
+        var v = Math.min(Math.max(+num.value, +rng.min), +rng.max);
+        rng.value = v;
+        calc();
+      });
+      num.addEventListener("blur", function () {
+        var v = Math.min(Math.max(+num.value || +rng.min, +rng.min), +rng.max);
+        num.value = v; rng.value = v; calc();
+      });
+    });
     ["cSize", "cRate", "cFront", "cZone", "cWho"].forEach(function (id) {
       var e = $("#" + id); if (e) { e.addEventListener("input", calc); e.addEventListener("change", calc); }
     });
@@ -2296,6 +2360,7 @@ outreach: [
       b.addEventListener("click", function () {
         var p = JSON.parse(b.getAttribute("data-preset"));
         $("#cSize").value = p.s; $("#cRate").value = p.r; $("#cFront").value = p.f;
+        ["cSizeNum","cRateNum","cFrontNum"].forEach(function(id,i){var e=document.getElementById(id); if(e) e.value=[p.s,p.r,p.f][i];});
         $$("[data-preset]").forEach(function (x) { x.classList.remove("btn-p"); });
         b.classList.add("btn-p");
         calc();
@@ -2376,7 +2441,7 @@ outreach: [
     if (b) { var src = document.getElementById(b.getAttribute("data-copy")); if (src) copyText(src.textContent, "Draft copied"); return; }
     if (e.target.closest("#copyResult")) {
       var t = "San Vicente Palawan lot costing\n"
-        + $("#cSizeOut").textContent + " at " + $("#cRateOut").textContent + "\n"
+        + (+$("#cSize").value).toLocaleString("en-US") + " sqm at " + php(+$("#cRate").value) + "/sqm\n"
         + "Cash needed " + $("#rTotal").textContent + " (" + $("#rUsd").textContent + ")\n"
         + $("#rGap").textContent + "\n"
         + DATA.meta.url;
