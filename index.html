@@ -2110,18 +2110,38 @@ outreach: [
   }
 
   /* ---------- scroll spy ---------- */
+  // Position based rather than intersection based. An IntersectionObserver fires for every
+  // section crossed during a jump scroll and the last callback wins, which lands on the
+  // wrong pill. Reading scroll position picks the right one every time.
   function bindSpy() {
-    var links = $$(".subnav a"), map = {};
-    links.forEach(function (a) { var t = document.getElementById(a.getAttribute("href").slice(1)); if (t) map[a.getAttribute("href").slice(1)] = a; });
-    var obs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        links.forEach(function (a) { a.classList.remove("on"); });
-        var a = map[en.target.id];
-        if (a) { a.classList.add("on"); a.scrollIntoView({ block: "nearest", inline: "nearest" }); }
-      });
-    }, { rootMargin: "-25% 0px -68% 0px", threshold: 0 });
-    Object.keys(map).forEach(function (id) { obs.observe(document.getElementById(id)); });
+    var links = $$(".subnav a");
+    var targets = links.map(function (a) {
+      return { a: a, el: document.getElementById(a.getAttribute("href").slice(1)) };
+    }).filter(function (t) { return t.el; });
+    if (!targets.length) return;
+
+    var current = null, ticking = false;
+    function update() {
+      ticking = false;
+      var line = window.scrollY + (window.innerHeight * 0.28);
+      var active = targets[0];
+      for (var i = 0; i < targets.length; i++) {
+        if (targets[i].el.getBoundingClientRect().top + window.scrollY <= line) active = targets[i];
+      }
+      if (active === current) return;
+      current = active;
+      links.forEach(function (a) { a.classList.remove("on"); });
+      active.a.classList.add("on");
+      active.a.scrollIntoView({ block: "nearest", inline: "nearest" });
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    update();
   }
 
   /* ---------- boot ---------- */
