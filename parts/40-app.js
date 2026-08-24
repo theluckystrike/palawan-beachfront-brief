@@ -336,15 +336,32 @@
     toastEl._t = setTimeout(function () { toastEl.classList.remove("on"); }, 2100);
   }
   function copyText(t, label) {
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(t).then(function () { toast(label || "Copied"); }, function () { toast("Copy blocked, select the text"); });
-    } else {
-      var ta = document.createElement("textarea"); ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
-      document.body.appendChild(ta); ta.select();
-      try { document.execCommand("copy"); toast(label || "Copied"); } catch (e) { toast("Copy blocked"); }
+    // The async clipboard API rejects in plenty of real browsers, Safari and embedded
+    // webviews included, so a rejection falls through to the old method rather than
+    // dead-ending on a message the user cannot act on.
+    function legacy() {
+      var ta = document.createElement("textarea");
+      ta.value = t;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.top = "0";
+      ta.style.left = "0";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, t.length);
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
       document.body.removeChild(ta);
+      toast(ok ? (label || "Copied") : "Copy did not work here, use the browser menu");
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(t).then(function () { toast(label || "Copied"); }, legacy);
+    } else {
+      legacy();
     }
   }
+
   document.addEventListener("click", function (e) {
     var b = e.target.closest("[data-copy]");
     if (b) { var src = document.getElementById(b.getAttribute("data-copy")); if (src) copyText(src.textContent, "Draft copied"); return; }
