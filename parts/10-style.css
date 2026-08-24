@@ -462,6 +462,9 @@ html[data-theme="light"] .toast { color: #fff; }
   .calc { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
   .field { margin-bottom: 12px; }
   .mini-result { display: none; }
+  /* Keep the primary figure and the gap line in one screen. The breakdown is still
+     all there, it just scrolls inside the card instead of pushing it two screens tall. */
+  .brk { max-height: 132px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 }
 
 @media (pointer: coarse) {
