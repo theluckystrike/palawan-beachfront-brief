@@ -407,8 +407,8 @@
     if (!mini || !sect || !card) return;
     var ticking = false;
     function place() {
-      var hdr = document.querySelector(".hdr"), sub = document.querySelector(".subnav");
-      mini.style.top = ((hdr ? hdr.offsetHeight : 58) + (sub ? sub.offsetHeight : 50)) + "px";
+      var bar = document.querySelector(".topbar");
+      mini.style.top = (bar && bar.offsetParent !== null ? bar.offsetHeight : 0) + "px";
     }
     function update() {
       ticking = false;
@@ -517,26 +517,30 @@
   /* ---------- theme ---------- */
   function bindTheme() {
     var btn = $("#themeBtn"); if (!btn) return;
+    // No explicit choice means follow the operating system, which is what Apple does.
+    var stored = null;
+    try { stored = localStorage.getItem("pbb.theme"); } catch (e) {}
+    if (stored) document.documentElement.setAttribute("data-theme", stored);
     btn.addEventListener("click", function () {
-      var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      var isDark = document.documentElement.getAttribute("data-theme") === "dark"
+        || (!document.documentElement.getAttribute("data-theme")
+            && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      var next = isDark ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", next);
       try { localStorage.setItem("pbb.theme", next); } catch (e) {}
       btn.setAttribute("aria-label", next === "dark" ? "Switch to light theme" : "Switch to dark theme");
     });
   }
 
-  /* ---------- scroll spy ---------- */
-  // Position based rather than intersection based. An IntersectionObserver fires for every
-  // section crossed during a jump scroll and the last callback wins, which lands on the
-  // wrong pill. Reading scroll position picks the right one every time.
+  /* ---------- rail: active section ---------- */
+  // Position based rather than intersection based. An observer fires for every section
+  // crossed during a jump and the last callback wins, which lands on the wrong item.
   function bindSpy() {
-    var links = $$(".subnav a");
+    var links = $$(".sidenav-list a");
     var targets = links.map(function (a) {
       return { a: a, el: document.getElementById(a.getAttribute("href").slice(1)) };
     }).filter(function (t) { return t.el; });
     if (!targets.length) return;
-    // Sort by position in the document. The nav can list sections in any order, and a
-    // last-match scan over nav order would pick the wrong one whenever the two differ.
     targets.sort(function (x, y) {
       return (x.el.compareDocumentPosition(y.el) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1;
     });
@@ -546,19 +550,22 @@
     function setActive(t) {
       if (t === current) return;
       current = t;
-      links.forEach(function (a) { a.classList.remove("on"); });
-      t.a.classList.add("on");
-      t.a.scrollIntoView({ block: "nearest", inline: "nearest" });
+      links.forEach(function (a) { a.removeAttribute("aria-current"); });
+      t.a.setAttribute("aria-current", "true");
+      // keep the active item in view inside the rail without moving the page
+      var rail = document.getElementById("sidenav");
+      if (rail && rail.scrollHeight > rail.clientHeight) {
+        var r = t.a.getBoundingClientRect(), rr = rail.getBoundingClientRect();
+        if (r.top < rr.top + 8 || r.bottom > rr.bottom - 8) {
+          rail.scrollTop += r.top - rr.top - rr.height / 2 + r.height / 2;
+        }
+      }
     }
 
     function update() {
       ticking = false;
       if (Date.now() < lockUntil) return;
-      // Just under the sticky header and pill bar, but never less than a third of the
-      // viewport, so a section that lands low after a jump still registers.
-      var hdr = document.querySelector(".hdr"), sub = document.querySelector(".subnav");
-      var chrome = (hdr ? hdr.offsetHeight : 58) + (sub ? sub.offsetHeight : 50) + 24;
-      var line = Math.max(chrome, window.innerHeight * 0.34);
+      var line = Math.max(120, window.innerHeight * 0.3);
       var active = targets[0];
       for (var i = 0; i < targets.length; i++) {
         if (targets[i].el.getBoundingClientRect().top <= line) active = targets[i];
@@ -566,24 +573,73 @@
       setActive(active);
     }
 
-    // A click is not a guess. Light the pill the user just tapped and hold it while the
-    // smooth scroll runs, otherwise the scroll handler fights the animation.
-    targets.forEach(function (t) {
-      t.a.addEventListener("click", function () {
-        lockUntil = Date.now() + 900;
-        setActive(t);
-      });
-    });
-
     function onScroll() {
       if (ticking) return;
       ticking = true;
       window.requestAnimationFrame(update);
     }
 
+    // A tap is not a guess. Light the item immediately and hold it while the smooth
+    // scroll runs, and on a phone close the drawer behind it.
+    targets.forEach(function (t) {
+      t.a.addEventListener("click", function () {
+        lockUntil = Date.now() + 900;
+        setActive(t);
+        closeNav();
+      });
+    });
+
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
     update();
+  }
+
+  /* ---------- rail: mobile drawer ---------- */
+  var lastFocus = null;
+
+  function openNav() {
+    lastFocus = document.activeElement;
+    document.documentElement.classList.add("nav-open");
+    var t = $("#navToggle"), s = $("#scrim");
+    if (t) t.setAttribute("aria-expanded", "true");
+    if (s) s.hidden = false;
+    var first = $(".sidenav-list a");
+    if (first) first.focus({ preventScroll: true });
+  }
+
+  function closeNav() {
+    if (!document.documentElement.classList.contains("nav-open")) return;
+    document.documentElement.classList.remove("nav-open");
+    var t = $("#navToggle"), s = $("#scrim");
+    if (t) t.setAttribute("aria-expanded", "false");
+    if (s) s.hidden = true;
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
+
+  function bindNav() {
+    var toggle = $("#navToggle");
+    if (toggle) toggle.addEventListener("click", function () {
+      document.documentElement.classList.contains("nav-open") ? closeNav() : openNav();
+    });
+    var close = $("#navClose");
+    if (close) close.addEventListener("click", closeNav);
+    var scrim = $("#scrim");
+    if (scrim) scrim.addEventListener("click", closeNav);
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeNav();
+      if (e.key !== "Tab" || !document.documentElement.classList.contains("nav-open")) return;
+      // hold focus inside the drawer while it is open
+      var f = $$("#sidenav a, #sidenav button").filter(function (el) { return el.offsetParent !== null; });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth >= 1024) closeNav();
+    }, { passive: true });
   }
 
   /* ---------- boot ---------- */
@@ -605,7 +661,7 @@
     $("#srcCount").textContent = DATA.meta.sources_checked;
     renderCoast(); renderTable(); renderDossiers(); renderContacts();
     renderChecklist(); renderMisc(); renderOutreach();
-    bindCalc(); bindTheme(); bindSpy();
+    bindCalc(); bindTheme(); bindNav(); bindSpy();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();
