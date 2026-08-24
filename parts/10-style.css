@@ -233,6 +233,34 @@ td .lid { font-family: var(--f-mono); font-weight: 600; color: var(--sand); }
 .score-bar { width: 44px; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--ink-3) 25%, transparent); overflow: hidden; flex: 0 0 auto; }
 .score-bar i { display: block; height: 100%; background: var(--sand); border-radius: 3px; }
 
+/* Below md an eight column table is hostile on a phone, so each row becomes a card
+   and the column headers move inline via data-label. */
+@media (max-width: 767px) {
+  .tbl-scroll.cards { overflow-x: visible; border: none; background: none; border-radius: 0; }
+  .tbl-scroll.cards table { min-width: 0; display: block; }
+  .tbl-scroll.cards thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .tbl-scroll.cards tbody, .tbl-scroll.cards tr, .tbl-scroll.cards td { display: block; width: 100%; }
+  .tbl-scroll.cards tr {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+    padding: 6px 16px 10px; margin-bottom: 10px;
+  }
+  .tbl-scroll.cards tr.no-src { opacity: .78; border-style: dashed; }
+  .tbl-scroll.cards td {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+    padding: 9px 0; border-bottom: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+    text-align: right;
+  }
+  .tbl-scroll.cards td:last-child { border-bottom: none; }
+  .tbl-scroll.cards td::before {
+    content: attr(data-label);
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--ink-3); text-align: left; flex: 0 0 auto; padding-top: 2px;
+  }
+  .tbl-scroll.cards td .tiny { text-align: right; }
+  .tbl-scroll.cards td .score-cell { justify-content: flex-end; }
+  .tbl-scroll.cards tr td:first-child { border-bottom: 1px solid var(--border); padding-top: 12px; }
+}
+
 /* ---------------- the calculator ---------------- */
 .calc { display: grid; gap: var(--sp-5); }
 @media (min-width: 900px) { .calc { grid-template-columns: minmax(0,1fr) minmax(0,1.05fr); align-items: start; } }

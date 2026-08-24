@@ -65,18 +65,21 @@
     var b = $("#leadRows"); if (!b) return;
     var rows = ranked();
     b.innerHTML = rows.map(function (l) {
-      return '<tr' + (actionable(l) ? "" : ' style="opacity:.72"') + ">"
-        + '<td><span class="lid">' + esc(l.id) + "</span>"
-        + (actionable(l) ? "" : '<div class="tiny" style="color:var(--coral)">no source</div>') + "</td>"
-        + "<td><b>" + esc(l.loc) + "</b>" + (l.sitio ? '<div class="tiny">' + esc(l.sitio) + "</div>" : "") + "</td>"
-        + '<td class="num">' + (l.size ? Number(l.size).toLocaleString("en-US") : "—") + "</td>"
-        + "<td>" + esc(l.tenure) + "</td>"
-        + '<td class="num">' + php(l.price_php) + (l.price_php ? '<div class="tiny num">' + usd(l.price_php) + "</div>" : "") + "</td>"
-        + '<td class="num">' + (l.sqm_php ? php(l.sqm_php) : "—") + "</td>"
-        + "<td>" + esc(l.access || "unknown") + "</td>"
-        + "<td>" + chip(l.evid) + "</td>"
-        + '<td><div class="score-cell"><span class="num" style="min-width:2.2ch">' + (l.score == null ? "—" : l.score)
-        + '</span><span class="score-bar"><i style="width:' + (l.score || 0) + '%"></i></span></div></td>'
+      function td(label, inner, cls) {
+        return '<td data-label="' + label + '"' + (cls ? ' class="' + cls + '"' : "") + ">" + inner + "</td>";
+      }
+      return '<tr' + (actionable(l) ? "" : ' class="no-src"') + ">"
+        + td("Lot", '<span class="lid">' + esc(l.id) + "</span>"
+            + (actionable(l) ? "" : '<span class="tiny" style="color:var(--coral)"> no source</span>'))
+        + td("Location", "<b>" + esc(l.loc) + "</b>" + (l.sitio ? '<div class="tiny">' + esc(l.sitio) + "</div>" : ""))
+        + td("Size", (l.size ? Number(l.size).toLocaleString("en-US") + " sqm" : "—"), "num")
+        + td("Tenure claim", esc(l.tenure))
+        + td("Asking", php(l.price_php) + (l.price_php ? '<div class="tiny num">' + usd(l.price_php) + "</div>" : ""), "num")
+        + td("Per sqm", (l.sqm_php ? php(l.sqm_php) : "—"), "num")
+        + td("Access", esc(l.access || "unknown"))
+        + td("Evidence", chip(l.evid))
+        + td("Score", '<div class="score-cell"><span class="num" style="min-width:2.2ch">' + (l.score == null ? "—" : l.score)
+            + '</span><span class="score-bar"><i style="width:' + (l.score || 0) + '%"></i></span></div>')
         + "</tr>";
     }).join("");
     var n = $("#leadCount"); if (n) n.textContent = DATA.leads.length;

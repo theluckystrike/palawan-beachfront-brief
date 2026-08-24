@@ -296,6 +296,34 @@ td .lid { font-family: var(--f-mono); font-weight: 600; color: var(--sand); }
 .score-bar { width: 44px; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--ink-3) 25%, transparent); overflow: hidden; flex: 0 0 auto; }
 .score-bar i { display: block; height: 100%; background: var(--sand); border-radius: 3px; }
 
+/* Below md an eight column table is hostile on a phone, so each row becomes a card
+   and the column headers move inline via data-label. */
+@media (max-width: 767px) {
+  .tbl-scroll.cards { overflow-x: visible; border: none; background: none; border-radius: 0; }
+  .tbl-scroll.cards table { min-width: 0; display: block; }
+  .tbl-scroll.cards thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .tbl-scroll.cards tbody, .tbl-scroll.cards tr, .tbl-scroll.cards td { display: block; width: 100%; }
+  .tbl-scroll.cards tr {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+    padding: 6px 16px 10px; margin-bottom: 10px;
+  }
+  .tbl-scroll.cards tr.no-src { opacity: .78; border-style: dashed; }
+  .tbl-scroll.cards td {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+    padding: 9px 0; border-bottom: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+    text-align: right;
+  }
+  .tbl-scroll.cards td:last-child { border-bottom: none; }
+  .tbl-scroll.cards td::before {
+    content: attr(data-label);
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--ink-3); text-align: left; flex: 0 0 auto; padding-top: 2px;
+  }
+  .tbl-scroll.cards td .tiny { text-align: right; }
+  .tbl-scroll.cards td .score-cell { justify-content: flex-end; }
+  .tbl-scroll.cards tr td:first-child { border-bottom: 1px solid var(--border); padding-top: 12px; }
+}
+
 /* ---------------- the calculator ---------------- */
 .calc { display: grid; gap: var(--sp-5); }
 @media (min-width: 900px) { .calc { grid-template-columns: minmax(0,1fr) minmax(0,1.05fr); align-items: start; } }
@@ -635,17 +663,17 @@ html[data-theme="light"] .toast { color: #fff; }
       <h2>The shortlist</h2>
       <p><b id="leadCount">0</b> candidates that survived the kill filters, scored out of 100. Location is worth 20, size 15, tenure 25, access 15, utilities 10, price 10 and how much of it I could verify is worth 5. Prices are asking prices. The Philippines has no public sold-price register, so nobody, including any agent you speak to, actually knows what these lots trade for. Leads with no source page you can open are ranked last no matter what they score, because a lot you cannot phone anybody about is not really a candidate.</p>
     </div>
-    <div class="tbl-scroll">
+    <div class="tbl-scroll cards">
       <table>
         <caption class="sr">Ranked beachfront lot candidates in San Vicente, Palawan</caption>
         <thead><tr>
-          <th scope="col">ID</th><th scope="col">Location</th><th scope="col">Size</th><th scope="col">Tenure claim</th>
+          <th scope="col">Lot</th><th scope="col">Location</th><th scope="col">Size</th><th scope="col">Tenure claim</th>
           <th scope="col">Asking</th><th scope="col">Per sqm</th><th scope="col">Access</th><th scope="col">Evidence</th><th scope="col">Score</th>
         </tr></thead>
         <tbody id="leadRows"></tbody>
       </table>
     </div>
-    <p class="tiny" style="margin-top:12px">Swipe the table sideways on a phone. Every number in it came from a listing page that was live when this ran, and each candidate's sources sit in its dossier below.</p>
+    <p class="tiny" style="margin-top:12px">Every number here came from a listing page that was live when this ran, and each candidate's sources sit in its dossier below.</p>
   </div>
 </section>
 <section class="sect" id="calculator">
@@ -1823,18 +1851,21 @@ outreach: [
     var b = $("#leadRows"); if (!b) return;
     var rows = ranked();
     b.innerHTML = rows.map(function (l) {
-      return '<tr' + (actionable(l) ? "" : ' style="opacity:.72"') + ">"
-        + '<td><span class="lid">' + esc(l.id) + "</span>"
-        + (actionable(l) ? "" : '<div class="tiny" style="color:var(--coral)">no source</div>') + "</td>"
-        + "<td><b>" + esc(l.loc) + "</b>" + (l.sitio ? '<div class="tiny">' + esc(l.sitio) + "</div>" : "") + "</td>"
-        + '<td class="num">' + (l.size ? Number(l.size).toLocaleString("en-US") : "—") + "</td>"
-        + "<td>" + esc(l.tenure) + "</td>"
-        + '<td class="num">' + php(l.price_php) + (l.price_php ? '<div class="tiny num">' + usd(l.price_php) + "</div>" : "") + "</td>"
-        + '<td class="num">' + (l.sqm_php ? php(l.sqm_php) : "—") + "</td>"
-        + "<td>" + esc(l.access || "unknown") + "</td>"
-        + "<td>" + chip(l.evid) + "</td>"
-        + '<td><div class="score-cell"><span class="num" style="min-width:2.2ch">' + (l.score == null ? "—" : l.score)
-        + '</span><span class="score-bar"><i style="width:' + (l.score || 0) + '%"></i></span></div></td>'
+      function td(label, inner, cls) {
+        return '<td data-label="' + label + '"' + (cls ? ' class="' + cls + '"' : "") + ">" + inner + "</td>";
+      }
+      return '<tr' + (actionable(l) ? "" : ' class="no-src"') + ">"
+        + td("Lot", '<span class="lid">' + esc(l.id) + "</span>"
+            + (actionable(l) ? "" : '<span class="tiny" style="color:var(--coral)"> no source</span>'))
+        + td("Location", "<b>" + esc(l.loc) + "</b>" + (l.sitio ? '<div class="tiny">' + esc(l.sitio) + "</div>" : ""))
+        + td("Size", (l.size ? Number(l.size).toLocaleString("en-US") + " sqm" : "—"), "num")
+        + td("Tenure claim", esc(l.tenure))
+        + td("Asking", php(l.price_php) + (l.price_php ? '<div class="tiny num">' + usd(l.price_php) + "</div>" : ""), "num")
+        + td("Per sqm", (l.sqm_php ? php(l.sqm_php) : "—"), "num")
+        + td("Access", esc(l.access || "unknown"))
+        + td("Evidence", chip(l.evid))
+        + td("Score", '<div class="score-cell"><span class="num" style="min-width:2.2ch">' + (l.score == null ? "—" : l.score)
+            + '</span><span class="score-bar"><i style="width:' + (l.score || 0) + '%"></i></span></div>')
         + "</tr>";
     }).join("");
     var n = $("#leadCount"); if (n) n.textContent = DATA.leads.length;
