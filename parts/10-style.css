@@ -186,7 +186,7 @@ img, svg { max-width: 100%; }
 .sidenav-list a .n { font-family: var(--f-mono); font-size: var(--t-3xs); color: var(--ink-3); min-width: 1.7em; flex: 0 0 auto; }
 .sidenav-list a:hover { background: var(--surface-3); color: var(--ink); text-decoration: none; }
 .sidenav-list a[aria-current="true"] { background: var(--accent-fill); color: #fff; font-weight: 500; }
-.sidenav-list a[aria-current="true"] .n { color: rgba(255,255,255,.86); }
+.sidenav-list a[aria-current="true"] .n { color: rgba(255,255,255,.95); }
 
 .sidenav-foot { margin-top: auto; padding: var(--s5) var(--s5) 0; display: flex; gap: var(--s2); }
 .icon-btn {
