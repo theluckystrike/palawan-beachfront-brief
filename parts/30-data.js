@@ -7,7 +7,7 @@ meta: {
   cycle: 8,
   generated: "24 Aug 2026",
   usd_rate: 57,
-  sources_checked: 356,
+  sources_checked: 467,
   url: "https://theluckystrike.github.io/palawan-beachfront-brief/"
 },
 
@@ -344,7 +344,7 @@ blockers: [
   { t: "No sold-price data exists in the Philippines", d: "There is no functioning national MLS with verified sold transactions. Every price on this page is an asking price, and anyone quoting you a market rate is extrapolating." },
   { t: "Advertiser contact details are hidden behind reveal gates", d: "Most portals hide the phone number until you click. Only Pearlview and Palawanders published numbers openly." },
   { t: "No disaster agency situation report for San Vicente", d: "The national disaster site refuses automated access and the humanitarian data API now refuses unregistered clients, so no damage or storm surge figures for San Vicente are claimed here. The typhoon picture itself is now closed, from PAGASA sources." },
-  { t: "Construction cost per sqm and the local schedule of market values", d: "Both blocked automated access. They are left empty rather than filled with a plausible number. The Municipal Assessor holds the schedule of market values, and three local contractor quotes beat any published average." }
+  { t: "The schedule of market values is not published, by design", d: "Real property tax is computed from it and it exists, 2024 vintage. No level of government publishes the values and the national upload portal has no public retrieval path. The Provincial Assessor approves it, not the municipal one. The way round it is to ask for the assessed value of one named parcel over the counter instead." }
 ],
 
 changelog: [
@@ -357,6 +357,7 @@ changelog: [
   { cycle: 7, when: "24 Aug", what: "Broker network mapped. Four apparently separate San Vicente agencies traced to one operator on a single hosting block." },
   { cycle: 8, when: "24 Aug", what: "Scored, deduped, and written up." },
   { cycle: 9, when: "24 Aug", what: "The slowest agent finished last and corrected four published claims. RA 10023's area cap is 750 sqm here rather than 1,000, a private house is exempt from the SEP clearance though not from the zoning check, San Vicente sits inside a 200,115 hectare protected area declared in 2000, and re-acquiring citizenship beats the 1,000 sqm cap outright. Report updated." },
+  { cycle: 13, when: "24 Aug", what: "Construction costs closed from permit data that names San Vicente. Seven residential permits in 2024 at 12,614 pesos per sqm declared. An eight fold spread across one province in one year shows what a declared value is worth. The island premium turns out to be measured by nobody." },
   { cycle: 12, when: "24 Aug", what: "Protected area boundary resolved barangay by barangay. Santo Niño, New Canipo and Binga sit inside Malampaya Sound, Alimanguan straddles it, Port Barton is 22 km clear. San Vicente confirmed a first class municipality, so the free patent cap is 750 sqm. Two published claims corrected, an unsupported hectarage removed and the El Nido order described accurately as partial." },
   { cycle: 11, when: "24 Aug", what: "Typhoon gap closed from PAGASA's own post-season analysis. Super Typhoon Odette made landfall in the next municipality in December 2021 and San Vicente sat inside its 64 knot radius, which refutes the claim every seller on this coast repeats." },
   { cycle: 10, when: "24 Aug", what: "Second wave sent after publication to close the gaps this page had admitted to. The Santo Niño lead is now dead rather than merely unverified. Four archived captures of Lamudi's San Vicente index across a year contain no 984 sqm lot, and Lamudi never had a Santo Niño category for this municipality. Real Santo Niño prices recovered instead." }
