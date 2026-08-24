@@ -68,6 +68,16 @@ Opens the live page in a phone sized Chrome window, walks the main sections and 
 
 The automated checks ran through Chrome DevTools Protocol instead, because osascript was blocked inside the agent session. Those checks cover more: 978 text nodes for contrast in both themes, five viewport widths, every nav link by click and by scroll, and every rendered link for new tab attribution.
 
+## The design review
+
+The three design prompts were run as their own pass, not just read. Two fresh reviewers scored the page independently against the ten dimension rubric, one taking hierarchy through colour, the other craft through resilience. They came back at 6.0 and 6.6, and both independently named the same worst failure.
+
+That failure was mine and it was real. The five evidence colours, which mean verified, reported, inferred and kill everywhere else on the page, were being spent as ordinal decoration on the five findings in the opening section. A reader met coral labelled Finding one before ever meeting the legend, which teaches him the colours are styling and quietly disarms the whole trust device. The findings now carry a neutral chip and an honest grade line instead.
+
+Fifteen other fixes came out of it. The accent now points at the cash figure rather than at two supporting numbers beside it, and that figure went from 1.12 to 1.30 times the headline on a phone. Every slider gained a typed field, because a broker sends an exact asking price and a slider cannot reach it. The tracks show where you are in the range. Every municipal phone number and email is now a tap. Each dossier says how many of its eight gates are answered, since the report's own warning is that a high score with eight unknowns means nobody has checked. Facts nobody established no longer look like measured ones. The reading measure was 90 characters and is now about 69.
+
+Four genuine bugs surfaced while fixing those. A hidden table header laid out at full width because position absolute is not honoured on a table header group. Two read-only lists were borrowing the checklist component, so their text sat against the border with no padding. The focus outline forced a 4px radius onto every pill and card it touched. And a government email in a flex link could not shrink, which pushed the page 26 pixels wider than the phone.
+
 ## Checks the page passes
 
 WCAG AA contrast on 978 text nodes in both themes, zero failures. No horizontal scroll and no overflowing elements at 375, 390, 768, 1280 and 1600 pixels. Zero JavaScript errors. Every control at least 44 pixels, inputs at 16 pixels so iOS does not zoom. The result figure stays the largest text at every width. Section nav correct on all 15 sections by click and by scroll. All 74 external links open in a new tab with noopener. Humanize scanner clean apart from one proper noun, the Malampaya Sound Protected Landscape and Seascape, which is the legal name from the proclamation and so is not rewritten.
