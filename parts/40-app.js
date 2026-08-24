@@ -25,6 +25,15 @@
   function sqm(n) { return n == null ? "size unknown" : Number(n).toLocaleString("en-US") + " sqm"; }
 
   var EVID = { VERIFIED: "chip-v", REPORTED: "chip-r", INFERRED: "chip-i", KILL: "chip-k", UNVERIFIED: "chip-u" };
+
+  // A lead with no source page cannot be acted on, so it never outranks one that can.
+  // This is the brief's own rule: nothing reaches the top three without a contact channel.
+  function actionable(l) { return l.src && l.src.length ? 1 : 0; }
+  function ranked() {
+    return DATA.leads.slice().sort(function (a, b) {
+      return (actionable(b) - actionable(a)) || ((b.score || 0) - (a.score || 0));
+    });
+  }
   function chip(tag) {
     var key = String(tag || "UNVERIFIED").split(" ")[0].toUpperCase();
     return '<span class="chip ' + (EVID[key] || "chip-u") + '">' + esc(tag) + "</span>";
@@ -54,10 +63,11 @@
   /* ---------- ranked table ---------- */
   function renderTable() {
     var b = $("#leadRows"); if (!b) return;
-    var rows = DATA.leads.slice().sort(function (a, c) { return (c.score || 0) - (a.score || 0); });
+    var rows = ranked();
     b.innerHTML = rows.map(function (l) {
-      return "<tr>"
-        + '<td><span class="lid">' + esc(l.id) + "</span></td>"
+      return '<tr' + (actionable(l) ? "" : ' style="opacity:.72"') + ">"
+        + '<td><span class="lid">' + esc(l.id) + "</span>"
+        + (actionable(l) ? "" : '<div class="tiny" style="color:var(--coral)">no source</div>') + "</td>"
         + "<td><b>" + esc(l.loc) + "</b>" + (l.sitio ? '<div class="tiny">' + esc(l.sitio) + "</div>" : "") + "</td>"
         + '<td class="num">' + (l.size ? Number(l.size).toLocaleString("en-US") : "—") + "</td>"
         + "<td>" + esc(l.tenure) + "</td>"
@@ -81,7 +91,10 @@
 
   function renderDossiers() {
     var el = $("#dossierList"); if (!el) return;
-    var top = DATA.leads.slice().sort(function (a, c) { return (c.score || 0) - (a.score || 0); }).slice(0, 5);
+    var all = ranked(), top = all.slice(0, 5);
+    // A high-scoring lead with no source still earns a card, at the bottom, so the job of
+    // finding it does not quietly vanish from the report.
+    all.slice(5).forEach(function (l) { if (!actionable(l) && (l.score || 0) >= 55) top.push(l); });
     el.innerHTML = top.map(function (l) {
       var facts = [
         ["Size", l.size ? sqm(l.size) : "unknown"],
@@ -116,6 +129,7 @@
         + '<div class="tiny">' + esc(l.size ? sqm(l.size) : "size unknown") + " · " + esc(l.tenure) + " · " + php(l.price_php) + " " + chip(l.evid) + "</div></div>"
         + '<div class="dossier-score"><div class="n num">' + (l.score == null ? "—" : l.score) + '</div><div class="l">score</div></div>'
         + "</div>"
+        + (actionable(l) ? "" : '<div style="padding:11px 16px;background:var(--coral-wash);border-bottom:1px solid var(--border);font-size:var(--t-xs);color:var(--coral)">Nothing to act on yet. No source page was recovered for this lead, so it is ranked below every lot you can actually phone about.</div>')
         + '<div class="dossier-bd">'
         + (l.note ? "<p>" + esc(l.note) + "</p>" : "")
         + '<div class="fact-grid">' + facts + "</div>"

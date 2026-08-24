@@ -625,7 +625,7 @@ html[data-theme="light"] .toast { color: #fff; }
     <div class="sect-head">
       <span class="sect-num">02</span>
       <h2>The shortlist</h2>
-      <p><b id="leadCount">0</b> candidates that survived the kill filters, scored out of 100. Location is worth 20, size 15, tenure 25, access 15, utilities 10, price 10 and how much of it I could verify is worth 5. Prices are asking prices. The Philippines has no public sold-price register, so nobody, including any agent you speak to, actually knows what these lots trade for.</p>
+      <p><b id="leadCount">0</b> candidates that survived the kill filters, scored out of 100. Location is worth 20, size 15, tenure 25, access 15, utilities 10, price 10 and how much of it I could verify is worth 5. Prices are asking prices. The Philippines has no public sold-price register, so nobody, including any agent you speak to, actually knows what these lots trade for. Leads with no source page you can open are ranked last no matter what they score, because a lot you cannot phone anybody about is not really a candidate.</p>
     </div>
     <div class="tbl-scroll">
       <table>
@@ -1017,6 +1017,7 @@ html[data-theme="light"] .toast { color: #fff; }
       <span class="sect-num">06</span>
       <h2>Dossiers on the top five</h2>
       <p>One card each. The facts, the gate status, what is wrong with it, what is right with it, and the exact next thing to do. A gate marked unknown is not a small gap. It means nobody has checked, and until somebody does that lot is a photograph with a price on it.</p>
+      <p class="tiny">Ranking rule. A lot you cannot phone anybody about never outranks one you can, whatever it scores. The Santo Niño lead has the highest raw score in this brief and sits last for exactly that reason.</p>
     </div>
     <div id="dossierList"></div>
   </div>
@@ -1763,6 +1764,15 @@ outreach: [
   function sqm(n) { return n == null ? "size unknown" : Number(n).toLocaleString("en-US") + " sqm"; }
 
   var EVID = { VERIFIED: "chip-v", REPORTED: "chip-r", INFERRED: "chip-i", KILL: "chip-k", UNVERIFIED: "chip-u" };
+
+  // A lead with no source page cannot be acted on, so it never outranks one that can.
+  // This is the brief's own rule: nothing reaches the top three without a contact channel.
+  function actionable(l) { return l.src && l.src.length ? 1 : 0; }
+  function ranked() {
+    return DATA.leads.slice().sort(function (a, b) {
+      return (actionable(b) - actionable(a)) || ((b.score || 0) - (a.score || 0));
+    });
+  }
   function chip(tag) {
     var key = String(tag || "UNVERIFIED").split(" ")[0].toUpperCase();
     return '<span class="chip ' + (EVID[key] || "chip-u") + '">' + esc(tag) + "</span>";
@@ -1792,10 +1802,11 @@ outreach: [
   /* ---------- ranked table ---------- */
   function renderTable() {
     var b = $("#leadRows"); if (!b) return;
-    var rows = DATA.leads.slice().sort(function (a, c) { return (c.score || 0) - (a.score || 0); });
+    var rows = ranked();
     b.innerHTML = rows.map(function (l) {
-      return "<tr>"
-        + '<td><span class="lid">' + esc(l.id) + "</span></td>"
+      return '<tr' + (actionable(l) ? "" : ' style="opacity:.72"') + ">"
+        + '<td><span class="lid">' + esc(l.id) + "</span>"
+        + (actionable(l) ? "" : '<div class="tiny" style="color:var(--coral)">no source</div>') + "</td>"
         + "<td><b>" + esc(l.loc) + "</b>" + (l.sitio ? '<div class="tiny">' + esc(l.sitio) + "</div>" : "") + "</td>"
         + '<td class="num">' + (l.size ? Number(l.size).toLocaleString("en-US") : "—") + "</td>"
         + "<td>" + esc(l.tenure) + "</td>"
@@ -1819,7 +1830,10 @@ outreach: [
 
   function renderDossiers() {
     var el = $("#dossierList"); if (!el) return;
-    var top = DATA.leads.slice().sort(function (a, c) { return (c.score || 0) - (a.score || 0); }).slice(0, 5);
+    var all = ranked(), top = all.slice(0, 5);
+    // A high-scoring lead with no source still earns a card, at the bottom, so the job of
+    // finding it does not quietly vanish from the report.
+    all.slice(5).forEach(function (l) { if (!actionable(l) && (l.score || 0) >= 55) top.push(l); });
     el.innerHTML = top.map(function (l) {
       var facts = [
         ["Size", l.size ? sqm(l.size) : "unknown"],
@@ -1854,6 +1868,7 @@ outreach: [
         + '<div class="tiny">' + esc(l.size ? sqm(l.size) : "size unknown") + " · " + esc(l.tenure) + " · " + php(l.price_php) + " " + chip(l.evid) + "</div></div>"
         + '<div class="dossier-score"><div class="n num">' + (l.score == null ? "—" : l.score) + '</div><div class="l">score</div></div>'
         + "</div>"
+        + (actionable(l) ? "" : '<div style="padding:11px 16px;background:var(--coral-wash);border-bottom:1px solid var(--border);font-size:var(--t-xs);color:var(--coral)">Nothing to act on yet. No source page was recovered for this lead, so it is ranked below every lot you can actually phone about.</div>')
         + '<div class="dossier-bd">'
         + (l.note ? "<p>" + esc(l.note) + "</p>" : "")
         + '<div class="fact-grid">' + facts + "</div>"
