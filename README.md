@@ -16,17 +16,17 @@ Everything that could be verified about buying a 400 to 1,000 sqm beachfront lot
 
 ## The findings that shape the search
 
-**A small Long Beach lot may be entirely unbuildable.** San Vicente's tourism master plan sets a 50 metre easement from the mean high water mark, double the national baseline, with a hard no build core. A 1,000 sqm lot with 20 metres of frontage is 50 metres deep, so the setback eats all of it.
+A small Long Beach lot may be entirely unbuildable. San Vicente's tourism master plan sets a 50 metre easement from the mean high water mark, double the national baseline, with a hard no build core. A 1,000 sqm lot with 20 metres of frontage is 50 metres deep, so the setback eats all of it.
 
-**Two overlays split the target list, and they agree.** Proclamation 342 of 2000 put four San Vicente barangays inside the Malampaya Sound protected area. Santo Niño, the buyer's first choice, sits about 5.2 km inside. New Canipo is 12.6 km inside, Binga 16.1 km, and Alimanguan straddles the line. Port Barton is 22 km clear and outside the tourism zone as well. Land inside a protected area is generally not alienable, so no new title issues over it.
+Two overlays split the target list and they agree with each other. Proclamation 342 of 2000 put four San Vicente barangays inside the Malampaya Sound protected area. Santo Niño, the buyer's first choice, sits about 5.2 km inside. New Canipo is 12.6 km inside, Binga 16.1 km, and Alimanguan straddles the line. Port Barton is 22 km clear and outside the tourism zone as well. Land inside a protected area is generally not alienable, so no new title issues over it.
 
-**Palawan is not outside the typhoon belt.** Every seller says it is. PAGASA's own post season analysis records Super Typhoon Odette making landfall at Roxas, the next municipality, in December 2021, with San Vicente inside the 64 knot radius. What is true is that Palawan sits one wind hazard class below most of Luzon and the Visayas, not outside anything.
+Palawan is not outside the typhoon belt, whatever every seller says. PAGASA published the post season analysis that records Super Typhoon Odette making landfall at Roxas, the next municipality, in December 2021, with San Vicente inside the 64 knot radius. What is true is that Palawan sits one wind hazard class below most of Luzon and the Visayas, not outside anything.
 
-**The market is not discounting untitled land.** Across 59 listings, titled lots and tax declaration lots sit in the same price bands.
+The market is not discounting untitled land. Across 59 listings, titled lots and tax declaration lots sit in the same price bands.
 
-**The size band barely exists.** Three listings fit 400 to 1,000 sqm and front the sea. One is in a top two barangay with a link you can open.
+The size band barely exists. Three listings fit 400 to 1,000 sqm and front the sea. One is in a top two barangay with a link you can open.
 
-**The Santo Niño lead was a phantom.** A 984 sqm titled lot at 11.25 million pesos, attributed to Lamudi. Four archived captures of Lamudi's San Vicente index across a year contain no such lot, and Lamudi never had a Santo Niño category for this municipality. The price was entirely plausible, which is what made it dangerous.
+The Santo Niño lead turned out to be a phantom. A 984 sqm titled lot at 11.25 million pesos, attributed to Lamudi. Four archived captures of Lamudi's San Vicente index across a year contain no such lot, and Lamudi never had a Santo Niño category for this municipality. The price was entirely plausible, which is what made it dangerous.
 
 ## Corrections made after publication
 
