@@ -54,6 +54,12 @@ Where sources blocked automated reading, the Internet Archive was used instead a
 
 No disaster agency situation report for San Vicente, so no damage or surge figures are claimed. No coastal erosion study for west Palawan. No Philippine government sea level projection exists, so the IPCC figure is used instead. No deep well pricing. And no PRC licence has actually been verified, though the page now carries the one minute method for doing it.
 
+## Passing it on
+
+Section 15 is a share block rather than a footer line. It says plainly why a friend looking at land here should read it before sending anyone a deposit, and gives three ways to move it: a native share sheet, a copy link, and save as PDF. Beside it sits a short note on who built it and what that work is, with the GitHub link. The footer carries a slimmer version of the same.
+
+The reasoning is that the most useful thing this page can do after Jeff reads it is reach the next person before they pay a reservation fee on a lot inside a no-build easement.
+
 ## Conformance with the source brief
 
 Audited section by section against PALAWAN-INTEL-8-CLI.md rather than assumed.
