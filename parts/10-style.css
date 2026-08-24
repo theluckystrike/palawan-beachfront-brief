@@ -202,7 +202,8 @@ section { scroll-margin-top: 0; }
 /* ---------------- cards ---------------- */
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: clamp(18px, 3.2vw, 28px); box-shadow: var(--shadow-1); }
 .grid { display: grid; gap: var(--sp-4); align-items: start; }
-.g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); }
+.g2 { grid-template-columns: 1fr; }
+@media (min-width: 760px) { .g2 { grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); } }
 .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
 .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); }
 
