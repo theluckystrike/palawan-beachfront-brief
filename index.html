@@ -152,7 +152,7 @@ html[data-theme="light"] {
 }
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--hdr) + 60px); }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--hdr) + 66px); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
@@ -250,7 +250,7 @@ html[data-theme="light"] .subnav a.on { color: #fff; }
 .hero-meta b { color: var(--ink-2); font-weight: 500; }
 
 /* ---------------- sections ---------------- */
-section { scroll-margin-top: calc(var(--hdr) + 58px); }
+section { scroll-margin-top: 0; }
 .sect { padding: clamp(40px, 6vw, 72px) 0; border-top: 1px solid var(--border); }
 .sect-head { margin-bottom: var(--sp-5); }
 .sect-num { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--sand); letter-spacing: .16em; display: block; margin-bottom: 10px; }
@@ -489,14 +489,16 @@ html[data-theme="light"] .toast { color: #fff; }
 <nav class="subnav" aria-label="Sections">
   <div class="wrap subnav-in">
     <a href="#verdict">What this found</a>
+    <a href="#coastline">The coast</a>
     <a href="#shortlist">Shortlist</a>
     <a href="#calculator">What it really costs</a>
     <a href="#gates">The 8 gates</a>
+    <a href="#zonal">What it is worth</a>
     <a href="#dossiers">Dossiers</a>
     <a href="#risk">How people get robbed</a>
+    <a href="#build">After you buy</a>
     <a href="#checklist">Checklist</a>
     <a href="#contacts">Who to call</a>
-    <a href="#build">After you buy</a>
     <a href="#ground">On the ground</a>
     <a href="#audit">Coverage</a>
     <a href="#faq">Questions</a>
@@ -2119,14 +2121,21 @@ outreach: [
       return { a: a, el: document.getElementById(a.getAttribute("href").slice(1)) };
     }).filter(function (t) { return t.el; });
     if (!targets.length) return;
+    // Sort by position in the document. The nav can list sections in any order, and a
+    // last-match scan over nav order would pick the wrong one whenever the two differ.
+    targets.sort(function (x, y) {
+      return (x.el.compareDocumentPosition(y.el) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1;
+    });
 
     var current = null, ticking = false;
     function update() {
       ticking = false;
-      var line = window.scrollY + (window.innerHeight * 0.28);
+      // Measure against the viewport, just under the sticky header and pill bar.
+      var hdr = document.querySelector(".hdr"), sub = document.querySelector(".subnav");
+      var line = (hdr ? hdr.offsetHeight : 58) + (sub ? sub.offsetHeight : 50) + 24;
       var active = targets[0];
       for (var i = 0; i < targets.length; i++) {
-        if (targets[i].el.getBoundingClientRect().top + window.scrollY <= line) active = targets[i];
+        if (targets[i].el.getBoundingClientRect().top <= line) active = targets[i];
       }
       if (active === current) return;
       current = active;
