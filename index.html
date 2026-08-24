@@ -109,7 +109,7 @@
   --t-body: 1rem;
   --t-sm:   .875rem;
   --t-xs:   .8125rem;
-  --t-result: clamp(2.1rem, 1.2rem + 4.4vw, 3.9rem);
+  --t-result: clamp(2.25rem, 1.25rem + 4.9vw, 4.6rem);
 
   /* --- space & shape --- */
   --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
@@ -200,8 +200,8 @@ html[data-theme="light"] ::selection { background: var(--sand); color: #fff; }
 .muted { color: var(--ink-2); }
 .tiny { font-size: var(--t-xs); color: var(--ink-3); line-height: 1.5; }
 .sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-.skip { position: absolute; left: -999px; top: 0; z-index: 999; background: var(--sand); color: var(--abyss); padding: 10px 16px; border-radius: 0 0 var(--r-sm) 0; font-weight: 600; }
-.skip:focus { left: 0; }
+.skip { position: absolute; left: 0; top: 0; transform: translateY(-140%); z-index: 999; background: var(--sand); color: var(--abyss); padding: 10px 16px; border-radius: 0 0 var(--r-sm) 0; font-weight: 600; }
+.skip:focus { transform: translateY(0); }
 
 /* ---------------- header ---------------- */
 .hdr {
@@ -315,7 +315,7 @@ select { background-image: none; padding-right: 38px; cursor: pointer; }
 .sel-wrap::after { content: ""; position: absolute; right: 15px; top: 50%; width: 7px; height: 7px; border-right: 2px solid var(--ink-3); border-bottom: 2px solid var(--ink-3); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
 input:focus, select:focus { outline: none; border-color: var(--sand); box-shadow: 0 0 0 3px var(--sand-wash); }
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-input[type="range"] { width: 100%; height: 34px; background: transparent; appearance: none; cursor: pointer; }
+input[type="range"] { width: 100%; height: 48px; background: transparent; appearance: none; cursor: pointer; display: block; }
 input[type="range"]::-webkit-slider-runnable-track { height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--ink-3) 28%, transparent); }
 input[type="range"]::-webkit-slider-thumb { appearance: none; width: 24px; height: 24px; margin-top: -10px; border-radius: 50%; background: var(--sand); border: 3px solid var(--surface); box-shadow: var(--shadow-1); }
 input[type="range"]::-moz-range-track { height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--ink-3) 28%, transparent); }
@@ -385,7 +385,7 @@ html[data-theme="light"] .dossier-id { color: #fff; }
 .check li { border: 1px solid var(--border); border-radius: var(--r-md); background: var(--surface); margin-bottom: 8px; transition: border-color .15s, background .15s; }
 .check li.done { background: var(--glass-wash); border-color: color-mix(in srgb, var(--glass) 32%, transparent); }
 .check label { display: flex; gap: 13px; align-items: flex-start; padding: 14px 16px; min-height: 56px; cursor: pointer; }
-.check input { flex: 0 0 auto; width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--glass); cursor: pointer; }
+.check input { flex: 0 0 auto; width: 24px; height: 24px; min-width: 24px; margin: 1px 0 0; accent-color: var(--glass); cursor: pointer; }
 .check .ck-b { min-width: 0; }
 .check .ck-t { font-weight: 600; font-size: var(--t-sm); display: block; margin-bottom: 3px; }
 .check li.done .ck-t { text-decoration: line-through; color: var(--ink-2); }
@@ -1017,7 +1017,7 @@ html[data-theme="light"] .toast { color: #fff; }
       <h2>Dossiers on the top five</h2>
       <p>One card each. The facts, the gate status, what is wrong with it, what is right with it, and the exact next thing to do. A gate marked unknown is not a small gap. It means nobody has checked, and until somebody does that lot is a photograph with a price on it.</p>
     </div>
-    <div id="dossiers"></div>
+    <div id="dossierList"></div>
   </div>
 </section>
 
@@ -1080,7 +1080,7 @@ html[data-theme="light"] .toast { color: #fff; }
       <b id="ckNum">0 of 16</b>
       <button class="btn" id="ckReset" style="min-height:38px;padding:0 14px;font-size:var(--t-xs)">Reset</button>
     </div>
-    <ul class="check" id="checklist"></ul>
+    <ul class="check" id="ckList"></ul>
   </div>
 </section>
 
@@ -1817,7 +1817,7 @@ outreach: [
   var GATE_DOT = { VERIFIED: "d-v", REPORTED: "d-r", UNKNOWN: "d-u", FAIL: "d-f" };
 
   function renderDossiers() {
-    var el = $("#dossiers"); if (!el) return;
+    var el = $("#dossierList"); if (!el) return;
     var top = DATA.leads.slice().sort(function (a, c) { return (c.score || 0) - (a.score || 0); }).slice(0, 5);
     el.innerHTML = top.map(function (l) {
       var facts = [
@@ -1897,7 +1897,7 @@ outreach: [
   function saveCk(o) { try { localStorage.setItem(CK_KEY, JSON.stringify(o)); } catch (e) { /* private mode */ } }
 
   function renderChecklist() {
-    var el = $("#checklist"); if (!el) return;
+    var el = $("#ckList"); if (!el) return;
     var state = loadCk();
     el.innerHTML = DATA.checklist.map(function (c, i) {
       var id = "ck" + i, on = !!state[id];
@@ -1910,7 +1910,7 @@ outreach: [
     }).join("");
 
     function tick() {
-      var boxes = $$("#checklist input"), done = boxes.filter(function (b) { return b.checked; }).length;
+      var boxes = $$("#ckList input"), done = boxes.filter(function (b) { return b.checked; }).length;
       $("#ckProg").style.width = (done / boxes.length * 100) + "%";
       $("#ckNum").textContent = done + " of " + boxes.length;
     }
@@ -1924,7 +1924,7 @@ outreach: [
     var reset = $("#ckReset");
     if (reset) reset.addEventListener("click", function () {
       saveCk({});
-      $$("#checklist input").forEach(function (b) { b.checked = false; b.closest("li").classList.remove("done"); });
+      $$("#ckList input").forEach(function (b) { b.checked = false; b.closest("li").classList.remove("done"); });
       tick(); toast("Checklist cleared");
     });
   }

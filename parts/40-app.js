@@ -80,7 +80,7 @@
   var GATE_DOT = { VERIFIED: "d-v", REPORTED: "d-r", UNKNOWN: "d-u", FAIL: "d-f" };
 
   function renderDossiers() {
-    var el = $("#dossiers"); if (!el) return;
+    var el = $("#dossierList"); if (!el) return;
     var top = DATA.leads.slice().sort(function (a, c) { return (c.score || 0) - (a.score || 0); }).slice(0, 5);
     el.innerHTML = top.map(function (l) {
       var facts = [
@@ -160,7 +160,7 @@
   function saveCk(o) { try { localStorage.setItem(CK_KEY, JSON.stringify(o)); } catch (e) { /* private mode */ } }
 
   function renderChecklist() {
-    var el = $("#checklist"); if (!el) return;
+    var el = $("#ckList"); if (!el) return;
     var state = loadCk();
     el.innerHTML = DATA.checklist.map(function (c, i) {
       var id = "ck" + i, on = !!state[id];
@@ -173,7 +173,7 @@
     }).join("");
 
     function tick() {
-      var boxes = $$("#checklist input"), done = boxes.filter(function (b) { return b.checked; }).length;
+      var boxes = $$("#ckList input"), done = boxes.filter(function (b) { return b.checked; }).length;
       $("#ckProg").style.width = (done / boxes.length * 100) + "%";
       $("#ckNum").textContent = done + " of " + boxes.length;
     }
@@ -187,7 +187,7 @@
     var reset = $("#ckReset");
     if (reset) reset.addEventListener("click", function () {
       saveCk({});
-      $$("#checklist input").forEach(function (b) { b.checked = false; b.closest("li").classList.remove("done"); });
+      $$("#ckList input").forEach(function (b) { b.checked = false; b.closest("li").classList.remove("done"); });
       tick(); toast("Checklist cleared");
     });
   }
