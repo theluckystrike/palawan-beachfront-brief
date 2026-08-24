@@ -66,7 +66,7 @@
     var rows = ranked();
     b.innerHTML = rows.map(function (l) {
       function td(label, inner, cls) {
-        return '<td data-label="' + label + '"' + (cls ? ' class="' + cls + '"' : "") + ">" + inner + "</td>";
+        return '<td data-label="' + label + '"' + (cls ? ' class="' + cls + '"' : "") + '><span class="cell-v">' + inner + "</span></td>";
       }
       return '<tr' + (actionable(l) ? "" : ' class="no-src"') + ">"
         + td("Lot", '<span class="lid">' + esc(l.id) + "</span>"
