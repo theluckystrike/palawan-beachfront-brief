@@ -898,7 +898,7 @@ html[data-theme="light"] .toast { color: #fff; }
       <h2>What the government thinks this land is worth</h2>
       <p>Since no sold prices are published anywhere in the Philippines, the BIR zonal schedule is the only official, dated, per square metre valuation that exists for San Vicente. It is a tax floor rather than a market price, and it has not been revised since December 2017, so treat it as a lagging benchmark. It is still the most useful number in any negotiation, because it is the one figure the seller cannot argue with.</p>
     </div>
-    <div class="tbl-scroll">
+    <div class="tbl-scroll cards">
       <table>
         <caption class="sr">BIR zonal values, San Vicente and El Nido seashore land</caption>
         <thead><tr><th scope="col">Where</th><th scope="col">Zonal value per sqm</th><th scope="col">Sample size</th><th scope="col">What it tells you</th></tr></thead>
@@ -1143,7 +1143,7 @@ html[data-theme="light"] .toast { color: #fff; }
     </div>
 
     <h3 style="margin:0 0 14px">Government offices</h3>
-    <div class="tbl-scroll">
+    <div class="tbl-scroll cards">
       <table>
         <caption class="sr">Government offices for land due diligence in San Vicente, Palawan</caption>
         <thead><tr><th scope="col">Office</th><th scope="col">What you get from them</th><th scope="col">Contact</th><th scope="col">Source</th><th scope="col">Confirmed</th></tr></thead>
@@ -1152,7 +1152,7 @@ html[data-theme="light"] .toast { color: #fff; }
     </div>
 
     <h3 style="margin:var(--sp-6) 0 14px">Brokers and agencies</h3>
-    <div class="tbl-scroll">
+    <div class="tbl-scroll cards">
       <table>
         <caption class="sr">Real estate brokers covering San Vicente and Port Barton</caption>
         <thead><tr><th scope="col">Name</th><th scope="col">Covers</th><th scope="col">Contact</th><th scope="col">Source</th><th scope="col">Confirmed</th></tr></thead>
@@ -1246,7 +1246,7 @@ html[data-theme="light"] .toast { color: #fff; }
     </div>
 
     <h3 style="margin:0 0 14px">Source coverage</h3>
-    <div class="tbl-scroll">
+    <div class="tbl-scroll cards">
       <table>
         <caption class="sr">Which sources were swept and which blocked</caption>
         <thead><tr><th scope="col">Source</th><th scope="col">Scope</th><th scope="col">Status</th><th scope="col">Note</th></tr></thead>
@@ -1267,7 +1267,7 @@ html[data-theme="light"] .toast { color: #fff; }
 
     <h3 style="margin:var(--sp-6) 0 14px">Rejected, and why</h3>
     <p class="tiny" style="max-width:var(--read)">Nothing gets deleted. A rejected lot is still a comparable, and the reason it failed is often more useful than the lots that passed.</p>
-    <div class="tbl-scroll">
+    <div class="tbl-scroll cards">
       <table>
         <caption class="sr">Rejected lots and the reason each failed</caption>
         <thead><tr><th scope="col">Location</th><th scope="col">Size</th><th scope="col">Asking</th><th scope="col">Why it failed</th></tr></thead>
@@ -1276,7 +1276,7 @@ html[data-theme="light"] .toast { color: #fff; }
     </div>
 
     <h3 style="margin:var(--sp-6) 0 14px">Run log</h3>
-    <div class="tbl-scroll">
+    <div class="tbl-scroll cards">
       <table>
         <caption class="sr">Cycle by cycle log of the research run</caption>
         <thead><tr><th scope="col">Cycle</th><th scope="col">When</th><th scope="col">What happened</th></tr></thead>
@@ -1940,21 +1940,23 @@ outreach: [
     var a = $("#agencyRows");
     if (a) {
       a.innerHTML = DATA.agencies.map(function (c) {
-        return "<tr><td><b>" + esc(c.name) + "</b>" + (c.short ? '<div class="tiny">' + esc(c.short) + "</div>" : "") + "</td>"
-          + "<td>" + esc(c.need) + "</td>"
-          + '<td class="tiny">' + esc(c.contact || "see site") + "</td>"
-          + "<td>" + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "official page") + "</a>" : "—") + "</td>"
-          + "<td>" + chip(c.verified ? "VERIFIED" : "UNVERIFIED") + "</td></tr>";
+        return "<tr>"
+          + '<td data-label="Office"><span class="cell-v"><b>' + esc(c.name) + "</b>" + (c.short ? '<div class="tiny">' + esc(c.short) + "</div>" : "") + "</span></td>"
+          + '<td data-label="You get"><span class="cell-v">' + esc(c.need) + "</span></td>"
+          + '<td data-label="Contact" class="tiny"><span class="cell-v">' + esc(c.contact || "see site") + "</span></td>"
+          + '<td data-label="Source"><span class="cell-v">' + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "official page") + "</a>" : "—") + "</span></td>"
+          + '<td data-label="Confirmed"><span class="cell-v">' + chip(c.verified ? "VERIFIED" : "UNVERIFIED") + "</span></td></tr>";
       }).join("");
     }
     var b = $("#brokerRows");
     if (b) {
       b.innerHTML = DATA.brokers.map(function (c) {
-        return "<tr><td><b>" + esc(c.name) + "</b>" + (c.org ? '<div class="tiny">' + esc(c.org) + "</div>" : "") + "</td>"
-          + "<td>" + esc(c.covers || "—") + "</td>"
-          + '<td class="tiny">' + esc(c.contact || "via listing form") + "</td>"
-          + "<td>" + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "site") + "</a>" : "—") + "</td>"
-          + "<td>" + chip(c.verified ? "VERIFIED" : "REPORTED") + "</td></tr>";
+        return "<tr>"
+          + '<td data-label="Name"><span class="cell-v"><b>' + esc(c.name) + "</b>" + (c.org ? '<div class="tiny">' + esc(c.org) + "</div>" : "") + "</span></td>"
+          + '<td data-label="Covers"><span class="cell-v">' + esc(c.covers || "—") + "</span></td>"
+          + '<td data-label="Contact" class="tiny"><span class="cell-v">' + esc(c.contact || "via listing form") + "</span></td>"
+          + '<td data-label="Source"><span class="cell-v">' + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "site") + "</a>" : "—") + "</span></td>"
+          + '<td data-label="Confirmed"><span class="cell-v">' + chip(c.verified ? "VERIFIED" : "REPORTED") + "</span></td></tr>";
       }).join("");
     }
   }
@@ -2011,19 +2013,19 @@ outreach: [
       return '<li><span class="ck-t">' + esc(b.t) + '</span><span class="ck-d">' + esc(b.d) + "</span></li>";
     });
     renderList("#rejectRows", DATA.rejects, function (r) {
-      return "<tr><td><b>" + esc(r.loc) + "</b></td><td>" + esc(r.size) + "</td><td>" + esc(r.price) + "</td><td>" + esc(r.reason) + "</td></tr>";
+      return '<tr><td data-label="Location"><span class="cell-v"><b>' + esc(r.loc) + '</b></span></td><td data-label="Size"><span class="cell-v">' + esc(r.size) + '</span></td><td data-label="Asking"><span class="cell-v">' + esc(r.price) + '</span></td><td data-label="Why it failed"><span class="cell-v">' + esc(r.reason) + "</span></td></tr>";
     });
     renderList("#coverRows", DATA.coverage, function (c) {
       var cls = { SWEPT: "chip-v", PART: "chip-r", BLOCK: "chip-k", TODO: "chip-u" }[c.status] || "chip-u";
-      return "<tr><td><b>" + esc(c.source) + '</b></td><td class="tiny">' + esc(c.scope) + "</td>"
-        + '<td><span class="chip ' + cls + '">' + esc(c.status) + "</span></td>"
-        + '<td class="tiny">' + esc(c.note) + "</td></tr>";
+      return '<tr><td data-label="Source"><span class="cell-v"><b>' + esc(c.source) + '</b></span></td><td data-label="Scope" class="tiny"><span class="cell-v">' + esc(c.scope) + "</span></td>"
+        + '<td data-label="Status"><span class="cell-v"><span class="chip ' + cls + '">' + esc(c.status) + "</span></span></td>"
+        + '<td data-label="Note" class="tiny"><span class="cell-v">' + esc(c.note) + "</span></td></tr>";
     });
     renderList("#compRows", DATA.comps, function (c) {
-      return "<tr><td><b>" + esc(c.area) + "</b></td><td class=\"num\">" + esc(c.range) + '</td><td class="num">' + esc(c.n) + "</td><td class=\"tiny\">" + esc(c.note) + "</td></tr>";
+      return '<tr><td data-label="Where"><span class="cell-v"><b>' + esc(c.area) + '</b></span></td><td data-label="Per sqm" class="num"><span class="cell-v">' + esc(c.range) + '</span></td><td data-label="Sample" class="num"><span class="cell-v">' + esc(c.n) + '</span></td><td data-label="What it tells you" class="tiny"><span class="cell-v">' + esc(c.note) + "</span></td></tr>";
     });
     renderList("#changeRows", DATA.changelog, function (c) {
-      return "<tr><td class=\"num\">" + esc(c.cycle) + "</td><td class=\"tiny\">" + esc(c.when) + "</td><td>" + esc(c.what) + "</td></tr>";
+      return '<tr><td data-label="Cycle" class="num"><span class="cell-v">' + esc(c.cycle) + '</span></td><td data-label="When" class="tiny"><span class="cell-v">' + esc(c.when) + '</span></td><td data-label="What happened"><span class="cell-v">' + esc(c.what) + "</span></td></tr>";
     });
     var st = $("#statRow");
     if (st) st.innerHTML = DATA.stats.map(function (s) {

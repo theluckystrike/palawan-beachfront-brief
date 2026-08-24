@@ -152,21 +152,23 @@
     var a = $("#agencyRows");
     if (a) {
       a.innerHTML = DATA.agencies.map(function (c) {
-        return "<tr><td><b>" + esc(c.name) + "</b>" + (c.short ? '<div class="tiny">' + esc(c.short) + "</div>" : "") + "</td>"
-          + "<td>" + esc(c.need) + "</td>"
-          + '<td class="tiny">' + esc(c.contact || "see site") + "</td>"
-          + "<td>" + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "official page") + "</a>" : "—") + "</td>"
-          + "<td>" + chip(c.verified ? "VERIFIED" : "UNVERIFIED") + "</td></tr>";
+        return "<tr>"
+          + '<td data-label="Office"><span class="cell-v"><b>' + esc(c.name) + "</b>" + (c.short ? '<div class="tiny">' + esc(c.short) + "</div>" : "") + "</span></td>"
+          + '<td data-label="You get"><span class="cell-v">' + esc(c.need) + "</span></td>"
+          + '<td data-label="Contact" class="tiny"><span class="cell-v">' + esc(c.contact || "see site") + "</span></td>"
+          + '<td data-label="Source"><span class="cell-v">' + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "official page") + "</a>" : "—") + "</span></td>"
+          + '<td data-label="Confirmed"><span class="cell-v">' + chip(c.verified ? "VERIFIED" : "UNVERIFIED") + "</span></td></tr>";
       }).join("");
     }
     var b = $("#brokerRows");
     if (b) {
       b.innerHTML = DATA.brokers.map(function (c) {
-        return "<tr><td><b>" + esc(c.name) + "</b>" + (c.org ? '<div class="tiny">' + esc(c.org) + "</div>" : "") + "</td>"
-          + "<td>" + esc(c.covers || "—") + "</td>"
-          + '<td class="tiny">' + esc(c.contact || "via listing form") + "</td>"
-          + "<td>" + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "site") + "</a>" : "—") + "</td>"
-          + "<td>" + chip(c.verified ? "VERIFIED" : "REPORTED") + "</td></tr>";
+        return "<tr>"
+          + '<td data-label="Name"><span class="cell-v"><b>' + esc(c.name) + "</b>" + (c.org ? '<div class="tiny">' + esc(c.org) + "</div>" : "") + "</span></td>"
+          + '<td data-label="Covers"><span class="cell-v">' + esc(c.covers || "—") + "</span></td>"
+          + '<td data-label="Contact" class="tiny"><span class="cell-v">' + esc(c.contact || "via listing form") + "</span></td>"
+          + '<td data-label="Source"><span class="cell-v">' + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "site") + "</a>" : "—") + "</span></td>"
+          + '<td data-label="Confirmed"><span class="cell-v">' + chip(c.verified ? "VERIFIED" : "REPORTED") + "</span></td></tr>";
       }).join("");
     }
   }
@@ -223,19 +225,19 @@
       return '<li><span class="ck-t">' + esc(b.t) + '</span><span class="ck-d">' + esc(b.d) + "</span></li>";
     });
     renderList("#rejectRows", DATA.rejects, function (r) {
-      return "<tr><td><b>" + esc(r.loc) + "</b></td><td>" + esc(r.size) + "</td><td>" + esc(r.price) + "</td><td>" + esc(r.reason) + "</td></tr>";
+      return '<tr><td data-label="Location"><span class="cell-v"><b>' + esc(r.loc) + '</b></span></td><td data-label="Size"><span class="cell-v">' + esc(r.size) + '</span></td><td data-label="Asking"><span class="cell-v">' + esc(r.price) + '</span></td><td data-label="Why it failed"><span class="cell-v">' + esc(r.reason) + "</span></td></tr>";
     });
     renderList("#coverRows", DATA.coverage, function (c) {
       var cls = { SWEPT: "chip-v", PART: "chip-r", BLOCK: "chip-k", TODO: "chip-u" }[c.status] || "chip-u";
-      return "<tr><td><b>" + esc(c.source) + '</b></td><td class="tiny">' + esc(c.scope) + "</td>"
-        + '<td><span class="chip ' + cls + '">' + esc(c.status) + "</span></td>"
-        + '<td class="tiny">' + esc(c.note) + "</td></tr>";
+      return '<tr><td data-label="Source"><span class="cell-v"><b>' + esc(c.source) + '</b></span></td><td data-label="Scope" class="tiny"><span class="cell-v">' + esc(c.scope) + "</span></td>"
+        + '<td data-label="Status"><span class="cell-v"><span class="chip ' + cls + '">' + esc(c.status) + "</span></span></td>"
+        + '<td data-label="Note" class="tiny"><span class="cell-v">' + esc(c.note) + "</span></td></tr>";
     });
     renderList("#compRows", DATA.comps, function (c) {
-      return "<tr><td><b>" + esc(c.area) + "</b></td><td class=\"num\">" + esc(c.range) + '</td><td class="num">' + esc(c.n) + "</td><td class=\"tiny\">" + esc(c.note) + "</td></tr>";
+      return '<tr><td data-label="Where"><span class="cell-v"><b>' + esc(c.area) + '</b></span></td><td data-label="Per sqm" class="num"><span class="cell-v">' + esc(c.range) + '</span></td><td data-label="Sample" class="num"><span class="cell-v">' + esc(c.n) + '</span></td><td data-label="What it tells you" class="tiny"><span class="cell-v">' + esc(c.note) + "</span></td></tr>";
     });
     renderList("#changeRows", DATA.changelog, function (c) {
-      return "<tr><td class=\"num\">" + esc(c.cycle) + "</td><td class=\"tiny\">" + esc(c.when) + "</td><td>" + esc(c.what) + "</td></tr>";
+      return '<tr><td data-label="Cycle" class="num"><span class="cell-v">' + esc(c.cycle) + '</span></td><td data-label="When" class="tiny"><span class="cell-v">' + esc(c.when) + '</span></td><td data-label="What happened"><span class="cell-v">' + esc(c.what) + "</span></td></tr>";
     });
     var st = $("#statRow");
     if (st) st.innerHTML = DATA.stats.map(function (s) {
