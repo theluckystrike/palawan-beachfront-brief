@@ -7,7 +7,7 @@ meta: {
   cycle: 8,
   generated: "24 Aug 2026",
   usd_rate: 57,
-  sources_checked: 96,
+  sources_checked: 356,
   url: "https://theluckystrike.github.io/palawan-beachfront-brief/"
 },
 
@@ -344,7 +344,8 @@ changelog: [
   { cycle: 5, when: "24 Aug", what: "Statutory research returned. Water Code Article 51, CA 141, RA 7611, PD 471 and the Anti-Dummy Law read verbatim from primary text." },
   { cycle: 6, when: "24 Aug", what: "Santo Niño negative finding confirmed by a second independent sweep. Recorded as a blocker rather than a gap." },
   { cycle: 7, when: "24 Aug", what: "Broker network mapped. Four apparently separate San Vicente agencies traced to one operator on a single hosting block." },
-  { cycle: 8, when: "24 Aug", what: "Scored, deduped, and written up. Report frozen." }
+  { cycle: 8, when: "24 Aug", what: "Scored, deduped, and written up." },
+  { cycle: 9, when: "24 Aug", what: "The slowest agent finished last and corrected four published claims. RA 10023's area cap is 750 sqm here rather than 1,000, a private house is exempt from the SEP clearance though not from the zoning check, San Vicente sits inside a 200,115 hectare protected area declared in 2000, and re-acquiring citizenship beats the 1,000 sqm cap outright. Report frozen." }
 ],
 
 checklist: [
