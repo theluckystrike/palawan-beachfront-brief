@@ -251,10 +251,12 @@
     var effRate = usable > 0 ? land / usable : 0;
 
     // Transaction costs. Philippine practice, rates cited in the costs section.
-    var cgt = land * 0.06;          // capital gains tax, seller by custom
-    var dst = land * 0.015;         // documentary stamp tax, buyer by custom
-    var xfer = land * 0.0075;       // LGU transfer tax, provincial ceiling
-    var reg = land * 0.0025 + 5000; // LRA registration, approximate
+    var cgt = land * 0.06;          // NIRC 24(D), seller is the statutory taxpayer
+    var dst = land * 0.015;         // NIRC 196, P15 per P1,000
+    var xfer = land * 0.005;        // LGC 135 provincial cap. 0.75% is a CITY rate and
+                                    // San Vicente is a municipality of Palawan province.
+    var reg = land * 0.008;         // budget figure. The 1993 LRA schedule implies far less,
+                                    // but it is probably stale and practitioners quote 0.8%.
     var noty = land * 0.01;         // notarial, commonly negotiated down
     var pro = 85000;                // lawyer + relocation survey + certifications
     var buyerSide = dst + xfer + reg + noty + pro;
@@ -273,8 +275,8 @@
     var rows = [
       ["Land price", php(land)],
       ["Documentary stamp tax, 1.5 percent", php(dst)],
-      ["Transfer tax, 0.75 percent", php(xfer)],
-      ["Registration and entry fees", php(reg)],
+      ["Transfer tax, 0.5 percent", php(xfer)],
+      ["Registration, budgeted at 0.8 percent", php(reg)],
       ["Notarial fee, about 1 percent", php(noty)],
       ["Lawyer, survey, certifications", php(pro)],
       ["Capital gains tax, 6 percent", (sellerPays ? "seller pays" : php(cgt))]
