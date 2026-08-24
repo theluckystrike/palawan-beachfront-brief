@@ -496,6 +496,18 @@ td .tel { display: flex; }
 .stat .sv { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-size: clamp(1.35rem, 1.1rem + 1vw, 1.75rem); font-weight: 600; color: var(--sand); letter-spacing: -.03em; line-height: 1.1; }
 .stat .sl { font-size: var(--t-xs); color: var(--ink-2); margin-top: 5px; line-height: 1.4; }
 
+.passon { display: grid; gap: var(--sp-5); }
+@media (min-width: 860px) { .passon { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--sp-6); align-items: start; } }
+.passon-card {
+  background: linear-gradient(165deg, color-mix(in srgb, var(--glass) 9%, var(--surface)), var(--surface) 62%);
+  border: 1px solid color-mix(in srgb, var(--glass) 26%, transparent);
+  border-radius: var(--r-xl); padding: clamp(20px, 3.4vw, 30px); box-shadow: var(--shadow-2);
+}
+.passon-card .ftr-h { color: var(--glass); margin-bottom: 14px; }
+.ftr-share { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: clamp(18px, 3vw, 24px); }
+.ftr-share .ftr-h { color: var(--sand); }
+.ftr-share a { color: var(--sand); }
+
 /* footer */
 .ftr { border-top: 1px solid var(--border); background: var(--deep); padding: clamp(40px, 6vw, 64px) 0 calc(28px + env(safe-area-inset-bottom)); margin-top: var(--sp-9); }
 .ftr-grid { display: grid; gap: var(--sp-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); margin-bottom: var(--sp-6); }

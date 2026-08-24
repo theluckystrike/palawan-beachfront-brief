@@ -489,7 +489,18 @@
       copyText(lines.join("\n"), "Checklist copied");
       return;
     }
-    if (e.target.closest("#printBtn")) { window.print(); return; }
+    if (e.target.closest("#printBtn") || e.target.closest("#printBtn2")) { window.print(); return; }
+    if (e.target.closest("#copyLink")) { copyText(DATA.meta.url, "Link copied"); return; }
+    if (e.target.closest("#shareBig")) {
+      var sd = {
+        title: "Beachfront land in San Vicente, Palawan",
+        text: "Before anyone puts a deposit on land in Palawan, read this. Every fact sourced.",
+        url: DATA.meta.url
+      };
+      if (navigator.share) { navigator.share(sd).catch(function () {}); }
+      else { copyText(DATA.meta.url, "Link copied, paste it to them"); }
+      return;
+    }
     if (e.target.closest("#shareBtn")) {
       var d = { title: document.title, text: "Beachfront land in San Vicente, Palawan. Checked properly.", url: DATA.meta.url };
       if (navigator.share) { navigator.share(d).catch(function () {}); }

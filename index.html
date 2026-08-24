@@ -559,6 +559,18 @@ td .tel { display: flex; }
 .stat .sv { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-size: clamp(1.35rem, 1.1rem + 1vw, 1.75rem); font-weight: 600; color: var(--sand); letter-spacing: -.03em; line-height: 1.1; }
 .stat .sl { font-size: var(--t-xs); color: var(--ink-2); margin-top: 5px; line-height: 1.4; }
 
+.passon { display: grid; gap: var(--sp-5); }
+@media (min-width: 860px) { .passon { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--sp-6); align-items: start; } }
+.passon-card {
+  background: linear-gradient(165deg, color-mix(in srgb, var(--glass) 9%, var(--surface)), var(--surface) 62%);
+  border: 1px solid color-mix(in srgb, var(--glass) 26%, transparent);
+  border-radius: var(--r-xl); padding: clamp(20px, 3.4vw, 30px); box-shadow: var(--shadow-2);
+}
+.passon-card .ftr-h { color: var(--glass); margin-bottom: 14px; }
+.ftr-share { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: clamp(18px, 3vw, 24px); }
+.ftr-share .ftr-h { color: var(--sand); }
+.ftr-share a { color: var(--sand); }
+
 /* footer */
 .ftr { border-top: 1px solid var(--border); background: var(--deep); padding: clamp(40px, 6vw, 64px) 0 calc(28px + env(safe-area-inset-bottom)); margin-top: var(--sp-9); }
 .ftr-grid { display: grid; gap: var(--sp-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); margin-bottom: var(--sp-6); }
@@ -685,6 +697,7 @@ html[data-theme="light"] .toast { color: #fff; }
     <a href="#ground">On the ground</a>
     <a href="#audit">Coverage</a>
     <a href="#faq">Questions</a>
+    <a href="#pass-it-on">Pass it on</a>
     <a href="#method">How this was made</a>
   </div>
 </nav>
@@ -1580,7 +1593,7 @@ html[data-theme="light"] .toast { color: #fff; }
 <section class="sect" id="method">
   <div class="wrap">
     <div class="sect-head">
-      <span class="sect-num">14</span>
+      <span class="sect-num">16</span>
       <h2>How this was made</h2>
     </div>
     <div class="narrow">
@@ -1592,18 +1605,41 @@ html[data-theme="light"] .toast { color: #fff; }
     </div>
   </div>
 </section>
+<section class="sect" id="pass-it-on">
+  <div class="wrap">
+    <div class="passon">
+      <div class="passon-main">
+        <span class="sect-num">15</span>
+        <h2>Pass this on</h2>
+        <p class="card-body">If a friend of yours is looking at land here, send them this link before they send anyone a deposit. The 50 metre easement, the protected area boundary and the tax declaration trap catch people who did nothing careless. They just did not know to ask.</p>
+        <p class="card-body" style="margin-bottom:0">It is a single page, it works offline once loaded, and it prints to a PDF with every source URL underneath its link, which matters when you are standing in a municipal office with no signal.</p>
+        <div class="btn-row">
+          <button class="btn btn-p" id="shareBig">Send this to someone</button>
+          <button class="btn" id="copyLink">Copy the link</button>
+          <button class="btn" id="printBtn2">Save as PDF</button>
+        </div>
+      </div>
+
+      <aside class="passon-card">
+        <p class="ftr-h">Who built it</p>
+        <p class="card-body">I build research pipelines and small web tools. The kind that go and check a thing properly rather than guessing, then hand you the sources so you can check the checking.</p>
+        <p class="card-body">This one ran fifteen agents across property portals, statute text, government PDFs and tax schedules, cited 467 sources, and killed one of its own leads when the evidence turned against it.</p>
+        <p class="card-body" style="margin-bottom:0">If you need something similar done for a decision that matters, or you just want to see how it works, the code and the projects are on GitHub.</p>
+        <div class="btn-row">
+          <a class="btn btn-p" href="https://github.com/theluckystrike" target="_blank" rel="noopener noreferrer">github.com/theluckystrike</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer class="ftr">
   <div class="wrap">
-    <div class="builder">
-      <p class="ftr-h">Who made this</p>
-      <p>Jeff, this was built for you in one run. If it saves you one bad trip to Palawan or one deposit on a lot that turns out to be inside a no-build zone, it did its job.</p>
-      <p style="margin-bottom:0">I build research pipelines and small web tools, mostly the kind that go and check a thing properly instead of guessing. Code and projects are on GitHub. If a friend of yours is looking at land, a business, or anything where the facts are scattered across forty websites and half of them are lying, send them the link.</p>
-      <div class="share-row">
-        <a class="btn btn-p" href="https://github.com/theluckystrike" target="_blank" rel="noopener noreferrer">github.com/theluckystrike</a>
-        <button class="btn" id="shareBtn2" onclick="document.getElementById('shareBtn').click()">Share this brief</button>
-      </div>
+    <div class="ftr-share">
+      <p class="ftr-h">Built for Jeff, August 2026</p>
+      <p class="card-body" style="margin-bottom:0">Research pipelines and small web tools by <a href="https://github.com/theluckystrike" target="_blank" rel="noopener noreferrer">theluckystrike</a>. If this saved you one bad trip or one deposit, pass it to whoever needs it next.</p>
     </div>
 
     <div class="ftr-grid" style="margin-top:var(--sp-6)">
@@ -2554,7 +2590,18 @@ outreach: [
       copyText(lines.join("\n"), "Checklist copied");
       return;
     }
-    if (e.target.closest("#printBtn")) { window.print(); return; }
+    if (e.target.closest("#printBtn") || e.target.closest("#printBtn2")) { window.print(); return; }
+    if (e.target.closest("#copyLink")) { copyText(DATA.meta.url, "Link copied"); return; }
+    if (e.target.closest("#shareBig")) {
+      var sd = {
+        title: "Beachfront land in San Vicente, Palawan",
+        text: "Before anyone puts a deposit on land in Palawan, read this. Every fact sourced.",
+        url: DATA.meta.url
+      };
+      if (navigator.share) { navigator.share(sd).catch(function () {}); }
+      else { copyText(DATA.meta.url, "Link copied, paste it to them"); }
+      return;
+    }
     if (e.target.closest("#shareBtn")) {
       var d = { title: document.title, text: "Beachfront land in San Vicente, Palawan. Checked properly.", url: DATA.meta.url };
       if (navigator.share) { navigator.share(d).catch(function () {}); }
