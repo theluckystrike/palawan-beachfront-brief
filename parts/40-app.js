@@ -304,6 +304,10 @@
       return '<div class="brk-row"><span>' + r[0] + "</span><b>" + r[1] + "</b></div>";
     }).join("") + '<div class="brk-row total"><span>Cash you need</span><b>' + php(total) + "</b></div>";
 
+    var mn = $("#miniNum"), ms = $("#miniSub");
+    if (mn) mn.textContent = php(total);
+    if (ms) ms.textContent = usable > 0 ? Math.round(usable).toLocaleString("en-US") + " sqm buildable" : "nothing buildable";
+
     $("#cSizeOut").textContent = size.toLocaleString("en-US") + " sqm";
     $("#cRateOut").textContent = php(rate) + "/sqm";
     $("#cFrontOut").textContent = front + " m";
@@ -324,6 +328,37 @@
       });
     });
     calc();
+    bindMini();
+  }
+
+  // Show the pinned figure only while the calculator is on screen and the real result
+  // card is not. Two conditions, so it never covers the thing it is standing in for.
+  function bindMini() {
+    var mini = $("#miniResult"), sect = document.getElementById("calculator"), card = $(".result");
+    if (!mini || !sect || !card) return;
+    var ticking = false;
+    function place() {
+      var hdr = document.querySelector(".hdr"), sub = document.querySelector(".subnav");
+      mini.style.top = ((hdr ? hdr.offsetHeight : 58) + (sub ? sub.offsetHeight : 50)) + "px";
+    }
+    function update() {
+      ticking = false;
+      if (window.innerWidth >= 900) { mini.classList.remove("on"); return; }
+      var s = sect.getBoundingClientRect(), c = card.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var sectionOnScreen = s.top < vh && s.bottom > 0;
+      var cardOnScreen = c.top < vh - 40 && c.bottom > 120;
+      mini.classList.toggle("on", sectionOnScreen && !cardOnScreen);
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+    place();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", function () { place(); onScroll(); }, { passive: true });
+    update();
   }
 
   /* ---------- copy + toast ---------- */

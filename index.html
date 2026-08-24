@@ -380,6 +380,29 @@ html[data-theme="light"] .btn-p { color: #fff; }
 .btn-p:hover { background: var(--sand-deep); border-color: var(--sand-deep); }
 .btn-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
 
+/* The result sits about 700px below the first slider on a phone, so it is off screen
+   exactly when the number is changing. This pins a compact copy under the nav while the
+   calculator is in view. Above 900px the layout is already side by side, so it is off. */
+.mini-result {
+  position: fixed; left: 0; right: 0; z-index: 54;
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 10px clamp(16px, 4vw, 40px);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom: 1px solid var(--sand-line);
+  box-shadow: var(--shadow-2);
+  transform: translateY(-130%);
+  transition: transform .22s cubic-bezier(.2,.9,.3,1);
+  pointer-events: none;
+}
+.mini-result.on { transform: translateY(0); }
+.mini-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--sand); flex: 0 0 auto; }
+.mini-num { font-size: 1.22rem; font-weight: 600; letter-spacing: -.03em; color: var(--ink); }
+.mini-sub { font-size: var(--t-xs); color: var(--ink-2); margin-left: auto; text-align: right; flex: 0 1 auto; }
+@media (min-width: 900px) { .mini-result { display: none; } }
+@media (prefers-reduced-motion: reduce) { .mini-result { transition: none; } }
+
 /* ---------------- dossiers ---------------- */
 .dossier { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
 .dossier + .dossier { margin-top: var(--sp-4); }
@@ -690,6 +713,12 @@ html[data-theme="light"] .toast { color: #fff; }
       <span class="sect-num">03</span>
       <h2>What a lot really costs</h2>
       <p>The asking price is not the price. Two things move it. Taxes and fees add roughly nine to eleven percent on top, and the shore easement quietly takes a strip of your beach into public ownership, so your real cost per buildable square metre is higher than the sticker. Move the sliders and watch both.</p>
+    </div>
+
+    <div class="mini-result" id="miniResult" aria-hidden="true">
+      <span class="mini-label">Cash needed</span>
+      <span class="mini-num num" id="miniNum">₱0</span>
+      <span class="mini-sub num" id="miniSub"></span>
     </div>
 
     <div class="calc">
@@ -2103,6 +2132,10 @@ outreach: [
       return '<div class="brk-row"><span>' + r[0] + "</span><b>" + r[1] + "</b></div>";
     }).join("") + '<div class="brk-row total"><span>Cash you need</span><b>' + php(total) + "</b></div>";
 
+    var mn = $("#miniNum"), ms = $("#miniSub");
+    if (mn) mn.textContent = php(total);
+    if (ms) ms.textContent = usable > 0 ? Math.round(usable).toLocaleString("en-US") + " sqm buildable" : "nothing buildable";
+
     $("#cSizeOut").textContent = size.toLocaleString("en-US") + " sqm";
     $("#cRateOut").textContent = php(rate) + "/sqm";
     $("#cFrontOut").textContent = front + " m";
@@ -2123,6 +2156,37 @@ outreach: [
       });
     });
     calc();
+    bindMini();
+  }
+
+  // Show the pinned figure only while the calculator is on screen and the real result
+  // card is not. Two conditions, so it never covers the thing it is standing in for.
+  function bindMini() {
+    var mini = $("#miniResult"), sect = document.getElementById("calculator"), card = $(".result");
+    if (!mini || !sect || !card) return;
+    var ticking = false;
+    function place() {
+      var hdr = document.querySelector(".hdr"), sub = document.querySelector(".subnav");
+      mini.style.top = ((hdr ? hdr.offsetHeight : 58) + (sub ? sub.offsetHeight : 50)) + "px";
+    }
+    function update() {
+      ticking = false;
+      if (window.innerWidth >= 900) { mini.classList.remove("on"); return; }
+      var s = sect.getBoundingClientRect(), c = card.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var sectionOnScreen = s.top < vh && s.bottom > 0;
+      var cardOnScreen = c.top < vh - 40 && c.bottom > 120;
+      mini.classList.toggle("on", sectionOnScreen && !cardOnScreen);
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+    place();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", function () { place(); onScroll(); }, { passive: true });
+    update();
   }
 
   /* ---------- copy + toast ---------- */

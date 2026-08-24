@@ -317,6 +317,29 @@ html[data-theme="light"] .btn-p { color: #fff; }
 .btn-p:hover { background: var(--sand-deep); border-color: var(--sand-deep); }
 .btn-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
 
+/* The result sits about 700px below the first slider on a phone, so it is off screen
+   exactly when the number is changing. This pins a compact copy under the nav while the
+   calculator is in view. Above 900px the layout is already side by side, so it is off. */
+.mini-result {
+  position: fixed; left: 0; right: 0; z-index: 54;
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 10px clamp(16px, 4vw, 40px);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom: 1px solid var(--sand-line);
+  box-shadow: var(--shadow-2);
+  transform: translateY(-130%);
+  transition: transform .22s cubic-bezier(.2,.9,.3,1);
+  pointer-events: none;
+}
+.mini-result.on { transform: translateY(0); }
+.mini-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--sand); flex: 0 0 auto; }
+.mini-num { font-size: 1.22rem; font-weight: 600; letter-spacing: -.03em; color: var(--ink); }
+.mini-sub { font-size: var(--t-xs); color: var(--ink-2); margin-left: auto; text-align: right; flex: 0 1 auto; }
+@media (min-width: 900px) { .mini-result { display: none; } }
+@media (prefers-reduced-motion: reduce) { .mini-result { transition: none; } }
+
 /* ---------------- dossiers ---------------- */
 .dossier { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
 .dossier + .dossier { margin-top: var(--sp-4); }
