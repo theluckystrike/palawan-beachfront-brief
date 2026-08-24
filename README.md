@@ -23,6 +23,20 @@ The market is not discounting untitled land. Across 59 listings, titled lots and
 
 The 400 to 1,000 sqm beachfront band barely exists on the open market. Three listings fit, one of them in a top two barangay with a URL you can open.
 
+## Corrections made after the last agent reported
+
+The legal agent ran for one hundred minutes and finished after the page was already live. It corrected four published claims, all now fixed.
+
+RA 10023's residential free patent cap is 750 sqm in a first or second class municipality, not 1,000, and San Vicente is reported to be first class. That clips the top of the target range. Free patents are also open to Filipino citizens only.
+
+A single private house is a Category C project and PCSD exempts Category C from the SEP clearance. The ₱200 ECAN zoning certification is still needed, and still decides buildability.
+
+Proclamation No. 342 of 12 July 2000 declared the Malampaya Sound Protected Landscape and Seascape, about 200,115 hectares, in the municipalities of Taytay and San Vicente. Nothing inside proceeds without its management board. Whether any shortlisted lot falls inside the boundary is unresolved and is now a question for MENRO San Vicente.
+
+For a former natural-born Filipino, re-acquiring citizenship under RA 9225 removes every area cap and use restriction, which beats being permanently capped at 1,000 sqm.
+
+It also independently confirmed the transfer tax correction already made, that the provincial cap is 0.5 percent and the statute puts the duty on the seller.
+
 ## How the research was run
 
 Two agents swept property portals independently so their results could be checked against each other. One read statutes directly from primary text rather than from summaries. The others covered prices, contacts, geography, risk and the cost of ownership.
