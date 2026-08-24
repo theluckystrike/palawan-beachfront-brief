@@ -145,7 +145,8 @@
         + '<div class="dossier-hd">'
         + '<span class="dossier-id">' + esc(l.id) + "</span>"
         + '<div class="dossier-t"><h3>' + esc(l.loc) + (l.sitio ? ", " + esc(l.sitio) : "") + "</h3>"
-        + '<div class="tiny">' + esc(l.size ? sqm(l.size) : "size unknown") + " · " + esc(l.tenure) + " · " + php(l.price_php) + " " + chip(l.evid) + "</div></div>"
+        + '<div class="tiny">' + esc(l.size ? sqm(l.size) : "size unknown") + " · " + esc(l.tenure) + " · " + php(l.price_php) + " " + chip(l.evid) + "</div>"
+        + '<span class="dossier-stamp">Listing read ' + esc(DATA.meta.read_on) + " · figures go stale fast</span></div>"
         + '<div class="dossier-score"><div class="n num">' + (l.score == null ? "—" : l.score) + '</div><div class="l">score</div></div>'
         + "</div>"
         + (actionable(l) ? "" : '<div style="padding:11px 16px;background:var(--coral-wash);border-bottom:1px solid var(--border);font-size:var(--t-xs);color:var(--coral)">Nothing to act on yet. No source page was recovered for this lead, so it is ranked below every lot you can actually phone about.</div>')

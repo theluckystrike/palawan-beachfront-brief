@@ -6,6 +6,7 @@ var DATA = {
 meta: {
   cycle: 8,
   generated: "24 Aug 2026",
+  read_on: "24 Aug 2026",
   usd_rate: 57,
   sources_checked: 467,
   url: "https://theluckystrike.github.io/palawan-beachfront-brief/"
