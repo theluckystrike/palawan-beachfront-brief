@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Buying Beachfront Land in San Vicente, Palawan (2026)</title>
-<meta name="description" content="A cited due-diligence brief on buying a 400 to 1,000 sqm beachfront lot in San Vicente, Palawan. Live listings, the 8 legal gates, real costs and a cost calculator.">
+<meta name="description" content="A cited due-diligence brief on buying a 400 to 1,000 sqm beachfront lot in San Vicente, Palawan. Live listings, the 8 legal gates and what it really costs.">
 <link rel="canonical" href="https://theluckystrike.github.io/palawan-beachfront-brief/">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <meta name="author" content="theluckystrike">
@@ -14,7 +14,7 @@
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Buying Beachfront Land in San Vicente, Palawan (2026)">
-<meta property="og:description" content="A cited due-diligence brief on buying a 400 to 1,000 sqm beachfront lot in San Vicente, Palawan. Live listings, the 8 legal gates, real costs and a cost calculator.">
+<meta property="og:description" content="A cited due-diligence brief on buying a 400 to 1,000 sqm beachfront lot in San Vicente, Palawan. Live listings, the 8 legal gates and what it really costs.">
 <meta property="og:url" content="https://theluckystrike.github.io/palawan-beachfront-brief/">
 <meta property="og:site_name" content="Palawan Beachfront Brief">
 <meta property="og:image" content="https://theluckystrike.github.io/palawan-beachfront-brief/og.png">
@@ -493,7 +493,7 @@ details[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
 /* footer */
 .ftr { border-top: 1px solid var(--border); background: var(--deep); padding: clamp(40px, 6vw, 64px) 0 calc(28px + env(safe-area-inset-bottom)); margin-top: var(--sp-7); }
 .ftr-grid { display: grid; gap: var(--sp-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); margin-bottom: var(--sp-6); }
-.ftr h4 { font-family: var(--f-mono); font-size: 11px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; margin-bottom: 12px; }
+.ftr .ftr-h { font-family: var(--f-mono); font-size: 11px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; margin: 0 0 12px; }
 .ftr ul { list-style: none; padding: 0; margin: 0; }
 .ftr li { margin-bottom: 8px; font-size: var(--t-sm); }
 .ftr a { color: var(--ink-2); text-decoration: none; }
@@ -503,7 +503,7 @@ details[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
 .ftr a.btn-p { color: #14202a; }
 html[data-theme="light"] .ftr a.btn-p { color: #fff; }
 .builder { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: clamp(18px, 3vw, 26px); }
-.builder h4 { color: var(--sand); }
+.builder .ftr-h { color: var(--sand); }
 .builder p { font-size: var(--t-sm); color: var(--ink-2); }
 .share-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
 
@@ -511,6 +511,16 @@ html[data-theme="light"] .ftr a.btn-p { color: #fff; }
 .toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); transform: translate(-50%, 130%); z-index: 200; background: var(--sand); color: #14202a; font-size: var(--t-sm); font-weight: 600; padding: 12px 22px; border-radius: 999px; box-shadow: var(--shadow-3); transition: transform .3s cubic-bezier(.2,.9,.3,1); pointer-events: none; }
 html[data-theme="light"] .toast { color: #fff; }
 .toast.on { transform: translate(-50%, 0); }
+
+@media (pointer: coarse) {
+  .icon-btn { width: 48px; height: 48px; }
+  .subnav a { min-height: 48px; }
+  .btn { min-height: 48px; }
+  .copybox .cp { min-height: 48px; }
+  .check label { min-height: 60px; }
+  summary { min-height: 60px; }
+  .check input { width: 26px; height: 26px; min-width: 26px; }
+}
 
 /* print */
 @media print {
@@ -1471,7 +1481,7 @@ html[data-theme="light"] .toast { color: #fff; }
 <footer class="ftr">
   <div class="wrap">
     <div class="builder">
-      <h4>Who made this</h4>
+      <p class="ftr-h">Who made this</p>
       <p>Jeff, this was built for you in one run. If it saves you one bad trip to Palawan or one deposit on a lot that turns out to be inside a no-build zone, it did its job.</p>
       <p style="margin-bottom:0">I build research pipelines and small web tools, mostly the kind that go and check a thing properly instead of guessing. Code and projects are on GitHub. If a friend of yours is looking at land, a business, or anything where the facts are scattered across forty websites and half of them are lying, send them the link.</p>
       <div class="share-row">
@@ -1482,7 +1492,7 @@ html[data-theme="light"] .toast { color: #fff; }
 
     <div class="ftr-grid" style="margin-top:var(--sp-6)">
       <div>
-        <h4>The brief</h4>
+        <p class="ftr-h">The brief</p>
         <ul>
           <li><a href="#verdict">What this found</a></li>
           <li><a href="#shortlist">The shortlist</a></li>
@@ -1491,7 +1501,7 @@ html[data-theme="light"] .toast { color: #fff; }
         </ul>
       </div>
       <div>
-        <h4>Before you pay</h4>
+        <p class="ftr-h">Before you pay</p>
         <ul>
           <li><a href="#gates">The eight gates</a></li>
           <li><a href="#risk">How people get robbed</a></li>
@@ -1500,7 +1510,7 @@ html[data-theme="light"] .toast { color: #fff; }
         </ul>
       </div>
       <div>
-        <h4>Check it yourself</h4>
+        <p class="ftr-h">Check it yourself</p>
         <ul>
           <li><a href="https://hazardhunter.georisk.gov.ph/" target="_blank" rel="noopener noreferrer">HazardHunterPH</a></li>
           <li><a href="https://pcsd.gov.ph/" target="_blank" rel="noopener noreferrer">PCSD, ECAN zoning</a></li>
@@ -1509,7 +1519,7 @@ html[data-theme="light"] .toast { color: #fff; }
         </ul>
       </div>
       <div>
-        <h4>The law, in its own words</h4>
+        <p class="ftr-h">The law, in its own words</p>
         <ul>
           <li><a href="https://lawphil.net/statutes/presdecs/pd1976/pd_1067_1976.html" target="_blank" rel="noopener noreferrer">Water Code, article 51</a></li>
           <li><a href="https://lawphil.net/statutes/repacts/ra1992/ra_7611_1992.html" target="_blank" rel="noopener noreferrer">RA 7611, ECAN zones</a></li>

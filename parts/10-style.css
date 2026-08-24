@@ -430,7 +430,7 @@ details[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
 /* footer */
 .ftr { border-top: 1px solid var(--border); background: var(--deep); padding: clamp(40px, 6vw, 64px) 0 calc(28px + env(safe-area-inset-bottom)); margin-top: var(--sp-7); }
 .ftr-grid { display: grid; gap: var(--sp-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); margin-bottom: var(--sp-6); }
-.ftr h4 { font-family: var(--f-mono); font-size: 11px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; margin-bottom: 12px; }
+.ftr .ftr-h { font-family: var(--f-mono); font-size: 11px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; margin: 0 0 12px; }
 .ftr ul { list-style: none; padding: 0; margin: 0; }
 .ftr li { margin-bottom: 8px; font-size: var(--t-sm); }
 .ftr a { color: var(--ink-2); text-decoration: none; }
@@ -440,7 +440,7 @@ details[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
 .ftr a.btn-p { color: #14202a; }
 html[data-theme="light"] .ftr a.btn-p { color: #fff; }
 .builder { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: clamp(18px, 3vw, 26px); }
-.builder h4 { color: var(--sand); }
+.builder .ftr-h { color: var(--sand); }
 .builder p { font-size: var(--t-sm); color: var(--ink-2); }
 .share-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
 
@@ -448,6 +448,16 @@ html[data-theme="light"] .ftr a.btn-p { color: #fff; }
 .toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); transform: translate(-50%, 130%); z-index: 200; background: var(--sand); color: #14202a; font-size: var(--t-sm); font-weight: 600; padding: 12px 22px; border-radius: 999px; box-shadow: var(--shadow-3); transition: transform .3s cubic-bezier(.2,.9,.3,1); pointer-events: none; }
 html[data-theme="light"] .toast { color: #fff; }
 .toast.on { transform: translate(-50%, 0); }
+
+@media (pointer: coarse) {
+  .icon-btn { width: 48px; height: 48px; }
+  .subnav a { min-height: 48px; }
+  .btn { min-height: 48px; }
+  .copybox .cp { min-height: 48px; }
+  .check label { min-height: 60px; }
+  summary { min-height: 60px; }
+  .check input { width: 26px; height: 26px; min-width: 26px; }
+}
 
 /* print */
 @media print {
