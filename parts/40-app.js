@@ -79,7 +79,8 @@
         + td("Access", esc(l.access || "unknown"))
         + td("Evidence", chip(l.evid))
         + td("Score", '<div class="score-cell"><span class="num" style="min-width:2.2ch">' + (l.score == null ? "—" : l.score)
-            + '</span><span class="score-bar"><i style="width:' + (l.score || 0) + '%"></i></span></div>')
+            + "</span>" + (l.score == null ? "" : '<span class="score-bar"><i style="width:'
+            + Math.max(4, Math.min(100, (l.score - 25) / 50 * 100)) + '%"></i></span>') + "</div>")
         + "</tr>";
     }).join("");
     var live = DATA.leads.filter(function (l) { return String(l.evid).toUpperCase() !== "KILL"; }).length;
@@ -116,15 +117,23 @@
         ["Access claim", l.access || "unknown"],
         ["Advertiser", l.advertiser || "unknown"]
       ].map(function (f) {
-        return '<div class="fact"><div class="fact-k">' + esc(f[0]) + '</div><div class="fact-v">' + esc(f[1]) + "</div></div>";
+        var unk = !f[1] || /^(unknown|not published|size unknown)$/i.test(String(f[1]));
+        return '<div class="fact"><div class="fact-k">' + esc(f[0]) + '</div><div class="fact-v'
+          + (unk ? " unk" : "") + '">' + esc(f[1]) + "</div></div>";
       }).join("");
 
+      var answered = 0;
       var gates = Object.keys(GATE_NAMES).map(function (g) {
         var v = (l.gates && l.gates[g]) || "UNKNOWN";
-        return '<div class="gate"><span class="dot ' + (GATE_DOT[v] || "d-u") + '"></span>'
+        if (v !== "UNKNOWN") answered++;
+        return '<div class="gate g-' + v.toLowerCase() + '"><span class="dot ' + (GATE_DOT[v] || "d-u") + '"></span>'
           + '<span class="gk">' + g + "</span> " + esc(GATE_NAMES[g])
           + '<span class="gv">' + esc(v) + "</span></div>";
       }).join("");
+      // The report's own warning is that a high score with eight unknown gates means
+      // nobody has checked. Say that in one line rather than making it decode dots.
+      var tallyCls = answered === 0 ? "none" : (answered > 4 ? "most" : "some");
+      var tally = '<div class="gate-tally ' + tallyCls + '">' + answered + ' of 8 gates answered</div>';
 
       function flagList(arr, cls, title) {
         if (!arr || !arr.length) return "";
@@ -144,6 +153,7 @@
         + (l.note ? "<p>" + esc(l.note) + "</p>" : "")
         + '<div class="fact-grid">' + facts + "</div>"
         + '<h4 class="fact-k" style="margin:0 0 9px">Legal gates</h4>'
+        + tally
         + '<div class="gates">' + gates + "</div>"
         + flagList(l.flags && l.flags.red, "", "Red flags")
         + flagList(l.flags && l.flags.green, "good", "In its favour")
@@ -155,6 +165,25 @@
   }
 
   /* ---------- contacts ---------- */
+  // "0917 140 5210 · assessor@x.gov.ph" is the terminal action of this whole page.
+  // Turn each part into something a thumb can act on.
+  function contactLinks(s) {
+    if (!s) return "see site";
+    return String(s).split("\u00b7").map(function (part) {
+      var t = part.trim();
+      if (!t) return "";
+      if (/^[+0-9][0-9 ()\-]{6,}$/.test(t)) {
+        var tel = t.replace(/[^0-9+]/g, "");
+        if (tel.charAt(0) === "0") tel = "+63" + tel.slice(1);
+        return '<a class="tel" href="tel:' + esc(tel) + '">' + esc(t) + "</a>";
+      }
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t)) {
+        return '<a class="tel" href="mailto:' + esc(t) + '">' + esc(t) + "</a>";
+      }
+      return '<span class="tiny">' + esc(t) + "</span>";
+    }).join("");
+  }
+
   function renderContacts() {
     var a = $("#agencyRows");
     if (a) {
@@ -162,7 +191,7 @@
         return "<tr>"
           + '<td data-label="Office"><span class="cell-v"><b>' + esc(c.name) + "</b>" + (c.short ? '<div class="tiny">' + esc(c.short) + "</div>" : "") + "</span></td>"
           + '<td data-label="You get"><span class="cell-v">' + esc(c.need) + "</span></td>"
-          + '<td data-label="Contact" class="tiny"><span class="cell-v">' + esc(c.contact || "see site") + "</span></td>"
+          + '<td data-label="Contact"><span class="cell-v">' + contactLinks(c.contact) + "</span></td>"
           + '<td data-label="Source"><span class="cell-v">' + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "official page") + "</a>" : "—") + "</span></td>"
           + '<td data-label="Confirmed"><span class="cell-v">' + chip(c.verified ? "VERIFIED" : "UNVERIFIED") + "</span></td></tr>";
       }).join("");
@@ -173,7 +202,7 @@
         return "<tr>"
           + '<td data-label="Name"><span class="cell-v"><b>' + esc(c.name) + "</b>" + (c.org ? '<div class="tiny">' + esc(c.org) + "</div>" : "") + "</span></td>"
           + '<td data-label="Covers"><span class="cell-v">' + esc(c.covers || "—") + "</span></td>"
-          + '<td data-label="Contact" class="tiny"><span class="cell-v">' + esc(c.contact || "via listing form") + "</span></td>"
+          + '<td data-label="Contact"><span class="cell-v">' + contactLinks(c.contact || "via listing form") + "</span></td>"
           + '<td data-label="Source"><span class="cell-v">' + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "site") + "</a>" : "—") + "</span></td>"
           + '<td data-label="Confirmed"><span class="cell-v">' + chip(c.verified ? "VERIFIED" : "REPORTED") + "</span></td></tr>";
       }).join("");

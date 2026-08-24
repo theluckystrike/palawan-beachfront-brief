@@ -78,7 +78,7 @@
   --border-2:   #266072;
 
   --ink:        #e9f4f5;
-  --ink-2:      #a3bcc4;
+  --ink-2:      #b3c9d0;
   --ink-3:      #8aa6ae;
 
   --sand:       #e6b878;   /* THE accent: scores, CTAs, active */
@@ -131,8 +131,8 @@ html[data-theme="light"] {
   --border-2:   #b4c9ca;
 
   --ink:        #0b2129;
-  --ink-2:      #40616c;
-  --ink-3:      #5c757e;
+  --ink-2:      #3d5a64;
+  --ink-3:      #526b75;
 
   --sand:       #855715;
   --sand-deep:  #6b4410;
@@ -154,7 +154,7 @@ html[data-theme="light"] {
 }
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--hdr) + 66px); }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--hdr) + 84px); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
@@ -190,7 +190,7 @@ h3 { font-size: var(--t-h3); font-weight: 600; letter-spacing: -.01em; }
 p { margin: 0 0 var(--sp-4); max-width: var(--read); }
 a { color: var(--sand); text-decoration-color: var(--sand-line); text-underline-offset: 3px; }
 a:hover { text-decoration-color: var(--sand); }
-:focus-visible { outline: 3px solid var(--sand); outline-offset: 3px; border-radius: 4px; }
+:focus-visible { outline: 3px solid var(--sand); outline-offset: 3px; }
 .btn-p:focus-visible, .subnav a.on:focus-visible, .dossier-id:focus-visible { outline-color: var(--ink); }
 html[data-theme="light"] .btn-p:focus-visible, html[data-theme="light"] .subnav a.on:focus-visible { outline-color: var(--abyss); }
 img, svg { max-width: 100%; }
@@ -202,6 +202,7 @@ html[data-theme="light"] ::selection { background: var(--sand); color: #fff; }
 .mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
 .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
 .muted { color: var(--ink-2); }
+.card-body { font-size: .9375rem; line-height: 1.62; color: var(--ink-2); max-width: var(--read); }
 .tiny { font-size: var(--t-xs); color: var(--ink-3); line-height: 1.5; }
 .sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .skip { position: absolute; left: 0; top: 0; transform: translateY(-140%); z-index: 999; background: var(--sand); color: var(--abyss); padding: 10px 16px; border-radius: 0 0 var(--r-sm) 0; font-weight: 600; }
@@ -263,15 +264,15 @@ section { scroll-margin-top: 0; }
 
 /* ---------------- cards ---------------- */
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: clamp(18px, 3.2vw, 28px); box-shadow: var(--shadow-1); }
-.grid { display: grid; gap: var(--sp-4); }
-.g2 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr)); }
-.g3 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
-.g4 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr)); }
+.grid { display: grid; gap: var(--sp-4); align-items: start; }
+.g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); }
+.g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+.g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); }
 
 /* coast strip */
-.coast { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 158px), 1fr)); }
+.coast { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 158px), 1fr)); }
 .coast-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 14px 15px; position: relative; overflow: hidden; transition: border-color .18s, transform .18s; }
-@media (hover: hover) { .coast-item:hover { border-color: var(--sand-line); transform: translateY(-2px); } }
+@media (hover: hover) { .coast-item:hover { border-color: var(--sand-line); } }
 .coast-item::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--rank-c, var(--border-2)); }
 .coast-rank { font-family: var(--f-mono); font-size: 11px; letter-spacing: .12em; color: var(--ink-3); text-transform: uppercase; }
 .coast-name { font-family: var(--f-display); font-weight: 600; font-size: 1.02rem; margin: 3px 0 5px; letter-spacing: -.015em; }
@@ -305,7 +306,7 @@ tbody tr:last-child td { border-bottom: none; }
 td .lid { font-family: var(--f-mono); font-weight: 600; color: var(--sand); }
 .cell-v { display: block; }
 .score-cell { display: flex; align-items: center; gap: 9px; }
-.score-bar { width: 44px; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--ink-3) 25%, transparent); overflow: hidden; flex: 0 0 auto; }
+.score-bar { width: 64px; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--ink-3) 25%, transparent); overflow: hidden; flex: 0 0 auto; }
 .score-bar i { display: block; height: 100%; background: var(--sand); border-radius: 3px; }
 
 /* Below md an eight column table is hostile on a phone, so each row becomes a card
@@ -426,10 +427,16 @@ html[data-theme="light"] .btn-p { color: #fff; }
 }
 .mini-result.on { transform: translateY(0); }
 .mini-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--sand); flex: 0 0 auto; }
-.mini-num { font-size: 1.22rem; font-weight: 600; letter-spacing: -.03em; color: var(--ink); }
-.mini-sub { font-size: var(--t-xs); color: var(--ink-2); margin-left: auto; text-align: right; flex: 0 1 auto; }
+.mini-num { font-size: 1.22rem; font-weight: 600; letter-spacing: -.03em; color: var(--sand); min-width: 0; }
+.mini-sub { font-size: var(--t-xs); color: var(--ink-2); margin-left: auto; text-align: right; flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 359px) { .mini-label { display: none; } }
 @media (min-width: 900px) { .mini-result { display: none; } }
 @media (prefers-reduced-motion: reduce) { .mini-result { transition: none; } }
+
+@media (max-width: 767px) {
+  #calculator .card > .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  #calculator .card > .btn-row .btn { width: 100%; padding: 0 12px; font-size: var(--t-xs); }
+}
 
 /* ---------------- dossiers ---------------- */
 .dossier { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
@@ -443,16 +450,27 @@ html[data-theme="light"] .dossier-id { color: #fff; }
 .dossier-score .n { font-family: var(--f-mono); font-size: 1.75rem; font-weight: 600; color: var(--sand); letter-spacing: -.03em; line-height: 1; }
 .dossier-score .l { font-family: var(--f-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
 .dossier-bd { padding: clamp(16px, 3vw, 24px); }
-.fact-grid { display: grid; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); margin-bottom: var(--sp-4); }
+.fact-grid { display: grid; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: var(--sp-4); }
+@media (min-width: 900px) { .fact-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .fact { background: var(--surface); padding: 12px 14px; }
 .fact-k { font-family: var(--f-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
 .fact-v { font-size: var(--t-sm); font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+.fact-v.unk { color: var(--ink-3); font-weight: 400; font-style: italic; }
 
-.gates { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 168px), 1fr)); margin: var(--sp-4) 0; }
+.gates { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 168px), 1fr)); margin: var(--sp-4) 0; }
 .gate { display: flex; align-items: center; gap: 9px; padding: 9px 11px; border-radius: var(--r-sm); border: 1px solid var(--border); background: var(--raised); font-size: var(--t-xs); }
 .gate .dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; }
 .gate .gk { font-family: var(--f-mono); font-weight: 600; color: var(--ink-2); }
-.gate .gv { color: var(--ink-3); margin-left: auto; font-family: var(--f-mono); font-size: 10px; letter-spacing: .07em; text-transform: uppercase; }
+.gate .gv { margin-left: auto; font-family: var(--f-mono); font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.g-verified .gv { color: var(--glass); }
+.g-reported .gv { color: var(--amber); }
+.g-unknown .gv { color: var(--ink-3); }
+.g-fail .gv { color: var(--coral); }
+.g-unknown { border-style: dashed; }
+.gate-tally { font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
+.gate-tally.none { color: var(--coral); }
+.gate-tally.some { color: var(--amber); }
+.gate-tally.most { color: var(--glass); }
 .d-v { background: var(--glass); } .d-r { background: var(--amber); } .d-u { background: var(--ink-3); } .d-f { background: var(--coral); }
 
 .flags { list-style: none; padding: 0; margin: 0; }
@@ -467,6 +485,8 @@ html[data-theme="light"] .dossier-id { color: #fff; }
 /* ---------------- checklist ---------------- */
 .check { list-style: none; padding: 0; margin: 0; counter-reset: ck; }
 .check li { border: 1px solid var(--border); border-radius: var(--r-md); background: var(--surface); margin-bottom: 8px; transition: border-color .15s, background .15s; }
+.check.plain li { padding: 14px 16px; box-shadow: inset 3px 0 0 var(--sand); }
+.check.plain .ck-t { margin-bottom: 4px; }
 .check li.done { background: var(--glass-wash); border-color: color-mix(in srgb, var(--glass) 32%, transparent); }
 .check label { display: flex; gap: 13px; align-items: flex-start; padding: 14px 16px; min-height: 56px; cursor: pointer; }
 .check input { flex: 0 0 auto; width: 24px; height: 24px; min-width: 24px; margin: 1px 0 0; accent-color: var(--glass); cursor: pointer; }
@@ -497,6 +517,11 @@ details[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
 .src:hover { color: var(--sand); border-bottom-color: var(--sand); }
 .src::after { content: "↗"; font-size: 9px; opacity: .75; }
 .src-list { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: var(--sp-3); }
+
+.tel { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--f-mono); font-size: var(--t-sm); color: var(--sand); text-decoration: none; border-bottom: 1px solid var(--sand-line); }
+.tel:hover { border-bottom-color: var(--sand); }
+.tel + .tel { margin-top: 2px; }
+td .tel { display: flex; }
 
 /* copy blocks */
 .copybox { position: relative; background: var(--raised); border: 1px solid var(--border); border-radius: var(--r-md); padding: 62px 16px 14px; margin-top: var(--sp-3); }
@@ -892,7 +917,7 @@ html[data-theme="light"] .toast { color: #fff; }
     </div>
 
     <details open>
-      <summary>G1. Is the land Alienable and Disposable, or is it forest</summary>
+      <summary>G1. Is the land Alienable and Disposable, or is it forest?</summary>
       <div class="det-bd">
         <p>Forest and timberland can never be titled by anyone, ever. It does not matter how many decades a family has farmed it or how many tax declarations exist. Under the Regalian doctrine all land belongs to the State until the State classifies it as alienable and releases it, and only alienable agricultural land can pass into private hands.</p>
         <p>The Public Land Act sets that structure out, and it also draws the line that matters most on a beach. Section 59 splits disposable non-agricultural land into reclaimed land, foreshore, marshy land and everything else. Section 61 then says the first three groups may be disposed of <em>by lease only and not otherwise</em>. Foreshore is never for sale.</p>
@@ -906,7 +931,7 @@ html[data-theme="light"] .toast { color: #fff; }
       </div>
     </details>
 
-    <details>
+    <details open>
       <summary>G2. What the paper actually proves</summary>
       <div class="det-bd">
         <p>A Torrens title is conclusive evidence of ownership. A tax declaration is not. It shows somebody has been paying tax on a claim, which is a long way from owning the land, and Philippine courts have said so repeatedly. Unregistered land also has no central register, so nothing gives you constructive notice of a prior claim and nothing protects you from one.</p>
@@ -919,8 +944,8 @@ html[data-theme="light"] .toast { color: #fff; }
       </div>
     </details>
 
-    <details>
-      <summary>G3. Can a tax declaration lot ever become a title</summary>
+    <details open>
+      <summary>G3. Can a tax declaration lot ever become a title?</summary>
       <div class="det-bd">
         <p>Sometimes, and only if the land is Alienable and Disposable first. Two routes exist. A residential free patent under RA 10023 covers residential land, and an agricultural free patent under the Public Land Act as amended by RA 11231 covers agricultural land.</p>
         <p>Two limits on RA 10023 matter to you specifically. The area cap depends on the municipality's income class, and in a first or second class municipality it is <em>750 square metres</em>, not 1,000. San Vicente is a first class municipality, confirmed on the Department of Finance schedule that took effect in January 2025. So the titling route caps out at 750 square metres and clips the top of your target range. And free patents are open to Filipino citizens only, so if you are not one, this route does not exist for you at all.</p>
@@ -1454,11 +1479,11 @@ html[data-theme="light"] .toast { color: #fff; }
     <div class="grid g2" style="margin-top:var(--sp-5)">
       <div>
         <h3 style="margin:0 0 14px">What blocked the run</h3>
-        <ul class="check" id="blockerList" style="pointer-events:none"></ul>
+        <ul class="check plain" id="blockerList"></ul>
       </div>
       <div>
         <h3 style="margin:0 0 14px">Jobs that need a person</h3>
-        <ul class="check" id="queueList" style="pointer-events:none"></ul>
+        <ul class="check plain" id="queueList"></ul>
       </div>
     </div>
 
@@ -1490,23 +1515,23 @@ html[data-theme="light"] .toast { color: #fff; }
       <h2>Questions people actually ask</h2>
     </div>
     <details open>
-      <summary>Can a foreigner buy land in the Philippines</summary>
+      <summary>Can a foreigner buy land in the Philippines?</summary>
       <div class="det-bd"><p>No. The Constitution reserves private land for Philippine citizens and for corporations at least sixty percent Filipino owned. Two exceptions exist, hereditary succession and former natural-born Filipinos, who may hold up to 1,000 square metres of urban land or one hectare of rural residential land. Everyone else is limited to a lease, which for a private buyer runs twenty five years renewable for twenty five more by agreement rather than by right.</p></div>
     </details>
-    <details open>
-      <summary>What is the salvage zone in the Philippines</summary>
+    <details>
+      <summary>What is the salvage zone in the Philippines?</summary>
       <div class="det-bd"><p>It is the strip of shore that stays in public use no matter who owns the land behind it. Article 51 of the Water Code sets it at three metres in urban areas, twenty in agricultural areas and forty in forest areas, and forbids building structures of any kind inside it. DENR defines it as twenty metres measured landward from the interior limit of the shoreline. On Long Beach in San Vicente the tourism master plan pushes it to fifty metres.</p></div>
     </details>
-    <details open>
-      <summary>Is a tax declaration proof of ownership in the Philippines</summary>
+    <details>
+      <summary>Is a tax declaration proof of ownership in the Philippines?</summary>
       <div class="det-bd"><p>No. A tax declaration shows somebody has been paying tax on a claim. A Torrens title is what proves ownership, and it prevails over any tax declaration covering the same land. Buying tax declaration land means buying a possessory claim you then have to perfect, against claimants you cannot see, on land that may not even be titleable.</p></div>
     </details>
-    <details open>
-      <summary>How much does it cost to transfer land title in the Philippines</summary>
+    <details>
+      <summary>How much does it cost to transfer land title in the Philippines?</summary>
       <div class="det-bd"><p>Roughly eight to nine percent of the price in government charges, plus a broker commission of three to five percent. Capital gains tax is six percent and the seller is the taxpayer, documentary stamp tax is one and a half percent, provincial transfer tax is up to half a percent and the statute makes that the seller's duty too, and registration fees add a fraction of a percent. Tax is charged on the higher of the selling price or the BIR zonal value, so under-declaring the price saves nobody anything.</p></div>
     </details>
-    <details open>
-      <summary>Is land in San Vicente Palawan a good investment</summary>
+    <details>
+      <summary>Is land in San Vicente Palawan a good investment?</summary>
       <div class="det-bd"><p>Nobody can answer that with data, and anyone who quotes you a percent per year is making it up. The Philippines has no public register of sold prices and no working national listing service, so no appreciation index for a rural municipality can be built from public data. The only official dated valuation is the BIR zonal schedule, which has not been revised since December 2017.</p></div>
     </details>
   </div>
@@ -2079,7 +2104,8 @@ outreach: [
         + td("Access", esc(l.access || "unknown"))
         + td("Evidence", chip(l.evid))
         + td("Score", '<div class="score-cell"><span class="num" style="min-width:2.2ch">' + (l.score == null ? "—" : l.score)
-            + '</span><span class="score-bar"><i style="width:' + (l.score || 0) + '%"></i></span></div>')
+            + "</span>" + (l.score == null ? "" : '<span class="score-bar"><i style="width:'
+            + Math.max(4, Math.min(100, (l.score - 25) / 50 * 100)) + '%"></i></span>') + "</div>")
         + "</tr>";
     }).join("");
     var live = DATA.leads.filter(function (l) { return String(l.evid).toUpperCase() !== "KILL"; }).length;
@@ -2116,15 +2142,23 @@ outreach: [
         ["Access claim", l.access || "unknown"],
         ["Advertiser", l.advertiser || "unknown"]
       ].map(function (f) {
-        return '<div class="fact"><div class="fact-k">' + esc(f[0]) + '</div><div class="fact-v">' + esc(f[1]) + "</div></div>";
+        var unk = !f[1] || /^(unknown|not published|size unknown)$/i.test(String(f[1]));
+        return '<div class="fact"><div class="fact-k">' + esc(f[0]) + '</div><div class="fact-v'
+          + (unk ? " unk" : "") + '">' + esc(f[1]) + "</div></div>";
       }).join("");
 
+      var answered = 0;
       var gates = Object.keys(GATE_NAMES).map(function (g) {
         var v = (l.gates && l.gates[g]) || "UNKNOWN";
-        return '<div class="gate"><span class="dot ' + (GATE_DOT[v] || "d-u") + '"></span>'
+        if (v !== "UNKNOWN") answered++;
+        return '<div class="gate g-' + v.toLowerCase() + '"><span class="dot ' + (GATE_DOT[v] || "d-u") + '"></span>'
           + '<span class="gk">' + g + "</span> " + esc(GATE_NAMES[g])
           + '<span class="gv">' + esc(v) + "</span></div>";
       }).join("");
+      // The report's own warning is that a high score with eight unknown gates means
+      // nobody has checked. Say that in one line rather than making it decode dots.
+      var tallyCls = answered === 0 ? "none" : (answered > 4 ? "most" : "some");
+      var tally = '<div class="gate-tally ' + tallyCls + '">' + answered + ' of 8 gates answered</div>';
 
       function flagList(arr, cls, title) {
         if (!arr || !arr.length) return "";
@@ -2144,6 +2178,7 @@ outreach: [
         + (l.note ? "<p>" + esc(l.note) + "</p>" : "")
         + '<div class="fact-grid">' + facts + "</div>"
         + '<h4 class="fact-k" style="margin:0 0 9px">Legal gates</h4>'
+        + tally
         + '<div class="gates">' + gates + "</div>"
         + flagList(l.flags && l.flags.red, "", "Red flags")
         + flagList(l.flags && l.flags.green, "good", "In its favour")
@@ -2155,6 +2190,25 @@ outreach: [
   }
 
   /* ---------- contacts ---------- */
+  // "0917 140 5210 · assessor@x.gov.ph" is the terminal action of this whole page.
+  // Turn each part into something a thumb can act on.
+  function contactLinks(s) {
+    if (!s) return "see site";
+    return String(s).split("\u00b7").map(function (part) {
+      var t = part.trim();
+      if (!t) return "";
+      if (/^[+0-9][0-9 ()\-]{6,}$/.test(t)) {
+        var tel = t.replace(/[^0-9+]/g, "");
+        if (tel.charAt(0) === "0") tel = "+63" + tel.slice(1);
+        return '<a class="tel" href="tel:' + esc(tel) + '">' + esc(t) + "</a>";
+      }
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t)) {
+        return '<a class="tel" href="mailto:' + esc(t) + '">' + esc(t) + "</a>";
+      }
+      return '<span class="tiny">' + esc(t) + "</span>";
+    }).join("");
+  }
+
   function renderContacts() {
     var a = $("#agencyRows");
     if (a) {
@@ -2162,7 +2216,7 @@ outreach: [
         return "<tr>"
           + '<td data-label="Office"><span class="cell-v"><b>' + esc(c.name) + "</b>" + (c.short ? '<div class="tiny">' + esc(c.short) + "</div>" : "") + "</span></td>"
           + '<td data-label="You get"><span class="cell-v">' + esc(c.need) + "</span></td>"
-          + '<td data-label="Contact" class="tiny"><span class="cell-v">' + esc(c.contact || "see site") + "</span></td>"
+          + '<td data-label="Contact"><span class="cell-v">' + contactLinks(c.contact) + "</span></td>"
           + '<td data-label="Source"><span class="cell-v">' + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "official page") + "</a>" : "—") + "</span></td>"
           + '<td data-label="Confirmed"><span class="cell-v">' + chip(c.verified ? "VERIFIED" : "UNVERIFIED") + "</span></td></tr>";
       }).join("");
@@ -2173,7 +2227,7 @@ outreach: [
         return "<tr>"
           + '<td data-label="Name"><span class="cell-v"><b>' + esc(c.name) + "</b>" + (c.org ? '<div class="tiny">' + esc(c.org) + "</div>" : "") + "</span></td>"
           + '<td data-label="Covers"><span class="cell-v">' + esc(c.covers || "—") + "</span></td>"
-          + '<td data-label="Contact" class="tiny"><span class="cell-v">' + esc(c.contact || "via listing form") + "</span></td>"
+          + '<td data-label="Contact"><span class="cell-v">' + contactLinks(c.contact || "via listing form") + "</span></td>"
           + '<td data-label="Source"><span class="cell-v">' + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "site") + "</a>" : "—") + "</span></td>"
           + '<td data-label="Confirmed"><span class="cell-v">' + chip(c.verified ? "VERIFIED" : "REPORTED") + "</span></td></tr>";
       }).join("");
