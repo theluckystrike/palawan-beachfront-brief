@@ -1,0 +1,382 @@
+/* ============================================================
+   Renderer. DATA above is the single source of truth for every
+   figure on this page. Prose sections are static HTML.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var USD = DATA.meta.usd_rate;
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function php(n) {
+    if (n == null || isNaN(n)) return "—";
+    return "₱" + Math.round(n).toLocaleString("en-US");
+  }
+  function usd(n) {
+    if (n == null || isNaN(n)) return "";
+    return "$" + Math.round(n / USD).toLocaleString("en-US");
+  }
+  function sqm(n) { return n == null ? "size unknown" : Number(n).toLocaleString("en-US") + " sqm"; }
+
+  var EVID = { VERIFIED: "chip-v", REPORTED: "chip-r", INFERRED: "chip-i", KILL: "chip-k", UNVERIFIED: "chip-u" };
+  function chip(tag) {
+    var key = String(tag || "UNVERIFIED").split(" ")[0].toUpperCase();
+    return '<span class="chip ' + (EVID[key] || "chip-u") + '">' + esc(tag) + "</span>";
+  }
+  function srcLink(s, i) {
+    return '<a class="src" href="' + esc(s.u) + '" target="_blank" rel="noopener noreferrer nofollow">' + esc(s.t || "source " + (i + 1)) + "</a>";
+  }
+  function srcList(arr) {
+    if (!arr || !arr.length) return "";
+    return '<div class="src-list">' + arr.map(srcLink).join("") + "</div>";
+  }
+
+  /* ---------- coast strip ---------- */
+  function renderCoast() {
+    var el = $("#coast"); if (!el) return;
+    var colors = { 1: "var(--sand)", 2: "var(--glass)", 3: "var(--border-2)", 4: "var(--ink-3)" };
+    el.innerHTML = DATA.coast.map(function (c) {
+      return '<article class="coast-item" style="--rank-c:' + colors[c.rank] + '">'
+        + '<div class="coast-rank">Priority ' + c.rank + "</div>"
+        + '<h3 class="coast-name">' + esc(c.name) + "</h3>"
+        + '<div class="coast-count"><b>' + c.leads + "</b> live " + (c.leads === 1 ? "lead" : "leads") + "</div>"
+        + (c.note ? '<div class="tiny" style="margin-top:7px">' + esc(c.note) + "</div>" : "")
+        + "</article>";
+    }).join("");
+  }
+
+  /* ---------- ranked table ---------- */
+  function renderTable() {
+    var b = $("#leadRows"); if (!b) return;
+    var rows = DATA.leads.slice().sort(function (a, c) { return (c.score || 0) - (a.score || 0); });
+    b.innerHTML = rows.map(function (l) {
+      return "<tr>"
+        + '<td><span class="lid">' + esc(l.id) + "</span></td>"
+        + "<td><b>" + esc(l.loc) + "</b>" + (l.sitio ? '<div class="tiny">' + esc(l.sitio) + "</div>" : "") + "</td>"
+        + '<td class="num">' + (l.size ? Number(l.size).toLocaleString("en-US") : "—") + "</td>"
+        + "<td>" + esc(l.tenure) + "</td>"
+        + '<td class="num">' + php(l.price_php) + (l.price_php ? '<div class="tiny num">' + usd(l.price_php) + "</div>" : "") + "</td>"
+        + '<td class="num">' + (l.sqm_php ? php(l.sqm_php) : "—") + "</td>"
+        + "<td>" + esc(l.access || "unknown") + "</td>"
+        + "<td>" + chip(l.evid) + "</td>"
+        + '<td><div class="score-cell"><span class="num" style="min-width:2.2ch">' + (l.score == null ? "—" : l.score)
+        + '</span><span class="score-bar"><i style="width:' + (l.score || 0) + '%"></i></span></div></td>'
+        + "</tr>";
+    }).join("");
+    var n = $("#leadCount"); if (n) n.textContent = DATA.leads.length;
+  }
+
+  /* ---------- dossiers ---------- */
+  var GATE_NAMES = {
+    G1: "A&D vs forest", G2: "Tenure trace", G3: "Titling path", G4: "Salvage zone",
+    G5: "ECAN zone", G6: "Overlays", G7: "Access", G8: "Buyer structure"
+  };
+  var GATE_DOT = { VERIFIED: "d-v", REPORTED: "d-r", UNKNOWN: "d-u", FAIL: "d-f" };
+
+  function renderDossiers() {
+    var el = $("#dossiers"); if (!el) return;
+    var top = DATA.leads.slice().sort(function (a, c) { return (c.score || 0) - (a.score || 0); }).slice(0, 5);
+    el.innerHTML = top.map(function (l) {
+      var facts = [
+        ["Size", l.size ? sqm(l.size) : "unknown"],
+        ["Asking", php(l.price_php)],
+        ["Per sqm", l.sqm_php ? php(l.sqm_php) : "unknown"],
+        ["Tenure claim", l.tenure],
+        ["Frontage", l.frontage || "not published"],
+        ["GPS", l.gps || "not published"],
+        ["Access claim", l.access || "unknown"],
+        ["Advertiser", l.advertiser || "unknown"]
+      ].map(function (f) {
+        return '<div class="fact"><div class="fact-k">' + esc(f[0]) + '</div><div class="fact-v">' + esc(f[1]) + "</div></div>";
+      }).join("");
+
+      var gates = Object.keys(GATE_NAMES).map(function (g) {
+        var v = (l.gates && l.gates[g]) || "UNKNOWN";
+        return '<div class="gate"><span class="dot ' + (GATE_DOT[v] || "d-u") + '"></span>'
+          + '<span class="gk">' + g + "</span> " + esc(GATE_NAMES[g])
+          + '<span class="gv">' + esc(v) + "</span></div>";
+      }).join("");
+
+      function flagList(arr, cls, title) {
+        if (!arr || !arr.length) return "";
+        return '<h4 class="fact-k" style="margin:18px 0 9px">' + title + "</h4>"
+          + '<ul class="flags ' + cls + '">' + arr.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>";
+      }
+
+      return '<article class="dossier">'
+        + '<div class="dossier-hd">'
+        + '<span class="dossier-id">' + esc(l.id) + "</span>"
+        + '<div class="dossier-t"><h3>' + esc(l.loc) + (l.sitio ? ", " + esc(l.sitio) : "") + "</h3>"
+        + '<div class="tiny">' + esc(l.size ? sqm(l.size) : "size unknown") + " · " + esc(l.tenure) + " · " + php(l.price_php) + " " + chip(l.evid) + "</div></div>"
+        + '<div class="dossier-score"><div class="n num">' + (l.score == null ? "—" : l.score) + '</div><div class="l">score</div></div>'
+        + "</div>"
+        + '<div class="dossier-bd">'
+        + (l.note ? "<p>" + esc(l.note) + "</p>" : "")
+        + '<div class="fact-grid">' + facts + "</div>"
+        + '<h4 class="fact-k" style="margin:0 0 9px">Legal gates</h4>'
+        + '<div class="gates">' + gates + "</div>"
+        + flagList(l.flags && l.flags.red, "", "Red flags")
+        + flagList(l.flags && l.flags.green, "good", "In its favour")
+        + flagList(l.flags && l.flags.ask, "ask", "Ask before anything else")
+        + (l.next ? '<div class="next-action"><div class="na-k">Next action</div>' + esc(l.next) + "</div>" : "")
+        + srcList(l.src)
+        + "</div></article>";
+    }).join("");
+  }
+
+  /* ---------- contacts ---------- */
+  function renderContacts() {
+    var a = $("#agencyRows");
+    if (a) {
+      a.innerHTML = DATA.agencies.map(function (c) {
+        return "<tr><td><b>" + esc(c.name) + "</b>" + (c.short ? '<div class="tiny">' + esc(c.short) + "</div>" : "") + "</td>"
+          + "<td>" + esc(c.need) + "</td>"
+          + '<td class="tiny">' + esc(c.contact || "see site") + "</td>"
+          + "<td>" + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "official page") + "</a>" : "—") + "</td>"
+          + "<td>" + chip(c.verified ? "VERIFIED" : "UNVERIFIED") + "</td></tr>";
+      }).join("");
+    }
+    var b = $("#brokerRows");
+    if (b) {
+      b.innerHTML = DATA.brokers.map(function (c) {
+        return "<tr><td><b>" + esc(c.name) + "</b>" + (c.org ? '<div class="tiny">' + esc(c.org) + "</div>" : "") + "</td>"
+          + "<td>" + esc(c.covers || "—") + "</td>"
+          + '<td class="tiny">' + esc(c.contact || "via listing form") + "</td>"
+          + "<td>" + (c.url ? '<a class="src" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">' + esc(c.host || "site") + "</a>" : "—") + "</td>"
+          + "<td>" + chip(c.verified ? "VERIFIED" : "REPORTED") + "</td></tr>";
+      }).join("");
+    }
+  }
+
+  /* ---------- checklist with persistence ---------- */
+  var CK_KEY = "pbb.checklist.v1";
+  function loadCk() { try { return JSON.parse(localStorage.getItem(CK_KEY) || "{}"); } catch (e) { return {}; } }
+  function saveCk(o) { try { localStorage.setItem(CK_KEY, JSON.stringify(o)); } catch (e) { /* private mode */ } }
+
+  function renderChecklist() {
+    var el = $("#checklist"); if (!el) return;
+    var state = loadCk();
+    el.innerHTML = DATA.checklist.map(function (c, i) {
+      var id = "ck" + i, on = !!state[id];
+      return '<li class="' + (on ? "done" : "") + '"><label for="' + id + '">'
+        + '<input type="checkbox" id="' + id + '"' + (on ? " checked" : "") + '>'
+        + '<span class="ck-b"><span class="ck-t">' + (i + 1) + ". " + esc(c.t) + "</span>"
+        + '<span class="ck-d">' + esc(c.d) + "</span>"
+        + (c.who ? '<span class="ck-w">' + esc(c.who) + "</span>" : "")
+        + "</span></label></li>";
+    }).join("");
+
+    function tick() {
+      var boxes = $$("#checklist input"), done = boxes.filter(function (b) { return b.checked; }).length;
+      $("#ckProg").style.width = (done / boxes.length * 100) + "%";
+      $("#ckNum").textContent = done + " of " + boxes.length;
+    }
+    el.addEventListener("change", function (e) {
+      if (e.target.type !== "checkbox") return;
+      var st = loadCk(); st[e.target.id] = e.target.checked; saveCk(st);
+      e.target.closest("li").classList.toggle("done", e.target.checked);
+      tick();
+    });
+    tick();
+    var reset = $("#ckReset");
+    if (reset) reset.addEventListener("click", function () {
+      saveCk({});
+      $$("#checklist input").forEach(function (b) { b.checked = false; b.closest("li").classList.remove("done"); });
+      tick(); toast("Checklist cleared");
+    });
+  }
+
+  /* ---------- simple list renderers ---------- */
+  function renderList(sel, arr, fn) {
+    var el = $(sel); if (!el || !arr) return;
+    el.innerHTML = arr.map(fn).join("");
+  }
+
+  function renderMisc() {
+    renderList("#queueList", DATA.manual_queue, function (q) {
+      return '<li><span class="ck-t">' + esc(q.t) + '</span><span class="ck-d">' + esc(q.d) + "</span></li>";
+    });
+    renderList("#blockerList", DATA.blockers, function (b) {
+      return '<li><span class="ck-t">' + esc(b.t) + '</span><span class="ck-d">' + esc(b.d) + "</span></li>";
+    });
+    renderList("#rejectRows", DATA.rejects, function (r) {
+      return "<tr><td><b>" + esc(r.loc) + "</b></td><td>" + esc(r.size) + "</td><td>" + esc(r.price) + "</td><td>" + esc(r.reason) + "</td></tr>";
+    });
+    renderList("#coverRows", DATA.coverage, function (c) {
+      var cls = { SWEPT: "chip-v", PART: "chip-r", BLOCK: "chip-k", TODO: "chip-u" }[c.status] || "chip-u";
+      return "<tr><td><b>" + esc(c.source) + '</b></td><td class="tiny">' + esc(c.scope) + "</td>"
+        + '<td><span class="chip ' + cls + '">' + esc(c.status) + "</span></td>"
+        + '<td class="tiny">' + esc(c.note) + "</td></tr>";
+    });
+    renderList("#compRows", DATA.comps, function (c) {
+      return "<tr><td><b>" + esc(c.area) + "</b></td><td class=\"num\">" + esc(c.range) + '</td><td class="num">' + esc(c.n) + "</td><td class=\"tiny\">" + esc(c.note) + "</td></tr>";
+    });
+    renderList("#changeRows", DATA.changelog, function (c) {
+      return "<tr><td class=\"num\">" + esc(c.cycle) + "</td><td class=\"tiny\">" + esc(c.when) + "</td><td>" + esc(c.what) + "</td></tr>";
+    });
+    var st = $("#statRow");
+    if (st) st.innerHTML = DATA.stats.map(function (s) {
+      return '<div class="stat"><div class="sv">' + esc(s.v) + '</div><div class="sl">' + esc(s.l) + "</div></div>";
+    }).join("");
+  }
+
+  /* ---------- outreach drafts ---------- */
+  function renderOutreach() {
+    var el = $("#outreach"); if (!el) return;
+    el.innerHTML = DATA.outreach.map(function (o, i) {
+      return "<details" + (i === 0 ? " open" : "") + "><summary>" + esc(o.title) + "</summary>"
+        + '<div class="det-bd"><p class="tiny">' + esc(o.why) + "</p>"
+        + '<div class="copybox"><button class="btn cp" data-copy="ot' + i + '">Copy</button>'
+        + '<pre id="ot' + i + '">' + esc(o.text) + "</pre></div></div></details>";
+    }).join("");
+  }
+
+  /* ---------- cost calculator ---------- */
+  function calc() {
+    var size = +$("#cSize").value || 0;
+    var rate = +$("#cRate").value || 0;
+    var front = +$("#cFront").value || 0;
+    var zone = +$("#cZone").value;
+    var land = size * rate;
+
+    // Water Code PD 1067 Art. 51 shore easement, public land the buyer cannot build on.
+    var strip = Math.min(front * zone, size);
+    var usable = Math.max(size - strip, 0);
+    var effRate = usable > 0 ? land / usable : 0;
+
+    // Transaction costs. Philippine practice, rates cited in the costs section.
+    var cgt = land * 0.06;          // capital gains tax, seller by custom
+    var dst = land * 0.015;         // documentary stamp tax, buyer by custom
+    var xfer = land * 0.0075;       // LGU transfer tax, provincial ceiling
+    var reg = land * 0.0025 + 5000; // LRA registration, approximate
+    var noty = land * 0.01;         // notarial, commonly negotiated down
+    var pro = 85000;                // lawyer + relocation survey + certifications
+    var buyerSide = dst + xfer + reg + noty + pro;
+    var withSeller = buyerSide + cgt;
+
+    var sellerPays = $("#cWho").value === "seller";
+    var total = land + (sellerPays ? buyerSide : withSeller);
+
+    $("#rTotal").textContent = php(total);
+    $("#rUsd").textContent = usd(total) + " at " + USD + " to the dollar";
+    $("#rGap").innerHTML = usable > 0
+      ? "The shore easement takes <b>" + Math.round(strip).toLocaleString("en-US") + " sqm</b> of that lot into public land. You are really paying <b>"
+        + php(effRate) + " per sqm</b> for the " + Math.round(usable).toLocaleString("en-US") + " sqm you can build on."
+      : "At this frontage and zone the whole lot falls inside the shore easement. Nothing here is buildable.";
+
+    var rows = [
+      ["Land price", php(land)],
+      ["Documentary stamp tax, 1.5 percent", php(dst)],
+      ["Transfer tax, 0.75 percent", php(xfer)],
+      ["Registration and entry fees", php(reg)],
+      ["Notarial fee, about 1 percent", php(noty)],
+      ["Lawyer, survey, certifications", php(pro)],
+      ["Capital gains tax, 6 percent", (sellerPays ? "seller pays" : php(cgt))]
+    ];
+    $("#rRows").innerHTML = rows.map(function (r) {
+      return '<div class="brk-row"><span>' + r[0] + "</span><b>" + r[1] + "</b></div>";
+    }).join("") + '<div class="brk-row total"><span>Cash you need</span><b>' + php(total) + "</b></div>";
+
+    $("#cSizeOut").textContent = size.toLocaleString("en-US") + " sqm";
+    $("#cRateOut").textContent = php(rate) + "/sqm";
+    $("#cFrontOut").textContent = front + " m";
+  }
+
+  function bindCalc() {
+    if (!$("#cSize")) return;
+    ["cSize", "cRate", "cFront", "cZone", "cWho"].forEach(function (id) {
+      var e = $("#" + id); if (e) { e.addEventListener("input", calc); e.addEventListener("change", calc); }
+    });
+    $$("[data-preset]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var p = JSON.parse(b.getAttribute("data-preset"));
+        $("#cSize").value = p.s; $("#cRate").value = p.r; $("#cFront").value = p.f;
+        $$("[data-preset]").forEach(function (x) { x.classList.remove("btn-p"); });
+        b.classList.add("btn-p");
+        calc();
+      });
+    });
+    calc();
+  }
+
+  /* ---------- copy + toast ---------- */
+  var toastEl;
+  function toast(msg) {
+    if (!toastEl) { toastEl = document.createElement("div"); toastEl.className = "toast"; document.body.appendChild(toastEl); }
+    toastEl.textContent = msg;
+    toastEl.classList.add("on");
+    clearTimeout(toastEl._t);
+    toastEl._t = setTimeout(function () { toastEl.classList.remove("on"); }, 2100);
+  }
+  function copyText(t, label) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(t).then(function () { toast(label || "Copied"); }, function () { toast("Copy blocked, select the text"); });
+    } else {
+      var ta = document.createElement("textarea"); ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); toast(label || "Copied"); } catch (e) { toast("Copy blocked"); }
+      document.body.removeChild(ta);
+    }
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-copy]");
+    if (b) { var src = document.getElementById(b.getAttribute("data-copy")); if (src) copyText(src.textContent, "Draft copied"); return; }
+    if (e.target.closest("#copyResult")) {
+      var t = "San Vicente Palawan lot costing\n"
+        + $("#cSizeOut").textContent + " at " + $("#cRateOut").textContent + "\n"
+        + "Cash needed " + $("#rTotal").textContent + " (" + $("#rUsd").textContent + ")\n"
+        + $("#rGap").textContent + "\n"
+        + DATA.meta.url;
+      copyText(t, "Result copied");
+      return;
+    }
+    if (e.target.closest("#shareBtn")) {
+      var d = { title: document.title, text: "Beachfront land in San Vicente, Palawan. Checked properly.", url: DATA.meta.url };
+      if (navigator.share) { navigator.share(d).catch(function () {}); }
+      else { copyText(DATA.meta.url, "Link copied"); }
+    }
+  });
+
+  /* ---------- theme ---------- */
+  function bindTheme() {
+    var btn = $("#themeBtn"); if (!btn) return;
+    btn.addEventListener("click", function () {
+      var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("pbb.theme", next); } catch (e) {}
+      btn.setAttribute("aria-label", next === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    });
+  }
+
+  /* ---------- scroll spy ---------- */
+  function bindSpy() {
+    var links = $$(".subnav a"), map = {};
+    links.forEach(function (a) { var t = document.getElementById(a.getAttribute("href").slice(1)); if (t) map[a.getAttribute("href").slice(1)] = a; });
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        links.forEach(function (a) { a.classList.remove("on"); });
+        var a = map[en.target.id];
+        if (a) { a.classList.add("on"); a.scrollIntoView({ block: "nearest", inline: "nearest" }); }
+      });
+    }, { rootMargin: "-25% 0px -68% 0px", threshold: 0 });
+    Object.keys(map).forEach(function (id) { obs.observe(document.getElementById(id)); });
+  }
+
+  /* ---------- boot ---------- */
+  function boot() {
+    $("#genDate").textContent = DATA.meta.generated;
+    $("#cycleN").textContent = DATA.meta.cycle;
+    $("#srcCount").textContent = DATA.meta.sources_checked;
+    renderCoast(); renderTable(); renderDossiers(); renderContacts();
+    renderChecklist(); renderMisc(); renderOutreach();
+    bindCalc(); bindTheme(); bindSpy();
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
+})();
