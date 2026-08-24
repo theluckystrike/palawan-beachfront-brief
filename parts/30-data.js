@@ -21,15 +21,16 @@ stats: [
 ],
 
 coast: [
-  { rank: 1, name: "Santo Niño", leads: 2, note: "Both are search snippets. No portal reached this run carries a live Santo Niño listing." },
-  { rank: 2, name: "Port Barton", leads: 21, note: "Deepest supply and the only in-band beachfront lot with a URL. Outside the tourism zone, so the 50 m rule likely does not apply. Not on the public grid." },
-  { rank: 3, name: "Poblacion", leads: 3, note: "Long Beach premium. Roughly ₱25,000 to ₱39,000 per sqm." },
-  { rank: 3, name: "New Agutaya", leads: 5, note: "Long Beach and Inarayan. Carries the cleanest titled beachfront lot found." },
-  { rank: 3, name: "San Isidro", leads: 3, note: "Long Beach frontage, the widest price spread of any barangay." },
-  { rank: 3, name: "Kemdeng", leads: 5, note: "Inside the Paragua Coastown footprint. Near-beach, not beachfront." },
-  { rank: 3, name: "Caruray", leads: 3, note: "South end, furthest from the airport. Cheapest per sqm." },
-  { rank: 4, name: "New Canipo", leads: 6, note: "Your New Capio. Real beachfront supply, all of it tax declaration." },
-  { rank: 4, name: "Binga", leads: 5, note: "Cheapest titled beachfront on the coast, but every lot is oversize." },
+  { rank: 1, name: "Santo Niño", leads: 0, note: "Inside the Malampaya protected area, about 5.2 km past the line. No listing was ever found here on any portal." },
+  { rank: 2, name: "Port Barton", leads: 21, note: "Clean on both overlays. Outside the tourism zone and 22 km clear of the protected area. Deepest supply. Not on the public grid." },
+  { rank: 3, name: "Poblacion", leads: 3, note: "Outside the protected area. Inside the tourism zone, so the 50 m setback applies. ₱25,000 to ₱39,000 per sqm." },
+  { rank: 3, name: "New Agutaya", leads: 5, note: "Outside the protected area, inside the tourism zone. Carries the cleanest titled beachfront lot found." },
+  { rank: 3, name: "San Isidro", leads: 3, note: "Outside, but only 4.3 km south of the line. A lot at its northern end needs its own check." },
+  { rank: 3, name: "Kemdeng", leads: 5, note: "Outside the protected area, 13.9 km clear. Near-beach rather than beachfront." },
+  { rank: 3, name: "Caruray", leads: 3, note: "Outside everything, 40 km clear, and the furthest drive. Cheapest per sqm." },
+  { rank: 4, name: "Alimanguan", leads: 1, note: "Straddles the protected area boundary, which crosses the coast along its southern edge. Also carries an awarded ancestral domain claim." },
+  { rank: 4, name: "New Canipo", leads: 6, note: "Your New Capio. Inside the protected area, 12.6 km past the line. All supply is tax declaration." },
+  { rank: 4, name: "Binga", leads: 5, note: "Deepest inside the protected area at 16.1 km, and carries pending ancestral land claims. Cheapest titled beachfront." },
   { rank: 4, name: "Sitio Minapla", leads: 0, note: "Not in San Vicente. Minapla is a barangay of Taytay at 339 m elevation, inland and upland." }
 ],
 
@@ -53,7 +54,8 @@ leads: [
         "Published GPS, so you can check the ECAN zone and the hazard maps yourself before you speak to anyone.",
         "16.66 m of stated beach frontage, which is one of very few frontage figures published in this whole market.",
         "A deep well is claimed on site, which matters more here than the power claim does.",
-        "The advertiser demonstrably subdivides parent parcels. One of their listings is a 300 sqm cut, which means a negotiated split is a real option here."
+        "The advertiser demonstrably subdivides parent parcels. One of their listings is a 300 sqm cut, which means a negotiated split is a real option here.",
+        "Port Barton is clean on both overlays. Outside the Long Beach tourism zone and its 50 m setback, and about 22 km clear of the Malampaya protected area. Of the ten locations on your list, this is the least encumbered."
       ],
       ask: [
         "Is this land Alienable and Disposable, and will you show me the CENRO certification.",
@@ -78,6 +80,7 @@ leads: [
     flags: {
       red: [
         "Four archived captures of the Lamudi San Vicente index across a full year contain no 984 sqm lot.",
+        "Separately, and worse for the barangay as a whole, Santo Niño sits about 5.2 km inside the Malampaya Sound protected area. Land inside it is generally not alienable, so a new title there is not a straightforward proposition even if a real lot turns up.",
         "Lamudi never built a Santo Niño facet for San Vicente, so the listing could not have been found where the lead says it was.",
         "Two live sweeps had already found zero Santo Niño listings on every portal that answered.",
         "Here is the part that should worry you. The claimed ₱11,433 per sqm is entirely plausible. Small San Vicente beachfront lots asked ₱6,000 to ₱18,000 per sqm in 2020. A wrong number is easy to spot. A believable number attached to nothing is how people get separated from a deposit."
@@ -169,7 +172,8 @@ leads: [
       red: [
         "One page prints two prices for this lot. The body text says ₱3,857,000 and the structured offer on the same page says ₱5,510,000, a 42.9 percent gap.",
         "Size varies between prints, 1,032 sqm in one place and 1,102 in another. Somebody is guessing.",
-        "Nothing published on road access or utilities."
+        "Nothing published on road access or utilities.",
+        "Binga sits about 16 km inside the Malampaya Sound protected area, deeper than any other barangay on your list, and carries ancestral land claims still in process. Land inside a protected area is generally not alienable, so the title claim on this lot needs checking against the boundary before anything else."
       ],
       green: [
         "Title claimed rather than tax declaration.",
@@ -198,7 +202,8 @@ leads: [
         "Price conflicts across copies of the same listing, ₱10,000 against ₱6,500 per sqm.",
         "Oversize at 1,398 sqm with no split path stated.",
         "No access information at all.",
-        "Palawan News has reported Barangay New Canipo flooding again. Headline level only, but worth checking on the ground before you commit."
+        "Palawan News has reported Barangay New Canipo flooding again. Headline level only, but worth checking on the ground before you commit.",
+        "New Canipo sits about 12.6 km inside the Malampaya Sound protected area. That matters most here because this is tax declaration land, and land inside a protected area is generally not alienable, so the titling path you would be buying may not exist."
       ],
       green: [
         "Published GPS.",
@@ -352,6 +357,7 @@ changelog: [
   { cycle: 7, when: "24 Aug", what: "Broker network mapped. Four apparently separate San Vicente agencies traced to one operator on a single hosting block." },
   { cycle: 8, when: "24 Aug", what: "Scored, deduped, and written up." },
   { cycle: 9, when: "24 Aug", what: "The slowest agent finished last and corrected four published claims. RA 10023's area cap is 750 sqm here rather than 1,000, a private house is exempt from the SEP clearance though not from the zoning check, San Vicente sits inside a 200,115 hectare protected area declared in 2000, and re-acquiring citizenship beats the 1,000 sqm cap outright. Report updated." },
+  { cycle: 12, when: "24 Aug", what: "Protected area boundary resolved barangay by barangay. Santo Niño, New Canipo and Binga sit inside Malampaya Sound, Alimanguan straddles it, Port Barton is 22 km clear. San Vicente confirmed a first class municipality, so the free patent cap is 750 sqm. Two published claims corrected, an unsupported hectarage removed and the El Nido order described accurately as partial." },
   { cycle: 11, when: "24 Aug", what: "Typhoon gap closed from PAGASA's own post-season analysis. Super Typhoon Odette made landfall in the next municipality in December 2021 and San Vicente sat inside its 64 knot radius, which refutes the claim every seller on this coast repeats." },
   { cycle: 10, when: "24 Aug", what: "Second wave sent after publication to close the gaps this page had admitted to. The Santo Niño lead is now dead rather than merely unverified. Four archived captures of Lamudi's San Vicente index across a year contain no 984 sqm lot, and Lamudi never had a Santo Niño category for this municipality. Real Santo Niño prices recovered instead." }
 ],
