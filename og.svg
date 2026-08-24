@@ -14,20 +14,15 @@
 <rect width="1200" height="630" fill="url(#glow)"/>
 <rect width="1200" height="630" fill="url(#sun)"/>
 <g fill="none" stroke-linecap="round">
-<path d="M-40 470c90 0 90-26 180-26s90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26" stroke="#1d4a58" stroke-width="3"/>
-<path d="M-40 512c90 0 90-26 180-26s90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26" stroke="#266072" stroke-width="3"/>
-<path d="M-40 556c90 0 90-26 180-26s90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26" stroke="#52d3b4" stroke-width="3.4" stroke-opacity=".62"/>
-<path d="M-40 600c90 0 90-26 180-26s90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26" stroke="#e6b878" stroke-width="3.4" stroke-opacity=".55"/>
+<path d="M-40 516c90 0 90-26 180-26s90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26" stroke="#1d4a58" stroke-width="3"/>
+<path d="M-40 552c90 0 90-26 180-26s90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26" stroke="#266072" stroke-width="3"/>
+<path d="M-40 588c90 0 90-26 180-26s90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26" stroke="#52d3b4" stroke-width="3.4" stroke-opacity=".62"/>
+<path d="M-40 624c90 0 90-26 180-26s90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26 90 26 180 26 90-26 180-26" stroke="#e6b878" stroke-width="3.4" stroke-opacity=".55"/>
 </g>
 <circle cx="1046" cy="112" r="46" fill="#e6b878" fill-opacity=".92"/>
 <text x="76" y="150" font-family="IBM Plex Mono, monospace" font-size="21" letter-spacing="5.5" fill="#52d3b4">SAN VICENTE  ·  PALAWAN  ·  2026</text>
 <text x="76" y="258" font-family="Fraunces, Georgia, serif" font-size="82" font-weight="600" fill="#e9f4f5" letter-spacing="-2.4">Beachfront land,</text>
 <text x="76" y="348" font-family="Fraunces, Georgia, serif" font-size="82" font-weight="600" fill="#e6b878" letter-spacing="-2.4">checked properly.</text>
 <text x="76" y="410" font-family="IBM Plex Sans, sans-serif" font-size="27" fill="#a3bcc4">Live listings, the 8 legal gates, real costs. Every fact sourced.</text>
-<g font-family="IBM Plex Mono, monospace" font-size="17" letter-spacing="1.6">
-<rect x="76" y="446" width="196" height="40" rx="20" fill="none" stroke="#1d4a58" stroke-width="1.6"/>
-<text x="100" y="472" fill="#a3bcc4">A&amp;D · TITLE · ROW</text>
-<rect x="288" y="446" width="216" height="40" rx="20" fill="none" stroke="#1d4a58" stroke-width="1.6"/>
-<text x="312" y="472" fill="#a3bcc4">SALVAGE ZONE · ECAN</text>
-</g>
+<text x="76" y="474" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="19" letter-spacing="2.4" fill="#7f9aa3">A&amp;D  ·  TITLE  ·  RIGHT OF WAY  ·  SALVAGE ZONE  ·  ECAN</text>
 </svg>
